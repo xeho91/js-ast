@@ -1,0 +1,53 @@
+name: Release
+
+on:
+    pull_request:
+        types: [closed]
+        branches: [main]
+    workflow_dispatch:
+
+defaults:
+    run:
+        shell: bash
+
+env:
+    CI: true
+
+permissions:
+    contents: write
+    id-token: write
+    pull-requests: write
+
+jobs:
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        steps:
+            # https://github.com/actions/checkout
+            - uses: actions/checkout@v4
+
+            # https://github.com/knope-dev/action
+            - uses: knope-dev/action@v2.1.0
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+
+            # https://nodejs.org/api/corepack.html
+            - name: Enable corepack (for pnpm)
+              run: corepack enable
+
+            # https://github.com/actions/setup-node
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: ".node-version"
+                  registry-url: https://registry.npmjs.org
+
+            # https://knope.tech/recipes/1-preview-releases-with-pull-requests/
+            - run: knope release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - run: pnpm --recursive publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NPM_CONFIG_PROVENANCE: true

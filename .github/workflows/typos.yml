@@ -13,17 +13,24 @@ env:
     CARGO_TERM_COLOR: always
 
 permissions:
-    pull-requests: read
+    contents: read
+    pull-requests: write
 
 jobs:
     typos:
         name: Typos
-        runs-on: macos-latest
+        # WARN: Using `macos-latest` will fail with the following _silenced_ error (workflow doesn't fail):
+        # /Users/runner/work/_actions/reviewdog/action-typos/v1/script.sh: line 21: /var/folders/84/5079cppj57s0lzywhyzcxkjc0000gn/T/tmp.c2hf5uwkQa/typos: cannot execute binary file
+        runs-on: ubuntu-latest
         steps:
             # https://github.com/actions/checkout
             - name: Checkout to the repository
               uses: actions/checkout@v4
 
-            # https://github.com/crate-ci/typos
+            # https://github.com/reviewdog/action-typos
             - name: Spell check with `typos`
-              uses: crate-ci/typos@v1.22.8
+              uses: reviewdog/action-typos@v1
+              with:
+                  fail_level: error
+                  github_token: ${{ secrets.github_token }}
+                  reporter: github-pr-review

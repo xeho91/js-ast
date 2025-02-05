@@ -1,4 +1,4 @@
-name: Vitest
+name: Test
 
 on:
     workflow_call:
@@ -33,7 +33,7 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   cache: pnpm
-                  node-version-file: ".nvmrc"
+                  node-version-file: ".node-version"
 
             # https://pnpm.io/cli/install
             - name: Install Node.js dependencies with pnpm
@@ -43,13 +43,12 @@ jobs:
 
             # https://vitest.dev/guide/cli.html
             - name: Run tests with Vitest
-              run: >
-                  pnpm vitest run
-                  --coverage.enabled
-                  --coverage.provider=v8
-                  --coverage.reporter=json-summary
-                  --coverage.reporter=json
+              run: pnpm run "_ci:test"
 
-            # https://github.com/davelosert/vitest-coverage-report-action
-            - name: Generate tests coverage report
-              uses: davelosert/vitest-coverage-report-action@v2
+            # https://github.com/codecov/codecov-action
+            - name: Upload coverage reports to Codecov
+              uses: codecov/codecov-action@v5
+              with:
+                  fail_ci_if_error: true
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: xeho91/estree-ast-builder

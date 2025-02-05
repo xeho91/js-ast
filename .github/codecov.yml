@@ -1,0 +1,41 @@
+ignore:
+    - "**/scripts/**"
+    - "**/examples/**"
+    - "**/*.config.js"
+    - "**/*.config.ts"
+
+coverage:
+    status:
+        project:
+            default:
+                # allows a 5% drop from the previous base commit coverage
+                threshold: 5%
+        patch:
+            default:
+                target: 60%
+                threshold: 5%
+
+comment:
+    layout: "condensed_header, condensed_files, components, condensed_footer"
+
+component_management:
+    individual_components:
+        - component_id: js-ast-build
+          name: js-ast-build
+          paths:
+              - packages/js-ast-build/**
+
+        - component_id: ts-ast-build
+          name: ts-ast-build
+          paths:
+              - packages/ts-ast-build/**
+
+        - component_id: svelte-ast-build
+          name: svelte-ast-build
+          paths:
+              - packages/svelte-ast-build/**
+
+        - component_id: svelte-ast-print
+          name: svelte-ast-print
+          paths:
+              - packages/svelte-ast-print/**

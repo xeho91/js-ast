@@ -1,0 +1,58 @@
+name: Preview
+
+on:
+    workflow_call:
+
+defaults:
+    run:
+        shell: bash
+
+env:
+    CI: true
+
+jobs:
+    preview-release:
+        name: pkg.pr.new
+        runs-on: macos-latest
+        timeout-minutes: 5
+        if: github.event_name == 'pull_request'
+        steps:
+            # https://github.com/actions/checkout
+            - uses: actions/checkout@v4
+
+            # https://nodejs.org/api/corepack.html
+            - name: Enable corepack (for pnpm)
+              run: corepack enable
+
+            # https://github.com/actions/setup-node
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  cache: pnpm
+                  node-version-file: ".node-version"
+
+            # https://github.com/tj-actions/changed-files
+            - name: Run changed-files
+              id: changed-files
+              uses: tj-actions/changed-files@v45
+              with:
+                  separator: " "
+                  dir_names: "true"
+                  dir_names_max_depth: "2" # truncates the path to packages/package-name
+                  files: |
+                      packages/**
+
+            # https://pnpm.io/cli/install
+            - name: Install Node.js dependencies with pnpm
+              run: >
+                  pnpm install
+                  --frozen-lockfile
+
+            - name: Build workspace packages with turbo
+              run: pnpm turbo build:pkg
+
+            - name: Publish packages preview with pkg-pr-new CLI
+              run: pnpx pkg-pr-new publish --pnpm './packages/*'
+              if: ${{ steps.changed-files.outputs.all_changed_files_count > 0 }}
+              env:
+                  CHANGED_DIRS: ${{ steps.changed-files.outputs.all_changed_files }}
