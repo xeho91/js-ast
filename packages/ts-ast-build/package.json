@@ -1,0 +1,46 @@
+{
+	"$schema": "https://json.schemastore.org/package",
+	"name": "ts-ast-build",
+	"version": "0.0.0",
+	"type": "module",
+	"description": "Build TypeScript AST nodes conveniently.",
+	"keywords": ["ast", "build", "typescript"],
+	"license": "MIT",
+	"author": {
+		"name": "Mateusz Kadlubowski",
+		"email": "xeho91@pm.me",
+		"url": "https://github.com/xeho91"
+	},
+	"homepage": "https://github.com/xeho91/js-ast",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/xeho91/js-ast.git",
+		"directory": "packages/ts-ast-build"
+	},
+	"bugs": "https://github.com/xeho91/js-ast/issues",
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/xeho91"
+		},
+		{
+			"type": "opencollective",
+			"url": "https://opencollective.com/xeho91"
+		}
+	],
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"files": ["src/", "types.d.ts"],
+	"exports": {
+		".": {
+			"types": "./types.d.ts",
+			"default": "./src/mod.js"
+		},
+		"./package.json": "./package.json"
+	}
+}

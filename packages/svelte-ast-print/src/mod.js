@@ -9,7 +9,7 @@
 import { print as print_es } from "esrap";
 import { walk } from "zimmerframe";
 
-import { is_attr_like, is_element_like, isSvelteNode } from "./node.js";
+import { is_attr_like, is_element_like, is_svelte } from "./node.js";
 import { Options } from "./options.js";
 
 /**
@@ -50,7 +50,7 @@ import { Options } from "./options.js";
  * @returns {string} Stringified Svelte AST node
  */
 export function print(node, options = {}) {
-	if (!isSvelteNode(node)) return print_es(node).code;
+	if (!is_svelte(node)) return print_es(node).code;
 	return new Printer(node, new Options(options)).toString();
 }
 

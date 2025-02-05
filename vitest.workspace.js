@@ -2,6 +2,7 @@
  * @import { UserWorkspaceConfig } from "vitest/config";
  */
 
+import fs from "node:fs";
 import path from "node:path";
 import url from "node:url";
 
@@ -20,14 +21,21 @@ const SHARED = {
 };
 
 /** @see {@link https://vitest.dev/guide/workspace} */
-const config = defineWorkspace([
-	{
-		test: {
-			...SHARED,
-			name: "svelte-ast-print",
-			root: path.resolve(__dirname, "packages", "svelte-ast-print"),
-		},
-	},
-]);
+const config = defineWorkspace(
+	Iterator.from(
+		fs.globSync(path.resolve(__dirname, "packages", "*"), {
+			withFileTypes: true,
+		}),
+	)
+		.filter((d) => d.isDirectory())
+		.map((pkg) => ({
+			test: {
+				...SHARED,
+				name: pkg.name,
+				root: path.join(pkg.parentPath, pkg.name),
+			},
+		}))
+		.toArray(),
+);
 
 export default config;

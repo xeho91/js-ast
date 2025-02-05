@@ -15,7 +15,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext",
-		"types": ["node"],
 		"verbatimModuleSyntax": true
-	}
+	},
+	"include": ["src/"]
 }
