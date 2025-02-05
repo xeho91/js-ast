@@ -1,7 +1,7 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract_svelte_node } from "#tests/mod";
+import { parse_and_extract } from "../shared.ts";
 
 import { print } from "svelte-ast-print";
 
@@ -43,7 +43,7 @@ describe("Fragment", () => {
 				<div transition:fade>{value}</div>
 			{/key}
 		`;
-		const node = parse_and_extract_svelte_node<AST.Fragment>(code, "Fragment");
+		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
 		expect(print(node)).toMatchInlineSnapshot(`
 			"<h1>Shopping list</h1>
 			<ul>
@@ -88,7 +88,7 @@ describe("Fragment", () => {
 				<Button {...args}>{children}</Button>
 			{/snippet}
 		`;
-		const node = parse_and_extract_svelte_node<AST.Fragment>(code, "Fragment");
+		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
 		expect(print(node)).toMatchInlineSnapshot(`
 			"{#snippet template({ children, ...args }: Args<typeof Story>, context: StoryContext<typeof Story>)}
 				<Button {...args}>{children}</Button>

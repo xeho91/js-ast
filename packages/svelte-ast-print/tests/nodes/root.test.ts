@@ -1,7 +1,7 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract_svelte_node } from "#tests/mod";
+import { parse_and_extract } from "../shared.ts";
 
 import { print } from "svelte-ast-print";
 
@@ -77,7 +77,7 @@ describe("Root", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<AST.Root>(code, "Root");
+		const node = parse_and_extract<AST.Root>(code, "Root");
 		expect(print(node)).toMatchInlineSnapshot(
 			`
 			"<script context="module">
@@ -205,7 +205,7 @@ describe("Root", () => {
 				<Button onclick={onclickFn}>The very long content</Button>
 			</Story>
 		`;
-		const node = parse_and_extract_svelte_node<AST.Root>(code, "Root");
+		const node = parse_and_extract<AST.Root>(code, "Root");
 		expect(print(node)).toMatchInlineSnapshot(
 			`
 			"<script context="module" lang="ts">
@@ -278,7 +278,7 @@ describe("Root", () => {
 
 			<Story name="Default" />
 		`;
-		const node = parse_and_extract_svelte_node<AST.Root>(code, "Root");
+		const node = parse_and_extract<AST.Root>(code, "Root");
 		expect(print(node)).toMatchInlineSnapshot(`
 			"<script context="module">
 				import { defineMeta } from "@storybook/addon-svelte-csf";
@@ -311,7 +311,7 @@ I am good.
 
 			hello world
 		`;
-		const node = parse_and_extract_svelte_node<AST.Root>(code, "Root");
+		const node = parse_and_extract<AST.Root>(code, "Root");
 		expect(print(node)).toMatchInlineSnapshot(`
 			"<script>
 				const text = \`

@@ -3,25 +3,25 @@
  * @import { AST as SvelteAST } from "svelte/compiler";
  * @import { Context } from "zimmerframe";
  *
- * @import { Node } from "./nodes.js";
+ * @import { Node, SupportedSvelteNode } from "./node.js";
  */
 
 import { print as print_es } from "esrap";
 import { walk } from "zimmerframe";
 
-import { is_attribute_like_node, is_element_like_node, is_svelte_node } from "./nodes.js";
+import { isAttributeLike, isElementLike, isSvelte } from "./node.js";
 import { Options } from "./options.js";
 
 export {
-	is_attribute_like_node as isAttributeLikeNode,
-	is_block_node as isBlockNode,
-	is_css_node as isCssNode,
-	is_element_like_node as isElementLikeNode,
-	is_html_node as isHtmlNode,
-	is_svelte_node as isSvelteNode,
-	is_tag_node as isTagNode,
-	is_template_node as isTemplateNode,
-} from "./nodes.js";
+	isAttributeLike,
+	isBlock,
+	isCSS,
+	isElementLike,
+	isHTML,
+	isSvelte,
+	isTag,
+	isTemplate,
+} from "./node.js";
 
 /**
  * Print AST {@link SvelteAST.BaseNode} as a string.
@@ -62,19 +62,15 @@ export {
  * @param {Node} node - Svelte or ESTree AST node
  * @param {Partial<ConstructorParameters<typeof Options>[0]>} options - printing options
  * @returns {string} Stringified Svelte AST node
- * TODO: Ask Svelte maintainers if `Script` and `SvelteOptions` were omittted from `SvelteNode` intentionally - possibly forgotten to include
  */
 export function print(node, options = {}) {
-	if (is_svelte_node(node)) {
-		return new Printer(node, new Options(options)).toString();
-	}
-
-	return print_es(node).code;
+	if (!isSvelte(node)) return print_es(node).code;
+	return new Printer(node, new Options(options)).toString();
 }
 
 class Printer {
 	/**
-	 * @type {SvelteAST.SvelteNode}
+	 * @type {SupportedSvelteNode & ({})}
 	 */
 	#node;
 	/**
@@ -100,7 +96,7 @@ class Printer {
 	#has_template_literal = false;
 
 	/**
-	 * @param {Node} node - Svelte or ESTree AST node
+	 * @param {SupportedSvelteNode} node - Svelte or ESTree AST node
 	 * @param {Options} options - transformed options
 	 */
 	constructor(node, options) {
@@ -113,7 +109,7 @@ class Printer {
 	 * @returns {string}
 	 */
 	toString() {
-		if (is_attribute_like_node(this.#node)) {
+		if (isAttributeLike(this.#node)) {
 			return this.#stringified_attributes;
 		}
 		return this.#output;
@@ -232,7 +228,7 @@ class Printer {
 	#has_fragment_element_like_node(fragment) {
 		const { nodes } = fragment;
 		for (const node of nodes) {
-			if (is_element_like_node(node)) return true;
+			if (isElementLike(node)) return true;
 			if (node.type === "Text" && this.#is_text_new_line_or_indents_only(node)) continue;
 			break;
 		}
@@ -369,7 +365,9 @@ class Printer {
 		for (const attribute_like of attributes) {
 			visit(attribute_like, state);
 		}
-		this.#print_element_like_opening_tag(name, { self_close: is_self_closing });
+		this.#print_element_like_opening_tag(name, {
+			self_close: is_self_closing,
+		});
 		if (fragment && !is_self_closing) {
 			this.#depth++;
 			this.#print_element_like_fragment(fragment, context);
@@ -522,8 +520,15 @@ class Printer {
 				for (const name of order) {
 					const root_node = node[name];
 					if (name === "options" && node.options) {
-						//  @ts-ignore FIXME: This is likely a bug - at runtime Svelte AST node `SvelteOptions` _(aliased as SvelteOptionsRaw)_ doesn't have 'type' & 'name' entry
-						visit({ ...node.options, type: "SvelteOptions", name: "svelte:options" }, state);
+						visit(
+							//  @ts-ignore FIXME: This is likely a bug - at runtime Svelte AST node `SvelteOptions` _(aliased as SvelteOptionsRaw)_ doesn't have 'type' & 'name' entry
+							{
+								...node.options,
+								type: "SvelteOptions",
+								name: "svelte:options",
+							},
+							state,
+						);
 						//  @ts-ignore FIXME: Typing issue `SvelteOptions` and `SvelteOptionsRaw` are incompatible
 					} else if (root_node) visit(root_node, state);
 				}
@@ -652,7 +657,11 @@ class Printer {
 			AnimateDirective(node, context) {
 				const { name, expression } = node;
 				const { state } = context;
-				const stringified = state.#stringify_directive({ directive: "animate", name, expression });
+				const stringified = state.#stringify_directive({
+					directive: "animate",
+					name,
+					expression,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -672,7 +681,11 @@ class Printer {
 			BindDirective(node, context) {
 				const { name, expression } = node;
 				const { state } = context;
-				const stringified = state.#stringify_directive({ directive: "bind", name, expression });
+				const stringified = state.#stringify_directive({
+					directive: "bind",
+					name,
+					expression,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -692,7 +705,11 @@ class Printer {
 			ClassDirective(node, context) {
 				const { name, expression } = node;
 				const { state } = context;
-				const stringified = state.#stringify_directive({ directive: "class", name, expression });
+				const stringified = state.#stringify_directive({
+					directive: "class",
+					name,
+					expression,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -712,7 +729,11 @@ class Printer {
 			LetDirective(node, context) {
 				const { name, expression } = node;
 				const { state } = context;
-				const stringified = state.#stringify_directive({ directive: "let", name, expression });
+				const stringified = state.#stringify_directive({
+					directive: "let",
+					name,
+					expression,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -732,7 +753,12 @@ class Printer {
 			OnDirective(node, context) {
 				const { name, expression, modifiers } = node;
 				const { state } = context;
-				const stringified = state.#stringify_directive({ directive: "on", name, expression, modifiers });
+				const stringified = state.#stringify_directive({
+					directive: "on",
+					name,
+					expression,
+					modifiers,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -816,7 +842,12 @@ class Printer {
 				if (intro && !outro) directive = "in";
 				else if (!intro && outro) directive = "out";
 				else directive = "transition";
-				const stringified = state.#stringify_directive({ directive, name, expression, modifiers });
+				const stringified = state.#stringify_directive({
+					directive,
+					name,
+					expression,
+					modifiers,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -836,7 +867,11 @@ class Printer {
 			UseDirective(node, context) {
 				const { expression, name } = node;
 				const { state } = context;
-				const stringified = state.#stringify_directive({ directive: "use", name, expression });
+				const stringified = state.#stringify_directive({
+					directive: "use",
+					name,
+					expression,
+				});
 				state.#attributes.add(stringified);
 			},
 
@@ -1198,7 +1233,9 @@ class Printer {
 					visit(attribute_like, state);
 				}
 				const is_self_closing = state.#is_fragment_empty(fragment);
-				state.#print_element_like_opening_tag(name, { self_close: is_self_closing });
+				state.#print_element_like_opening_tag(name, {
+					self_close: is_self_closing,
+				});
 				if (!is_self_closing && fragment) {
 					state.#depth++;
 					state.#print_element_like_fragment(fragment, context);
@@ -1255,7 +1292,9 @@ class Printer {
 				for (const attribute_like of attributes) {
 					visit(attribute_like, state);
 				}
-				state.#print_element_like_opening_tag(name, { self_close: true });
+				state.#print_element_like_opening_tag(name, {
+					self_close: true,
+				});
 			},
 
 			/**

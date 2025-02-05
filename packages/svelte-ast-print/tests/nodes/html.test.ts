@@ -1,7 +1,7 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract_svelte_node } from "#tests/mod";
+import { parse_and_extract } from "../shared.ts";
 
 import { print } from "svelte-ast-print";
 
@@ -14,7 +14,7 @@ describe("Comment", () => {
 				{box.width} * {box.height} = {area}
 			{/each}
 		`;
-		const node = parse_and_extract_svelte_node<AST.Comment>(code, "Comment");
+		const node = parse_and_extract<AST.Comment>(code, "Comment");
 		expect(print(node)).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
 	});
 
@@ -28,7 +28,7 @@ describe("Comment", () => {
 				comment
 			-->
 		`;
-		const node = parse_and_extract_svelte_node<AST.Comment>(code, "Comment");
+		const node = parse_and_extract<AST.Comment>(code, "Comment");
 		expect(print(node)).toMatchInlineSnapshot(
 			`
 			"<!--
@@ -48,7 +48,7 @@ describe("Text", () => {
 		const code = `
 			<span>Catch me if you can</span>
 		`;
-		const node = parse_and_extract_svelte_node<AST.Text>(code, "Text");
+		const node = parse_and_extract<AST.Text>(code, "Text");
 		expect(print(node)).toMatchInlineSnapshot(`"Catch me if you can"`);
 	});
 });

@@ -1,8 +1,8 @@
-# JavaScript AST
+# `js-ast`
 
-This is a monorepo with packages to _boost the DX_ of working with AST related to:
+This is a monorepo with packages to **boost the DX** of working with AST _(using JavaScript programming language)_ related to:
 
--   ![JavaScript icon][icon-svelte] JavaScript
+-   ![JavaScript icon][icon-js] JavaScript
 -   ![TypeScript icon][icon-ts] TypeScript
 -   ![Svelte icon][icon-svelte] Svelte
 
@@ -11,7 +11,7 @@ This is a monorepo with packages to _boost the DX_ of working with AST related t
 ## Core features
 
 1. [DX] friendly.
-1. **Cross-runtime** friendly.
+1. **Cross-runtime** friendly - 👈 this also means [ESM] only.
 1. [e18e] friendly.
 
 ---
@@ -84,6 +84,7 @@ See [Contribution Guide](./.github/CONTRIBUTING.md) to get started.
 [DX]: https://en.wikipedia.org/wiki/User_experience#Developer_experience
 [ESTree]: https://github.com/estree/estree
 [e18e]: https://github.com/e18e/e18e
+[ESM]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [`js-ast-build`]: ./packages/js-ast-build
 [`ts-ast-build`]: ./packages/ts-ast-build
 [`svelte-ast-build`]: ./packages/svelte-ast-build

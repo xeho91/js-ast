@@ -1,7 +1,7 @@
-import type { Css } from "svelte/compiler";
+import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract_svelte_node } from "#tests/mod";
+import { parse_and_extract } from "../../shared.ts";
 
 import { print } from "svelte-ast-print";
 
@@ -14,7 +14,7 @@ describe("Css.AttributeSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.AttributeSelector>(code, "AttributeSelector");
+		const node = parse_and_extract<AST.CSS.AttributeSelector>(code, "AttributeSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"[disabled]"`);
 	});
 
@@ -26,7 +26,7 @@ describe("Css.AttributeSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.AttributeSelector>(code, "AttributeSelector");
+		const node = parse_and_extract<AST.CSS.AttributeSelector>(code, "AttributeSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"[aria-disabled="true"]"`);
 	});
 
@@ -38,12 +38,12 @@ describe("Css.AttributeSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.AttributeSelector>(code, "AttributeSelector");
+		const node = parse_and_extract<AST.CSS.AttributeSelector>(code, "AttributeSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"[aria-disabled="false" s]"`);
 	});
 });
 
-describe("Css.ClassSelector", () => {
+describe("AST.CSS.ClassSelector", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -52,12 +52,12 @@ describe("Css.ClassSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.ClassSelector>(code, "ClassSelector");
+		const node = parse_and_extract<AST.CSS.ClassSelector>(code, "ClassSelector");
 		expect(print(node)).toMatchInlineSnapshot(`".button"`);
 	});
 });
 
-describe("Css.ComplexSelector", () => {
+describe("AST.CSS.ComplexSelector", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -66,12 +66,12 @@ describe("Css.ComplexSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.ComplexSelector>(code, "ComplexSelector");
+		const node = parse_and_extract<AST.CSS.ComplexSelector>(code, "ComplexSelector");
 		expect(print(node)).toMatchInlineSnapshot(`":global(div.modal#overlay)"`);
 	});
 });
 
-describe("Css.IdSelector", () => {
+describe("AST.CSS.IdSelector", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -80,12 +80,12 @@ describe("Css.IdSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.IdSelector>(code, "IdSelector");
+		const node = parse_and_extract<AST.CSS.IdSelector>(code, "IdSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"#app"`);
 	});
 });
 
-describe("Css.NestingSelector", () => {
+describe("AST.CSS.NestingSelector", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -96,12 +96,12 @@ describe("Css.NestingSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.NestingSelector>(code, "NestingSelector");
+		const node = parse_and_extract<AST.CSS.NestingSelector>(code, "NestingSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"&"`);
 	});
 });
 
-describe("Css.Nth", () => {
+describe("AST.CSS.Nth", () => {
 	it("prints correctly simple number", ({ expect }) => {
 		const code = `
 			<style>
@@ -110,7 +110,7 @@ describe("Css.Nth", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.Nth>(code, "Nth");
+		const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
 		expect(print(node)).toMatchInlineSnapshot(`":nth-child(1)"`);
 	});
 
@@ -122,7 +122,7 @@ describe("Css.Nth", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.Nth>(code, "Nth");
+		const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
 		expect(print(node)).toMatchInlineSnapshot(`":nth-child(odd)"`);
 	});
 
@@ -134,7 +134,7 @@ describe("Css.Nth", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.Nth>(code, "Nth");
+		const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
 		expect(print(node)).toMatchInlineSnapshot(`":nth-child(-1n + 5)"`);
 	});
 
@@ -147,12 +147,12 @@ describe("Css.Nth", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.Nth>(code, "Nth");
+		const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
 		expect(print(node)).toMatchInlineSnapshot(`":nth-child(even of .noted)"`);
 	});
 });
 
-describe("Css.Percentage", () => {
+describe("AST.CSS.Percentage", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -163,12 +163,12 @@ describe("Css.Percentage", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.Percentage>(code, "Percentage");
+		const node = parse_and_extract<AST.CSS.Percentage>(code, "Percentage");
 		expect(print(node)).toMatchInlineSnapshot(`"50%"`);
 	});
 });
 
-describe("Css.PseudoClassSelector", () => {
+describe("AST.CSS.PseudoClassSelector", () => {
 	it("prints correctly without args", ({ expect }) => {
 		const code = `
 			<style>
@@ -177,7 +177,7 @@ describe("Css.PseudoClassSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.PseudoClassSelector>(code, "PseudoClassSelector");
+		const node = parse_and_extract<AST.CSS.PseudoClassSelector>(code, "PseudoClassSelector");
 		expect(print(node)).toMatchInlineSnapshot(`":hover"`);
 	});
 
@@ -189,12 +189,12 @@ describe("Css.PseudoClassSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.PseudoClassSelector>(code, "PseudoClassSelector");
+		const node = parse_and_extract<AST.CSS.PseudoClassSelector>(code, "PseudoClassSelector");
 		expect(print(node)).toMatchInlineSnapshot(`":not(.error)"`);
 	});
 });
 
-describe("Css.PseudoElementSelector", () => {
+describe("AST.CSS.PseudoElementSelector", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -203,12 +203,12 @@ describe("Css.PseudoElementSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.PseudoElementSelector>(code, "PseudoElementSelector");
+		const node = parse_and_extract<AST.CSS.PseudoElementSelector>(code, "PseudoElementSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"::before"`);
 	});
 });
 
-describe("Css.RelativeSelector", () => {
+describe("AST.CSS.RelativeSelector", () => {
 	it("prints correctly without combinator", ({ expect }) => {
 		const code = `
 			<style>
@@ -217,7 +217,7 @@ describe("Css.RelativeSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.RelativeSelector>(code, "RelativeSelector");
+		const node = parse_and_extract<AST.CSS.RelativeSelector>(code, "RelativeSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"p"`);
 	});
 
@@ -229,12 +229,12 @@ describe("Css.RelativeSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.RelativeSelector>(code, "RelativeSelector");
+		const node = parse_and_extract<AST.CSS.RelativeSelector>(code, "RelativeSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"p"`);
 	});
 });
 
-describe("Css.SelectorList", () => {
+describe("AST.CSS.SelectorList", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -243,12 +243,12 @@ describe("Css.SelectorList", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.SelectorList>(code, "SelectorList");
+		const node = parse_and_extract<AST.CSS.SelectorList>(code, "SelectorList");
 		expect(print(node)).toMatchInlineSnapshot(`"p ~.error +*"`);
 	});
 });
 
-describe("Css.TypeSelector", () => {
+describe("AST.CSS.TypeSelector", () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -257,7 +257,7 @@ describe("Css.TypeSelector", () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract_svelte_node<Css.TypeSelector>(code, "TypeSelector");
+		const node = parse_and_extract<AST.CSS.TypeSelector>(code, "TypeSelector");
 		expect(print(node)).toMatchInlineSnapshot(`"p"`);
 	});
 });

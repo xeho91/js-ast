@@ -4,7 +4,11 @@
 	"version": "0.6.0",
 	"type": "module",
 	"description": "Serialize Svelte AST nodes into stringified syntax. A.k.a parse in reverse.",
-	"keywords": ["ast", "print", "svelte"],
+	"keywords": [
+		"ast",
+		"print",
+		"svelte"
+	],
 	"license": "MIT",
 	"author": {
 		"name": "Mateusz Kadlubowski",
@@ -35,7 +39,10 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["src/", "types/"],
+	"files": [
+		"src/",
+		"types/"
+	],
 	"exports": {
 		".": {
 			"types": "./types/mod.d.ts",
@@ -80,13 +87,12 @@
 	},
 	"devDependencies": {
 		"@types/estree": "catalog:",
-		"dedent": "1.5.3",
+		"dedent": "^1.5.3",
 		"dts-buddy": "0.5.4",
-		"svelte": "^5.16.0",
 		"type-fest": "4.31.0",
 		"typescript": "catalog:"
 	},
 	"peerDependencies": {
-		"svelte": "^5.0.0"
+		"svelte": "catalog:"
 	}
 }
