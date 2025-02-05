@@ -20,8 +20,6 @@ You must have those tools installed.
 | ---------- | ---------- | ---------------------------------------------------- |
 | ❗required | [Node.js]  | LTS                                                  |
 | ❗required | [pnpm]     | Use `corepack enable` to automatically setup version |
-| _optional_ | [typos]    | latest                                               |
-| _optional_ | [lefthook] | latest                                               |
 
 ---
 
@@ -41,18 +39,9 @@ You must have those tools installed.
     pnpm install
     ```
 
-1. _(optional)_ Install Git hooks with:
-
-    ```sh
-    pnpm lefthook -g install
-    ```
-
-    > [!NOTE]
-    > This can save your time and project's CI & CD usage _(even if it's free)_
-
 1. Take a look at the `"scripts"` in [`./package.json`](../package.json#scripts) to see if you can find what you need.
 
-    For the the usage convienience those scripts concurrently run related tasks:
+    For the the usage convenience those scripts concurrently run related tasks:
 
     - `pnpm build`
     - `pnpm dev` <- this is for the development
@@ -75,10 +64,10 @@ You must have those tools installed.
 This project uses [TypeDoc], which under the hood uses [JSDoc].\
 You're free to:
 
-- improve wording,
-- fix typos,
-- add some examples,
-- and everything else that is related to improving the documentation.
+-   improve wording,
+-   fix typos,
+-   add some examples,
+-   and everything else that is related to improving the documentation.
 
 <!-- LINKS -->
 
