@@ -6,16 +6,15 @@
 		"defaultBranch": "main",
 		"useIgnoreFile": true
 	},
-	"files": {
-		"ignore": ["src/svelte.d.ts"],
-		"ignoreUnknown": true
-	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
 		"indentWidth": 4,
 		"lineEnding": "lf",
 		"lineWidth": 120
+	},
+	"files": {
+		"ignoreUnknown": true
 	},
 	"linter": {
 		"enabled": true,
@@ -25,17 +24,5 @@
 	},
 	"organizeImports": {
 		"enabled": true
-	},
-	"overrides": [
-		{
-			"include": ["*.svelte"],
-			"linter": {
-				"rules": {
-					"style": {
-						"useConst": "off"
-					}
-				}
-			}
-		}
-	]
+	}
 }

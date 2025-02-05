@@ -21,3 +21,8 @@ pnpm-debug.log*
 
 # Tests coverage (auto-generated)
 coverage/
+
+
+
+.nx/cache
+.nx/workspace-data

@@ -1,0 +1,9 @@
+# https://pnpm.io/pnpm-workspace_yaml
+---
+packages:
+    - "packages/*"
+
+# https://pnpm.io/catalogs
+catalog:
+    "@types/estree": "~1.0.0"
+    "typescript": "^5.7.0"

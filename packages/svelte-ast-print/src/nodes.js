@@ -1,5 +1,4 @@
 /**
- * @import * as _reset from "@total-typescript/ts-reset";
  * @import { Node as ESTreeNode } from "estree";
  * @import { AST, _CSS, parse } from "svelte/compiler";
  */
@@ -19,7 +18,7 @@ const ATTRIBUTE_LIKE_NODE_NAMES = new Set(
 	]),
 );
 /**
- * Type check guard to see if provided AST node is {@link AST.AttributeLike}.
+ * Type check guard to check if provided AST node is {@link AST.AttributeLike}.
  *
  * - Standard attribute _({@link AST.Attribute})_ - {@link https://developer.mozilla.org/en-US/docs/Glossary/Attribute}
  * - Spread attribute _({@link AST.SpreadAttribute})_ - {@link https://svelte.dev/docs/basic-markup#attributes-and-props}
@@ -44,7 +43,7 @@ const BLOCK_NODE_NAMES = new Set(
 	]),
 );
 /**
- * Type check guard to see if provided AST node is a logic block {@link Block}.
+ * Type check guard to check if provided AST node is a logic block {@link Block}.
  *
  * @see {@link https://svelte.dev/docs/logic-blocks}
  *
