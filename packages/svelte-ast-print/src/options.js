@@ -1,6 +1,5 @@
 /**
  * @import { AST } from "svelte/compiler";
- * @import { IterableElement, ReadonlyTuple } from "type-fest";
  *
  * @import { print } from "./mod.js";
  */
@@ -15,7 +14,7 @@
 
 /**
  * Name _(alias)_ for indentation type. This package will automatically determine a desired indent.
- * @typedef {IterableElement<typeof Options.INDENT>[0]} IndentName
+ * @typedef {typeof Options.INDENT extends Map<infer K, infer _V> ? K : never} IndentName
  */
 
 /**
@@ -32,7 +31,7 @@ export const DEFAULT_INDENT = "tab";
  */
 
 /**
- * @typedef {Extract<keyof Root, "css" | "fragment" | "instance" | "module" | "options">} RootNode
+ * @typedef {Extract<keyof AST.Root, "css" | "fragment" | "instance" | "module" | "options">} RootNode
  */
 
 /**
@@ -46,7 +45,7 @@ export const DEFAULT_INDENT = "tab";
  * - `"fragment"` - {@link AST.Fragment}
  * - `"css"` - {@link AST.CSS.StyleSheet}
  *
- * @typedef {ReadonlyTuple<RootNode, 5>} RootOrder
+ * @typedef {[RootNode, RootNode, RootNode, RootNode, RootNode]} RootOrder
  */
 
 // TODO: Use generic type parameter, so we use it only when passed node is {@link Root}
@@ -57,7 +56,7 @@ export const DEFAULT_INDENT = "tab";
  */
 
 /**
- * @satisfies {ReadonlyTuple<RootNode, 5>}
+ * @satisfies {RootOrder}
  */
 export const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
 

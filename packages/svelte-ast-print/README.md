@@ -23,8 +23,8 @@ This package depends on:
 >
 > If you need to format modified and stringified Svelte AST, use available formatters for Svelte:
 >
-> -   [Biome](https://github.com/biomejs/biome) - _⚠️ has partial support_
-> -   [Prettier](https://github.com/prettier/prettier) with [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte)
+> - [Biome](https://github.com/biomejs/biome) - _⚠️ has partial support_
+> - [Prettier](https://github.com/prettier/prettier) with [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte)
 >
 > See [Formatting](#formatting) section for examples.
 
@@ -93,6 +93,7 @@ This package depends on:
     ```
 
 > [!IMPORTANT]
+>
 > When using [`parse`] from `svelte`, please remember about passing `modern: true` to options _(second argument)_.
 > This option is only available starting `svelte@5`\
 > Example:
@@ -183,14 +184,6 @@ childProcess.spawnSync("prettier", ["./Button.svelte", "--write"], {
 > This sub-section is incomplete. Feel free to contribute!
 
 ---
-
-## Contributing
-
-Take a look at [contributing guide](./.github/CONTRIBUTING.md).
-
-## Support
-
-If you don't have time, but you need this project to work, or resolve an existing issue, consider [sponsorship](https://github.com/sponsors/xeho91).
 
 ## Author
 

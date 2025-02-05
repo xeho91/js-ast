@@ -2,9 +2,9 @@
 
 This is a monorepo with packages to **boost the DX** of working with AST _(using JavaScript programming language)_ related to:
 
--   ![JavaScript icon][icon-js] JavaScript
--   ![TypeScript icon][icon-ts] TypeScript
--   ![Svelte icon][icon-svelte] Svelte
+- ![JavaScript icon][icon-js] JavaScript
+- ![TypeScript icon][icon-ts] TypeScript
+- ![Svelte icon][icon-svelte] Svelte
 
 ---
 
@@ -73,7 +73,9 @@ Print the [AST] object or nodes into stringified code syntax.
 
 ## Contributing
 
-See [Contribution Guide](./.github/CONTRIBUTING.md) to get started.
+If you can offer your time - refer to [Contribution Guide](/.github/CONTRIBUTING.md).
+
+Otherwise, consider [sponsoring me](https://github.com/sponsors/xeho91).
 
 <!-- LINKS -->
 
