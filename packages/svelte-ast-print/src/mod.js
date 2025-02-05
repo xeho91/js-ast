@@ -9,62 +9,48 @@
 import { print as print_es } from "esrap";
 import { walk } from "zimmerframe";
 
-import { isAttributeLike, isElementLike, isSvelte } from "./node.js";
+import { is_attr_like, is_element_like, isSvelteNode } from "./node.js";
 import { Options } from "./options.js";
 
-export {
-	isAttributeLike,
-	isBlock,
-	isCSS,
-	isElementLike,
-	isHTML,
-	isSvelte,
-	isTag,
-	isTemplate,
-} from "./node.js";
-
 /**
- * Print AST {@link SvelteAST.BaseNode} as a string.
+ * Print AST {@link SupportedSvelteNode} as a string.
  * Aka parse in reverse.
  *
- * ## How does it work under the hood?
+ *  ## Usage
  *
- * 1. Firstly, it determines whether the provided AST node is unique node for Svelte {@link SvelteAST.Node}.
- * 2. Based on type check guard from above:
- *    - it uses either this package's {@link Printer} to print Svelte AST node,
- *    - otherwise it uses `esrap` {@link print_es} to print ESTree specification-complaint AST node
+ *  ```ts
+ *  import { parse } from "svelte/compiler";
+ *  import { print } from "svelte-ast-print";
  *
- * ## How to use it?
+ *  const input = `
+ *  <script>
+ *  	export let x;
+ *  	export let y;
+ *  </script>
  *
- * @example writing a codemode using Node.js
-   ```js
-   import fs from "node:fs";
-
-   import { print } from "svelte-ast-print";
-   import { parse } from "svelte/compiler";
-
-   const originalSvelteCode = fs.readFileSync("src/App.svelte", "utf-8");
-   let svelteAST = parse(originalSvelteCode, { modern: true });
-   //                                          👆 For now, only modern is supported.
-   //                                             By default is 'false'.
-   //                                             Is it planned to be 'true' from Svelte v6+
-
-   // ...
-   // Do some modifications on this AST...
-   // e.g. transform `<slot />` to `{@render children()}`
-   // ...
-
-   const output = print(svelteAST); // AST is now a stringified code output! 🎉
-
-   fs.writeFileSync("src/App.svelte", output, { encoding: " utf-8" });
-   ```
+ *  <slot {x} {y} />
+ *  `;
+ *
+ *  let ast = parse(input, { modern: true });
+ *  // !!!!!!!!!!!!!!!!!!!!!!!
+ *  //                     👆 Only modern is supported.
+ *  //                        In Svelte `v5` by default is 'false'.
+ *  //                        Is it planned to be 'true' from `v6`.
+ *  // !!!!!!!!!!!!!!!!!!!!!!!
+ *
+ *  // ...
+ *  // Do some modifications on this AST...
+ *  // e.g. transform `<slot />` to `{@render children()}`
+ *  // ...
+ *
+ *  const output = print(ast); // AST is now in a stringified code syntax! 🎉
  *
  * @param {Node} node - Svelte or ESTree AST node
  * @param {Partial<ConstructorParameters<typeof Options>[0]>} options - printing options
  * @returns {string} Stringified Svelte AST node
  */
 export function print(node, options = {}) {
-	if (!isSvelte(node)) return print_es(node).code;
+	if (!isSvelteNode(node)) return print_es(node).code;
 	return new Printer(node, new Options(options)).toString();
 }
 
@@ -109,7 +95,7 @@ class Printer {
 	 * @returns {string}
 	 */
 	toString() {
-		if (isAttributeLike(this.#node)) {
+		if (is_attr_like(this.#node)) {
 			return this.#stringified_attributes;
 		}
 		return this.#output;
@@ -228,7 +214,7 @@ class Printer {
 	#has_fragment_element_like_node(fragment) {
 		const { nodes } = fragment;
 		for (const node of nodes) {
-			if (isElementLike(node)) return true;
+			if (is_element_like(node)) return true;
 			if (node.type === "Text" && this.#is_text_new_line_or_indents_only(node)) continue;
 			break;
 		}
@@ -1221,6 +1207,7 @@ class Printer {
 						type: "Attribute",
 						name: "this",
 						value: [
+							// @ts-expect-error: WARN: It asks for `start` & `end`
 							{
 								type: "ExpressionTag",
 								expression: tag,
