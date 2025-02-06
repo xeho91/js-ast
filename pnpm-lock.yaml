@@ -56,9 +56,15 @@ importers:
       typedoc-plugin-coverage:
         specifier: ^3.4.0
         version: 3.4.1(typedoc@0.27.6(typescript@5.7.3))
+      typedoc-plugin-dt-links:
+        specifier: ^1.1.10
+        version: 1.1.10(typedoc@0.27.6(typescript@5.7.3))
       typedoc-plugin-mdn-links:
         specifier: ^4.0.0
         version: 4.0.11(typedoc@0.27.6(typescript@5.7.3))
+      typedoc-plugin-missing-exports:
+        specifier: ^3.1.0
+        version: 3.1.0(typedoc@0.27.6(typescript@5.7.3))
       typescript:
         specifier: 'catalog:'
         version: 5.7.3
@@ -1634,8 +1640,18 @@ packages:
     peerDependencies:
       typedoc: 0.25.x || 0.26.x || 0.27.x
 
+  typedoc-plugin-dt-links@1.1.10:
+    resolution: {integrity: sha512-Vt/1wmM8xHFxXjOiQWsIcuPztc5zRX5JxzpLngm9vWfoZTiIpONC7arYaBjcWugkRxj8AKadIa7qbDKgs2xYNg==}
+    peerDependencies:
+      typedoc: '>= 0.23.14 || 0.24.x || 0.25.x || 0.26.x || 0.27.x'
+
   typedoc-plugin-mdn-links@4.0.11:
     resolution: {integrity: sha512-xx9at8P8ABWYG9CLi04Y/uMcy3URIIzA+vy/JGN15Hn/VqDeapRIglwStS1MaQKwCixwZzoUpIoDaGcHdcoFWg==}
+    peerDependencies:
+      typedoc: 0.26.x || 0.27.x
+
+  typedoc-plugin-missing-exports@3.1.0:
+    resolution: {integrity: sha512-Sogbaj+qDa21NjB3SlIw4JXSwmcl/WOjwiPNaVEcPhpNG/MiRTtpwV81cT7h1cbu9StpONFPbddYWR0KV/fTWA==}
     peerDependencies:
       typedoc: 0.26.x || 0.27.x
 
@@ -3306,7 +3322,15 @@ snapshots:
     dependencies:
       typedoc: 0.27.6(typescript@5.7.3)
 
+  typedoc-plugin-dt-links@1.1.10(typedoc@0.27.6(typescript@5.7.3)):
+    dependencies:
+      typedoc: 0.27.6(typescript@5.7.3)
+
   typedoc-plugin-mdn-links@4.0.11(typedoc@0.27.6(typescript@5.7.3)):
+    dependencies:
+      typedoc: 0.27.6(typescript@5.7.3)
+
+  typedoc-plugin-missing-exports@3.1.0(typedoc@0.27.6(typescript@5.7.3)):
     dependencies:
       typedoc: 0.27.6(typescript@5.7.3)
 

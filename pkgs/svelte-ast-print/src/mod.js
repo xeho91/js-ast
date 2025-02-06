@@ -44,6 +44,7 @@ import { Options } from "./options.js";
  *  // ...
  *
  *  const output = print(ast); // AST is now in a stringified code syntax! 🎉
+ *  ```
  *
  * @param {Node} node - Svelte or ESTree AST node
  * @param {Partial<ConstructorParameters<typeof Options>[0]>} options - printing options

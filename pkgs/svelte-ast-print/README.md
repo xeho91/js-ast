@@ -7,6 +7,8 @@ A.k.a. [`parse()`] in reverse.
 
 ## Usage
 
+TODO: Replace below with doc link.
+
 ```ts
 import { parse } from "svelte/compiler";
 import { print } from "svelte-ast-print";
@@ -48,7 +50,7 @@ const output = print(ast); // AST is now in a stringified code syntax! 🎉
 > import { parse } from "svelte/compiler";
 >
 > parse(code, { modern: true });
-> //          👆 Don't forget about this
+> //          👆 Don't forget about this!
 > ```
 >
 > You can omit it from [Svelte] `v6` - [source](https://github.com/sveltejs/svelte/blob/5a05f6371a994286626a44168cb2c02f8a2ad567/packages/svelte/src/compiler/index.js#L99-L100).

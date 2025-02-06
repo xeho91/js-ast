@@ -39,7 +39,9 @@
 		"serve": "^14.2.0",
 		"typedoc": "^0.27.0",
 		"typedoc-plugin-coverage": "^3.4.0",
+		"typedoc-plugin-dt-links": "^1.1.10",
 		"typedoc-plugin-mdn-links": "^4.0.0",
+		"typedoc-plugin-missing-exports": "^3.1.0",
 		"typescript": "catalog:",
 		"vite": "^6.1.0",
 		"vitest": "^3.0.5"
