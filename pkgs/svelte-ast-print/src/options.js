@@ -10,15 +10,18 @@
  * @typedef PrintOptions
  * @property {Partial<FormatOptions>} [format] - formatting options
  * @property {Partial<RootOptions>} [root] - Svelte AST node {@link AST.Root} based options
+ * @internal
  */
 
 /**
  * Name _(alias)_ for indentation type. This package will automatically determine a desired indent.
  * @typedef {typeof Options.INDENT extends Map<infer K, infer _V> ? K : never} IndentName
+ * @internal
  */
 
 /**
  * @satisfies {IndentName}
+ * @internal
  */
 const DEFAULT_INDENT = "tab";
 
@@ -28,10 +31,12 @@ const DEFAULT_INDENT = "tab";
  *
  * @typedef FormatOptions
  * @property {IndentName} [indent] - defaults to {@link DEFAULT_INDENT}
+ * @internal
  */
 
 /**
  * @typedef {Extract<keyof AST.Root, "css" | "fragment" | "instance" | "module" | "options">} RootNode
+ * @internal
  */
 
 /**
@@ -46,6 +51,7 @@ const DEFAULT_INDENT = "tab";
  * - `"css"` - {@link AST.CSS.StyleSheet}
  *
  * @typedef {[RootNode, RootNode, RootNode, RootNode, RootNode]} RootOrder
+ * @internal
  */
 
 // TODO: Use generic type parameter, so we use it only when passed node is {@link Root}
@@ -53,10 +59,12 @@ const DEFAULT_INDENT = "tab";
  * Options related to {@link Root} Svelte AST node.
  * @typedef RootOptions
  * @property {RootOrder} [order] - defaults to {@link DEFAULT_ORDER}
+ * @internal
  */
 
 /**
  * @satisfies {RootOrder}
+ * @internal
  */
 const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
 

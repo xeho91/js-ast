@@ -503,7 +503,7 @@ class Printer {
 					const root_node = node[name];
 					if (name === "options" && node.options) {
 						visit(
-							//  @ts-ignore FIXME: This is likely a bug - at runtime Svelte AST node `SvelteOptions` _(aliased as SvelteOptionsRaw)_ doesn't have 'type' & 'name' entry
+							//  @ts-expect-error FIXME: This is likely a bug - at runtime Svelte AST node `SvelteOptions` _(aliased as SvelteOptionsRaw)_ doesn't have 'type' & 'name' entry
 							{
 								...node.options,
 								type: "SvelteOptions",
@@ -511,7 +511,7 @@ class Printer {
 							},
 							state,
 						);
-						//  @ts-ignore FIXME: Typing issue `SvelteOptions` and `SvelteOptionsRaw` are incompatible
+						//  @ts-expect-error FIXME: Typing issue `SvelteOptions` and `SvelteOptionsRaw` are incompatible
 					} else if (root_node) visit(root_node, state);
 				}
 				// NOTE: There can't be anything next to Root
