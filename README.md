@@ -1,18 +1,20 @@
 # `js-ast`
 
-This is a monorepo with packages to **boost the DX** of working with AST _(using JavaScript programming language)_ related to:
+This is a monorepo with packages to **boost the [DX]** of working with [AST] _(using [JavaScript] programming language)_ related to:
 
-- ![JavaScript icon][icon-js] JavaScript
-- ![TypeScript icon][icon-ts] TypeScript
-- ![Svelte icon][icon-svelte] Svelte
+- ![JavaScript icon][icon-js] [JavaScript]
+- ![TypeScript icon][icon-ts] [TypeScript]
+- ![Svelte icon][icon-svelte] [Svelte]
 
 ---
 
-## Core features
+## Core goals
 
 1. [DX] friendly.
-1. **Cross-runtime** friendly - 👈 this also means [ESM] only.
+1. **Cross-runtime** friendly—👈 this also means [ESM] only.
 1. [e18e] friendly.
+1. **No build step**—meaning you can debug/edit source code inside `node_modules` as it is.
+1. Extensive tests.
 
 ---
 
@@ -20,7 +22,7 @@ This is a monorepo with packages to **boost the DX** of working with AST _(using
 
 In order to work with AST, the following processes are recognized:
 
-1. [Building](#build) programmatically the [AST] nodes, or entire object.
+1. [Building](#build) programmatically the [AST] node(s), or an entire object.
 1. [Parsing](#parse) _stringified_ code syntax into [AST] object.
 1. [Traversing](#traverse) the [AST] object.
 1. [Printing](#print) the [AST] object back into _stringified_ code syntax.
@@ -37,37 +39,37 @@ In order to work with AST, the following processes are recognized:
 
 Sometimes you need to do some code transformation...
 
-| Name                 | Languages      |
-| -------------------- | -------------- |
-| [`js-ast-build`]     | ![icon-js]     |
-| [`ts-ast-build`]     | ![icon-ts]     |
-| [`svelte-ast-build`] | ![icon-svelte] |
+| Name                 | Languages      | In this repository? |
+| -------------------- | -------------- | ------------------- |
+| [`js-ast-build`]     | ![icon-js]     | ✅                  |
+| [`ts-ast-build`]     | ![icon-ts]     | ✅                  |
+| [`svelte-ast-build`] | ![icon-svelte] | ✅                  |
 
 ### Parse
 
 Getting the [AST] object from stringified code syntax.
 
-| Name                | Languages            |
-| ------------------- | -------------------- |
-| [`@swc/core`]       | ![icon-js]![icon-ts] |
-| [`svelte/compiler`] | ![icon-svelte]       |
+| Name                | Languages            | In this repository? |
+| ------------------- | -------------------- | ------------------- |
+| [`@swc/core`]       | ![icon-js]![icon-ts] | ❌                  |
+| [`svelte/compiler`] | ![icon-svelte]       | ❌                  |
 
 ### Traverse
 
 In other words, _walk_ on the AST object.
 
-| Name            | Languages                          |
-| --------------- | ---------------------------------- |
-| [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] |
+| Name            | Languages                          | In this repository? |
+| --------------- | ---------------------------------- | ------------------- |
+| [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] | ❌                  |
 
 ### Print
 
 Print the [AST] object or nodes into stringified code syntax.
 
-| Name                 | Languages                          |
-| -------------------- | ---------------------------------- |
-| [`esrap`]            | ![icon-js]![icon-ts]               |
-| [`svelte-ast-print`] | ![icon-js]![icon-ts]![icon-svelte] |
+| Name                 | Languages                          | In this repository? |
+| -------------------- | ---------------------------------- | ------------------- |
+| [`esrap`]            | ![icon-js]![icon-ts]               | ❌                  |
+| [`svelte-ast-print`] | ![icon-js]![icon-ts]![icon-svelte] | ✅                  |
 
 ---
 
@@ -76,6 +78,10 @@ Print the [AST] object or nodes into stringified code syntax.
 If you can offer your time - refer to [Contribution Guide](/.github/CONTRIBUTING.md).
 
 Otherwise, consider [sponsoring me](https://github.com/sponsors/xeho91).
+
+## Author
+
+Mateusz "[xeho91](https://github.com/xeho91)" Kadlubowski
 
 <!-- LINKS -->
 
@@ -95,3 +101,6 @@ Otherwise, consider [sponsoring me](https://github.com/sponsors/xeho91).
 [`svelte/compiler`]: https://github.com/sveltejs/svelte
 [`zimmerframe`]: https://github.com/Rich-Harris/zimmerframe
 [`esrap`]: https://github.com/sveltejs/esrap
+[Svelte]: https://github.com/sveltejs/svelte
+[TypeScript]: https://github.com/microsoft/TypeScript
+[JavaScript]: https://en.wikipedia.org/wiki/JavaScript
