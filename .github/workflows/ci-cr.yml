@@ -64,7 +64,7 @@ jobs:
     cr_typedoc:
         name: CR
         uses: ./.github/workflows/cr_typedoc.yml
-        needs: [ci_biome, ci_check, ci_knip, ci_test, ci_typos]
+        needs: [ci_biome, ci_check, ci_test, ci_typos]
         secrets: inherit
         with:
             type: ${{ github.event_name == 'pull_request' && contains(fromJson('["opened", "reopened", "synchronize"]'), github.event.action) && 'pr-preview' || 'deploy' }}
