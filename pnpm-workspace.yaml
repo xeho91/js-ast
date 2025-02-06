@@ -1,0 +1,12 @@
+# https://pnpm.io/pnpm-workspace_yaml
+---
+packages:
+    - "pkgs/*"
+
+# https://pnpm.io/catalogs
+catalog:
+    "@types/estree": "~1.0.0"
+    "esrap": "^1.4.0"
+    "svelte": "^5.0.0"
+    "typescript": "^5.7.0"
+    "zimmerframe": "^1.1.0"

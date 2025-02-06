@@ -1,0 +1,24 @@
+"workflows":
+    - changed-files:
+          - any-glob-to-any-file:
+                - ".github/workflows/**"
+
+"pkg:js-ast-build":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/js-ast-build/**"
+
+"pkg:ts-ast-build":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/ts-ast-build/**"
+
+"pkg:svelte-ast-build":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/svelte-ast-build/**"
+
+"pkg:svelte-ast-print":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/svelte-ast-print/**"

@@ -1,238 +1,106 @@
-# `svelte-ast-print`
+# `js-ast`
 
-![NPM Version](https://img.shields.io/npm/v/svelte-ast-print?style=for-the-badge&logo=npm)
+This is a monorepo with packages to **boost the [DX]** of working with [AST] _(using [JavaScript] programming language)_ related to:
 
-Print **Svelte [AST]** nodes as a string.\
-A.k.a. [`parse`] in reverse.
-
-This is what you need to create [codemods] - e.g. for migration between Svelte versions syntaxes.
-
-> [!NOTE] > **This package is in beta stage.**\
-> See [Roadmap](https://github.com/xeho91/svelte-ast-print/discussions/2)
-
-## Documentation
-
-<https://xeho91.github.io/svelte-ast-print>
-
-## Acknowledgements
-
-This package depends on:
-
-1. [`esrap`] for printing [ESTree] specification-compliant [AST] nodes
-1. [`zimmerframe`] for walking on the [AST] nodes
-
-## Limitations
-
-> [!IMPORTANT] > **It ignores any previous formatting**.\
-> The current focus is to be able to write codemods as soon as possible - because right now, there are no alternatives.
->
-> If you need to format modified and stringified Svelte AST, use available formatters for Svelte:
->
-> -   [Biome](https://github.com/biomejs/biome) - _⚠️ has partial support_
-> -   [Prettier](https://github.com/prettier/prettier) with [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte)
->
-> See [Formatting](#formatting) section for examples.
-
-## Getting started
-
-1. Use the package manager of your choice to install this package:
-
-    <details>
-        <summary>npm</summary>
-
-    ```sh
-    npm install svelte-ast-print
-    ```
-
-    </details>
-
-    <details>
-        <summary>yarn</summary>
-
-    ```sh
-    yarn add svelte-ast-print
-    ```
-
-    </details>
-
-    <details>
-        <summary>pnpm</summary>
-
-    ```sh
-    pnpm add svelte-ast-print
-    ```
-
-    </details>
-
-    <details>
-        <summary>bun</summary>
-
-    ```sh
-    bun add svelte-ast-print
-    ```
-
-    </details>
-
-1. Incorporate it into your project, for example using Node.js and with the Svelte [`parse`] method:
-
-    ```ts
-    import fs from "node:fs";
-
-    import { print } from "svelte-ast-print";
-    import { parse } from "svelte/compiler";
-
-    const originalSvelteCode = fs.readFileSync("src/App.svelte", "utf-8");
-    let svelteAST = parse(originalSvelteCode, { modern: true });
-    //                                          👆 For now, only modern is supported.
-    //                                             By default is 'false'.
-    //                                             Is it planned to be 'true' from Svelte v6+
-
-    // ...
-    // Do some modifications on this AST...
-    // e.g. transform `<slot />` to `{@render children()}`
-    // ...
-
-    const output = print(svelteAST); // AST is now a stringified code output! 🎉
-
-    fs.writeFileSync("src/App.svelte", output, { encoding: " utf-8" });
-    ```
-
-> [!IMPORTANT]
-> When using [`parse`] from `svelte`, please remember about passing `modern: true` to options _(second argument)_.
-> This option is only available starting `svelte@5`\
-> Example:
->
-> ```js
-> import { parse } from "svelte/compiler";
->
-> parse(code, { modern: true });
-> //          👆 Don't forget about this
-> ```
->
-> You can omit it from Svelte `v6` - [source](https://github.com/sveltejs/svelte/blob/5a05f6371a994286626a44168cb2c02f8a2ad567/packages/svelte/src/compiler/index.js#L99-L100).
+- ![JavaScript icon][icon-js] [JavaScript]
+- ![TypeScript icon][icon-ts] [TypeScript]
+- ![Svelte icon][icon-svelte] [Svelte]
 
 ---
 
-## Formatting
+## Core goals
 
-Until the package will support formatting feature option... below are the current and **simplified** workaround examples
-on how to get printed output formatted to your needs.
+1. [DX] friendly.
+1. **Cross-runtime** friendly—👈 this also means [ESM] only.
+1. [e18e] friendly.
+1. **No build step**—meaning you can debug/edit source code inside `node_modules` as it is.
+1. Extensive tests.
 
-### Prettier
+---
 
-Two dependencies are required:
+## Packages
 
-1. [`prettier`](https://github.com/prettier/prettier)
-1. [`prettier-plugin-svelte`](https://github.com/sveltejs/prettier-plugin-svelte)
+In order to work with AST, the following processes are recognized:
 
-Follow `prettier-plugin-svelte` [Setup guide](https://github.com/sveltejs/prettier-plugin-svelte?tab=readme-ov-file#setup)
-on how to configure Prettier for Svelte.
+1. [Building](#build) programmatically the [AST] node(s), or an entire object.
+1. [Parsing](#parse) _stringified_ code syntax into [AST] object.
+1. [Traversing](#traverse) the [AST] object.
+1. [Printing](#print) the [AST] object back into _stringified_ code syntax.
 
-#### Using Prettier API
+> [!IMPORTANT]
+>
+> The following lists of packages contains **what you can combine together - based on shared [AST] node interface format - aligned with [ESTree] specification**.
 
-```js
-import { format } from "prettier";
-import { parse } from "svelte/compiler";
-import { print } from "svelte-ast-print";
+> [!NOTE]
+>
+> Not all of these packages are part of this monorepo.
 
-let code = "..." // 👈 Raw Svelte code
-let ast = parse(code, { modern: true });
-//                    👆 Don't forget about this, you can omit in Svelte v6
+### Build
 
-// .. work with AST - transformations, etc. ...
+Sometimes you need to do some code transformation...
 
-const output = print(ast);
-const formatted = await format(output {
-	// Two ways to provide options:
+| Name                 | Languages      | In this repository? |
+| -------------------- | -------------- | ------------------- |
+| [`js-ast-build`]     | ![icon-js]     | ✅                  |
+| [`ts-ast-build`]     | ![icon-ts]     | ✅                  |
+| [`svelte-ast-build`] | ![icon-svelte] | ✅                  |
 
-	// 1. provide file path to prettier config
-	filepath: "path/to/your/prettier/config/file",
+### Parse
 
-	// or..
+Getting the [AST] object from stringified code syntax.
 
-	// 2. See `prettier-plugin-svelte` Setup guide for more info
-	parser: "svelte",
-	plugins: ["svelte-plugin-prettier"]
-});
-```
+| Name                | Languages            | In this repository? |
+| ------------------- | -------------------- | ------------------- |
+| [`@swc/core`]       | ![icon-js]![icon-ts] | ❌                  |
+| [`svelte/compiler`] | ![icon-svelte]       | ❌                  |
 
-#### Using Prettier CLI
+### Traverse
 
-... and Node.js API.
+In other words, _walk_ on the AST object.
 
-```js
-import fs from "node:fs";
-import childProcess from "node:child_process";
+| Name            | Languages                          | In this repository? |
+| --------------- | ---------------------------------- | ------------------- |
+| [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] | ❌                  |
 
-import { parse } from "svelte/compiler";
-import { print } from "svelte-ast-print";
+### Print
 
-const code = fs.readFileSync("./Button.svelte", "utf-8");
-let ast = parse(code, { modern: true });
-//                    👆 Don't forget about this, you can omit in Svelte v6
+Print the [AST] object or nodes into stringified code syntax.
 
-// .. work with AST - transformations, etc. ...
-
-const output = print(ast);
-
-fs.writeFileSync("./Button.svelte", output, "utf-8");
-childProcess.spawnSync("prettier", ["./Button.svelte", "--write"], {
-	stdio: "inherit",
-	encoding: "utf-8",
-});
-```
-
-### Biome
-
-> [!WARNING]
-> This sub-section is incomplete. Feel free to contribute!
+| Name                 | Languages                          | In this repository? |
+| -------------------- | ---------------------------------- | ------------------- |
+| [`esrap`]            | ![icon-js]![icon-ts]               | ❌                  |
+| [`svelte-ast-print`] | ![icon-js]![icon-ts]![icon-svelte] | ✅                  |
 
 ---
 
 ## Contributing
 
-Take a look at [contributing guide](./.github/CONTRIBUTING.md).
+If you can offer your time - refer to [Contribution Guide](/.github/CONTRIBUTING.md).
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification.
-**Contributions of any kind are welcome!**
-
-💌 to these people:
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/xeho91"><img src="https://avatars.githubusercontent.com/u/18627568?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mateusz Kadlubowski</b></sub></a><br /><a href="https://github.com/xeho91/svelte-ast-print/commits?author=xeho91" title="Code">💻</a> <a href="#maintenance-xeho91" title="Maintenance">🚧</a> <a href="https://github.com/xeho91/svelte-ast-print/commits?author=xeho91" title="Documentation">📖</a> <a href="#infra-xeho91" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/xeho91/svelte-ast-print/commits?author=xeho91" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/manuel3108"><img src="https://avatars.githubusercontent.com/u/30698007?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Manuel</b></sub></a><br /><a href="https://github.com/xeho91/svelte-ast-print/commits?author=manuel3108" title="Documentation">📖</a> <a href="https://github.com/xeho91/svelte-ast-print/commits?author=manuel3108" title="Code">💻</a></td>
-    <td align="center"><a href="https://reinhold.is/"><img src="https://avatars.githubusercontent.com/u/5678122?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jeppe Reinhold</b></sub></a><br /><a href="https://github.com/xeho91/svelte-ast-print/commits?author=JReinhold" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## Support
-
-If you don't have time, but you need this project to work, or resolve an existing issue, consider [sponsorship](https://github.com/sponsors/xeho91).
+Otherwise, consider [sponsoring me](https://github.com/sponsors/xeho91).
 
 ## Author
 
 Mateusz "[xeho91](https://github.com/xeho91)" Kadlubowski
 
-## License
+<!-- LINKS -->
 
-![Project License](https://img.shields.io/github/license/xeho91/svelte-ast-print?style=for-the-badge)
-
-This project is licensed under the [MIT License](./LICENSE.md).
-
-<!-- links -->
-
-[`esrap`]: https://github.com/rich-harris/esrap
-[`zimmerframe`]: https://github.com/rich-harris/zimmerframe
-[ESTree]: https://github.com/estree/estree
-[codemods]: https://codemod.com/blog/what-are-codemods#ill-find-replace-whats-the-issue-hint-a-lot
-[`parse`]: https://svelte.dev/docs/svelte-compiler#parse
+[icon-js]: https://api.iconify.design/logos:javascript.svg
+[icon-ts]: https://api.iconify.design/logos:typescript-icon-round.svg
+[icon-svelte]: https://api.iconify.design/logos:svelte-icon.svg
 [AST]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+[DX]: https://en.wikipedia.org/wiki/User_experience#Developer_experience
+[ESTree]: https://github.com/estree/estree
+[e18e]: https://github.com/e18e/e18e
+[ESM]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+[`js-ast-build`]: ./pkgs/js-ast-build
+[`ts-ast-build`]: ./pkgs/ts-ast-build
+[`svelte-ast-build`]: ./pkgs/svelte-ast-build
+[`svelte-ast-print`]: ./pkgs/svelte-ast-print
+[`@swc/core`]: https://github.com/swc-project/swc
+[`svelte/compiler`]: https://github.com/sveltejs/svelte
+[`zimmerframe`]: https://github.com/Rich-Harris/zimmerframe
+[`esrap`]: https://github.com/sveltejs/esrap
+[Svelte]: https://github.com/sveltejs/svelte
+[TypeScript]: https://github.com/microsoft/TypeScript
+[JavaScript]: https://en.wikipedia.org/wiki/JavaScript

@@ -1,9 +1,3 @@
-# Build output
-types/
-
-# Build cache
-.tsup
-
 # Dependencies which are downloadable
 node_modules/
 

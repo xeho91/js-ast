@@ -1,0 +1,28 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"workspaces": {
+		".": {
+			"entry": ["**/*.{json,js,ts}"],
+			"typedoc": {
+				"config": ["typedoc.base.json", "typedoc.json"]
+			},
+			"vite": false
+		},
+		"pkgs/js-ast-build": {
+			"entry": ["src/mod.js"],
+			"project": ["**/*.{json,js,ts}"]
+		},
+		"pkgs/ts-ast-build": {
+			"entry": ["src/mod.js"],
+			"project": ["**/*.{json,js,ts}"]
+		},
+		"pkgs/svelte-ast-build": {
+			"entry": ["src/mod.js"],
+			"project": ["**/*.{json,js,ts}"]
+		},
+		"pkgs/svelte-ast-print": {
+			"entry": ["src/mod.js"],
+			"project": ["**/*.{json,js,ts}"]
+		}
+	}
+}
