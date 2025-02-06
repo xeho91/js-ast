@@ -7,35 +7,7 @@ A.k.a. [`parse()`] in reverse.
 
 ## Usage
 
-TODO: Replace below with doc link.
-
-```ts
-import { parse } from "svelte/compiler";
-import { print } from "svelte-ast-print";
-
-const input = `
-<script>
-	export let x;
-	export let y;
-</script>
-
-<slot {x} {y} />
-`;
-
-let ast = parse(input, { modern: true });
-// ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-//                     👆 Only modern is supported.
-//                        In Svelte `v5` by default is 'false'.
-//                        Is it planned to be 'true' from `v6`.
-// ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-
-// ...
-// Do some modifications on this AST...
-// e.g. transform `<slot />` to `{@render children()}`
-// ...
-
-const output = print(ast); // AST is now in a stringified code syntax! 🎉
-```
+[See documentation](https://xeho91.github.io/js-ast/functions/svelte-ast-print.mod.print.html).
 
 > [!IMPORTANT]
 >
@@ -57,7 +29,7 @@ const output = print(ast); // AST is now in a stringified code syntax! 🎉
 
 ### Options
 
-TODO: Add link to doc options
+[See documentation](https://xeho91.github.io/js-ast/interfaces/svelte-ast-print.options.PrintOptions.html).
 
 ---
 

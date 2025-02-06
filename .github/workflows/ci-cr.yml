@@ -58,7 +58,7 @@ jobs:
     cr_preview:
         name: CR
         uses: ./.github/workflows/cr_preview.yml
-        needs: [ci_biome, ci_check, ci_knip, ci_test, ci_typos]
+        needs: [ci_biome, ci_check, ci_test, ci_typos]
         secrets: inherit
 
     cr_typedoc:
