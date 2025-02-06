@@ -13,11 +13,5 @@
 				"testTargetName": "test"
 			}
 		}
-	],
-	"targetDefaults": {
-		"test": {
-			"inputs": ["default"],
-			"cache": true
-		}
-	}
+	]
 }
