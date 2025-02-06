@@ -4,11 +4,16 @@ import { type Context, walk } from "zimmerframe";
 
 import type { Node } from "../src/node.js";
 
-export function parse(code: string): Node {
+export function parse_and_extract<T extends Node>(code: string, name: T["type"]): T {
+	const parsed = parse(dedent(code));
+	return extract(parsed, name);
+}
+
+function parse(code: string): Node {
 	return svelte_parse(code, { modern: true }) as Node;
 }
 
-export function extract<T extends Node>(parsed: Node, name: T["type"]): T {
+function extract<T extends Node>(parsed: Node, name: T["type"]): T {
 	const results: {
 		target: T | undefined;
 	} = {
@@ -28,9 +33,4 @@ export function extract<T extends Node>(parsed: Node, name: T["type"]): T {
 	}
 
 	return results.target;
-}
-
-export function parse_and_extract<T extends Node>(code: string, name: T["type"]): T {
-	const parsed = parse(dedent(code));
-	return extract(parsed, name);
 }

@@ -58,13 +58,11 @@
 		"fix:biome": "biome check . --verbose --write",
 		"fix:format": "biome format . --verbose --write",
 		"fix:js": "biome lint . --verbose --fix --unsafe",
-		"fix:typos": "typos --verbose --write-changes",
 		"lint": "pnpm run \"/^lint:.*/\" ",
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
 		"lint:ts": "tsc --noEmit",
-		"lint:typos": "typos --verbose",
 		"prepublishOnly": "pnpm test",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
