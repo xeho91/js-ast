@@ -6,13 +6,13 @@
 	"version": "0.1.0",
 	"packageManager": "pnpm@10.2.0+sha512.0d27364e0139c6aadeed65ada153135e0ca96c8da42123bd50047f961339dc7a758fc2e944b428f52be570d1bd3372455c1c65fa2e7aa0bfbf931190f9552001",
 	"scripts": {
-		"build": "turbo run build",
+		"build": "pnpm run \"/^build:.*/\" ",
+		"build:doc": "typedoc",
 		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" \"./.nx/cache\" ",
 		"clean:docs": "rm -rf \"./docs\" ",
 		"dev": "pnpm run --workspace-root \"/^dev:.*/\" ",
 		"dev:test": "vitest --ui",
-		"doc": "typedoc",
 		"fix": "pnpm run \"/^fix:.*/\" ",
 		"fix:biome": "biome check . --verbose --write",
 		"fix:format": "biome format . --verbose --write",
@@ -22,10 +22,15 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"lint:ts": "tsc --noEmit",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest",
-		"_ci:test": "vitest run --coverage.enabled --coverage.provider=v8 --coverage.reporter=json-summary --coverage.reporter=json"
+		"_ci:test": "vitest run --coverage.enabled --coverage.provider=v8 --coverage.reporter=json-summary --coverage.reporter=json",
+		"_cr:publish": "pnpm changeset publish",
+		"_cr:version": "pnpm changeset version && pnpm fix:format"
+	},
+	"nx": {
+		"name": "@workspace/root",
+		"includedScripts": []
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.0",

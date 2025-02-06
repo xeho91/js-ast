@@ -5,13 +5,16 @@
 	"workspaceLayout": {
 		"libsDir": "pkgs"
 	},
+	"parallel": 8,
+	"plugins": [
+		{
+			"plugin": "@nx/vite/plugin",
+			"options": {
+				"testTargetName": "test"
+			}
+		}
+	],
 	"targetDefaults": {
-		"build": {
-			"dependsOn": ["^build"],
-			"inputs": ["default"],
-			"outputs": ["{projectRoot}/dist"],
-			"cache": true
-		},
 		"test": {
 			"inputs": ["default"],
 			"cache": true

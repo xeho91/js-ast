@@ -31,39 +31,39 @@ permissions:
 jobs:
     ci_biome:
         name: CI
-        uses: ./.github/workflows/biome.yml
+        uses: ./.github/workflows/ci_biome.yml
         secrets: inherit
 
     ci_check:
         name: CI
-        uses: ./.github/workflows/check.yml
+        uses: ./.github/workflows/ci_check.yml
         secrets: inherit
 
     ci_knip:
         name: CI
-        uses: ./.github/workflows/knip.yml
+        uses: ./.github/workflows/ci_knip.yml
         if: github.event_name == 'pull_request'
         secrets: inherit
 
     ci_test:
         name: CI
-        uses: ./.github/workflows/test.yml
+        uses: ./.github/workflows/ci_test.yml
         secrets: inherit
 
     ci_typos:
         name: CI
-        uses: ./.github/workflows/typos.yml
+        uses: ./.github/workflows/ci_typos.yml
         secrets: inherit
 
     cr_preview:
         name: CR
-        uses: ./.github/workflows/preview.yml
+        uses: ./.github/workflows/cr_preview.yml
         needs: [ci_biome, ci_check, ci_knip, ci_test, ci_typos]
         secrets: inherit
 
     cr_typedoc:
         name: CR
-        uses: ./.github/workflows/typedoc.yml
+        uses: ./.github/workflows/cr_typedoc.yml
         needs: [ci_biome, ci_check, ci_knip, ci_test, ci_typos]
         secrets: inherit
         with:
