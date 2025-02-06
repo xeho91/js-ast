@@ -76,10 +76,6 @@ class Printer {
 	 * @type {Set<string>}
 	 */
 	#attributes = new Set();
-	/**
-	 * @type {boolean}
-	 */
-	#has_template_literal = false;
 
 	/**
 	 * @param {SupportedSvelteNode} node - Svelte or ESTree AST node
@@ -775,13 +771,12 @@ class Printer {
 				const { state } = context;
 				let stringified = state.#stringify_directive_name("style", name);
 				stringified += state.#stringify_directive_modifiers(modifiers);
-				if (value.type === "ExpressionTag") {
-					stringified += "=";
-					stringified += state.#serialize_attribute_like_text_or_expression_tag(value);
-				}
-				if (Array.isArray(value) && (value[0].type === "ExpressionTag" || value[0]?.type === "Text")) {
+				if (Array.isArray(value)) {
 					stringified += "=";
 					stringified += state.#serialize_attribute_like_text_or_expression_tag(value[0]);
+				} else if (typeof value !== "boolean" && value.type === "ExpressionTag") {
+					stringified += "=";
+					stringified += state.#serialize_attribute_like_text_or_expression_tag(value);
 				}
 				state.#attributes.add(stringified);
 			},
