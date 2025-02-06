@@ -62,7 +62,7 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm lint && test",
+		"prepublishOnly": "pnpm lint && pnpm test",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	},
