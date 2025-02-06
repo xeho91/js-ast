@@ -9,12 +9,18 @@ catalogs:
     '@types/estree':
       specifier: ~1.0.0
       version: 1.0.6
+    esrap:
+      specifier: ^1.4.0
+      version: 1.4.3
     svelte:
       specifier: ^5.0.0
       version: 5.19.7
     typescript:
       specifier: ^5.7.0
-      version: 5.7.2
+      version: 5.7.3
+    zimmerframe:
+      specifier: ^1.1.0
+      version: 1.1.2
 
 importers:
 
@@ -27,7 +33,7 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       '@changesets/cli':
-        specifier: ^2.27.12
+        specifier: ^2.27.0
         version: 2.27.12
       '@types/node':
         specifier: ^22.13.0
@@ -39,8 +45,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(vitest@3.0.5)
       knip:
-        specifier: ^5.43.6
-        version: 5.43.6(@types/node@22.13.1)(typescript@5.7.2)
+        specifier: ^5.43.0
+        version: 5.43.6(@types/node@22.13.1)(typescript@5.7.3)
       nx:
         specifier: ^20.4.0
         version: 20.4.0
@@ -49,50 +55,22 @@ importers:
         version: 14.2.4
       typedoc:
         specifier: ^0.27.0
-        version: 0.27.6(typescript@5.7.2)
+        version: 0.27.6(typescript@5.7.3)
       typedoc-plugin-coverage:
         specifier: ^3.4.0
-        version: 3.4.1(typedoc@0.27.6(typescript@5.7.2))
+        version: 3.4.1(typedoc@0.27.6(typescript@5.7.3))
       typedoc-plugin-mdn-links:
         specifier: ^4.0.0
-        version: 4.0.11(typedoc@0.27.6(typescript@5.7.2))
+        version: 4.0.11(typedoc@0.27.6(typescript@5.7.3))
       typescript:
         specifier: 'catalog:'
-        version: 5.7.2
+        version: 5.7.3
       vite:
         specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)(jiti@2.4.2)(yaml@2.6.1)
       vitest:
         specifier: ^3.0.5
         version: 3.0.5(@types/node@22.13.1)(@vitest/ui@3.0.5)(jiti@2.4.2)(yaml@2.6.1)
-
-  packages/js-ast-build: {}
-
-  packages/svelte-ast-build: {}
-
-  packages/svelte-ast-print:
-    dependencies:
-      esrap:
-        specifier: ^1.4.0
-        version: 1.4.3
-      svelte:
-        specifier: 'catalog:'
-        version: 5.19.7
-      zimmerframe:
-        specifier: ^1.1.0
-        version: 1.1.2
-    devDependencies:
-      '@types/estree':
-        specifier: 'catalog:'
-        version: 1.0.6
-      dedent:
-        specifier: ^1.5.0
-        version: 1.5.3
-      typescript:
-        specifier: 'catalog:'
-        version: 5.7.2
-
-  packages/ts-ast-build: {}
 
   pkgs/js-ast-build: {}
 
@@ -101,13 +79,13 @@ importers:
   pkgs/svelte-ast-print:
     dependencies:
       esrap:
-        specifier: ^1.4.0
+        specifier: 'catalog:'
         version: 1.4.3
       svelte:
         specifier: 'catalog:'
         version: 5.19.7
       zimmerframe:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.2
     devDependencies:
       '@types/estree':
@@ -116,9 +94,6 @@ importers:
       dedent:
         specifier: ^1.5.0
         version: 1.5.3
-      typescript:
-        specifier: 'catalog:'
-        version: 5.7.2
 
   pkgs/ts-ast-build: {}
 
@@ -1907,8 +1882,8 @@ packages:
     peerDependencies:
       typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x
 
-  typescript@5.7.2:
-    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -3234,7 +3209,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  knip@5.43.6(@types/node@22.13.1)(typescript@5.7.2):
+  knip@5.43.6(@types/node@22.13.1)(typescript@5.7.3):
     dependencies:
       '@nodelib/fs.walk': 3.0.1
       '@snyk/github-codeowners': 1.1.0
@@ -3251,7 +3226,7 @@ snapshots:
       smol-toml: 1.3.1
       strip-json-comments: 5.0.1
       summary: 2.1.0
-      typescript: 5.7.2
+      typescript: 5.7.3
       zod: 3.24.1
       zod-validation-error: 3.4.0(zod@3.24.1)
 
@@ -3788,24 +3763,24 @@ snapshots:
 
   type-fest@2.19.0: {}
 
-  typedoc-plugin-coverage@3.4.1(typedoc@0.27.6(typescript@5.7.2)):
+  typedoc-plugin-coverage@3.4.1(typedoc@0.27.6(typescript@5.7.3)):
     dependencies:
-      typedoc: 0.27.6(typescript@5.7.2)
+      typedoc: 0.27.6(typescript@5.7.3)
 
-  typedoc-plugin-mdn-links@4.0.11(typedoc@0.27.6(typescript@5.7.2)):
+  typedoc-plugin-mdn-links@4.0.11(typedoc@0.27.6(typescript@5.7.3)):
     dependencies:
-      typedoc: 0.27.6(typescript@5.7.2)
+      typedoc: 0.27.6(typescript@5.7.3)
 
-  typedoc@0.27.6(typescript@5.7.2):
+  typedoc@0.27.6(typescript@5.7.3):
     dependencies:
       '@gerrit0/mini-shiki': 1.24.4
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      typescript: 5.7.2
+      typescript: 5.7.3
       yaml: 2.6.1
 
-  typescript@5.7.2: {}
+  typescript@5.7.3: {}
 
   uc.micro@2.1.0: {}
 

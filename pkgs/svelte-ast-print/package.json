@@ -46,6 +46,7 @@
 	"scripts": {
 		"build": "pnpm run \"/^build:.*/\" ",
 		"build:doc": "typedoc",
+		"check": "tsc --noEmit",
 		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:doc": "rm -rf \"./docs\" ",
@@ -61,19 +62,17 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"lint:ts": "tsc --noEmit",
 		"prepublishOnly": "pnpm lint && test",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	},
 	"dependencies": {
-		"esrap": "^1.4.0",
-		"zimmerframe": "^1.1.0"
+		"esrap": "catalog:",
+		"zimmerframe": "catalog:"
 	},
 	"devDependencies": {
 		"@types/estree": "catalog:",
-		"dedent": "^1.5.0",
-		"typescript": "catalog:"
+		"dedent": "^1.5.0"
 	},
 	"peerDependencies": {
 		"svelte": "catalog:"
