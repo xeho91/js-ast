@@ -53,7 +53,7 @@ const BLOCK_NODE_NAMES = new Set(
  * @param {Node | AST.SvelteNode} node - Supported AST node to narrow down its inferred type
  * @returns {node is AST.Block}
  */
-export const is_block = (node) =>
+const is_block = (node) =>
 	BLOCK_NODE_NAMES
 		// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 		.has(node.type);
@@ -89,7 +89,7 @@ const CSS_AST_NODE_NAMES = new Set(
  * @param {Node | AST.SvelteNode} node - Supported AST node to narrow down its inferred type
  * @returns {boolean} // FIXME: There's an error when using `node is AST.CSS.Node`
  */
-export const is_css = (node) =>
+const is_css = (node) =>
 	CSS_AST_NODE_NAMES
 		// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 		.has(node.type);
@@ -149,7 +149,7 @@ const HTML_NODE_NAMES = new Set(
  * @param {Node | AST.SvelteNode} node
  * @returns {node is HtmlNode}
  */
-export const is_html = (node) =>
+const is_html = (node) =>
 	HTML_NODE_NAMES
 		// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 		.has(node.type);
@@ -177,7 +177,7 @@ const TAG_NODE_NAMES = new Set(
  * @param {Node | AST.SvelteNode} node - Supported AST node to narrow down its inferred type
  * @returns {node is AST.Tag}
  */
-export const is_tag = (node) =>
+const is_tag = (node) =>
 	TAG_NODE_NAMES
 		// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 		.has(node.type);
@@ -194,7 +194,7 @@ export const is_tag = (node) =>
  * @param {Node | AST.SvelteNode} node - Supported AST node to narrow down its inferred type
  * @returns {node is AST.TemplateNode}
  */
-export const is_template = (node) =>
+const is_template = (node) =>
 	node.type === "Root" ||
 	node.type === "Fragment" ||
 	is_attr_like(node) ||

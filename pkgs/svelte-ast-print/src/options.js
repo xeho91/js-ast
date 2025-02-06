@@ -20,7 +20,7 @@
 /**
  * @satisfies {IndentName}
  */
-export const DEFAULT_INDENT = "tab";
+const DEFAULT_INDENT = "tab";
 
 /**
  * Options related to formatting.
@@ -58,7 +58,7 @@ export const DEFAULT_INDENT = "tab";
 /**
  * @satisfies {RootOrder}
  */
-export const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
+const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
 
 /**
  * This class is for internal use only.
