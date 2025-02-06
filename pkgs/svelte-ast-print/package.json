@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "packages/svelte-ast-print"
+		"directory": "pkgs/svelte-ast-print"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [

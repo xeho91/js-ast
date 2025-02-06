@@ -87,11 +87,11 @@ Otherwise, consider [sponsoring me](https://github.com/sponsors/xeho91).
 [ESTree]: https://github.com/estree/estree
 [e18e]: https://github.com/e18e/e18e
 [ESM]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
-[`js-ast-build`]: ./packages/js-ast-build
-[`ts-ast-build`]: ./packages/ts-ast-build
-[`svelte-ast-build`]: ./packages/svelte-ast-build
+[`js-ast-build`]: ./pkgs/js-ast-build
+[`ts-ast-build`]: ./pkgs/ts-ast-build
+[`svelte-ast-build`]: ./pkgs/svelte-ast-build
+[`svelte-ast-print`]: ./pkgs/svelte-ast-print
 [`@swc/core`]: https://github.com/swc-project/swc
 [`svelte/compiler`]: https://github.com/sveltejs/svelte
 [`zimmerframe`]: https://github.com/Rich-Harris/zimmerframe
 [`esrap`]: https://github.com/sveltejs/esrap
-[`svelte-ast-print`]: ./packages/svelte-ast-print

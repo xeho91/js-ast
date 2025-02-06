@@ -23,7 +23,7 @@ const SHARED = {
 /** @see {@link https://vitest.dev/guide/workspace} */
 const config = defineWorkspace(
 	Iterator.from(
-		fs.globSync(path.resolve(__dirname, "packages", "*"), {
+		fs.globSync(path.resolve(__dirname, "pkgs", "*"), {
 			withFileTypes: true,
 		}),
 	)

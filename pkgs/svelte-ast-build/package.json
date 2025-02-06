@@ -1,10 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/package",
-	"name": "js-ast-build",
+	"name": "svelte-ast-build",
 	"version": "0.0.0",
 	"type": "module",
-	"description": "Build JavaScript AST nodes conveniently.",
-	"keywords": ["ast", "build", "javascript"],
+	"description": "Build Svelte AST nodes conveniently.",
+	"keywords": ["ast", "build", "svelte"],
 	"license": "MIT",
 	"author": {
 		"name": "Mateusz Kadlubowski",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "packages/js-ast-build"
+		"directory": "pkgs/svelte-ast-build"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [

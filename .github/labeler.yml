@@ -3,22 +3,22 @@
           - any-glob-to-any-file:
                 - ".github/workflows/**"
 
-"package:js-ast-build":
+"pkg:js-ast-build":
     - changed-files:
           - any-glob-to-any-file:
-                - "packages/js-ast-build/**"
+                - "pkgs/js-ast-build/**"
 
-"package:ts-ast-build":
+"pkg:ts-ast-build":
     - changed-files:
           - any-glob-to-any-file:
-                - "packages/ts-ast-build/**"
+                - "pkgs/ts-ast-build/**"
 
-"package:svelte-ast-build":
+"pkg:svelte-ast-build":
     - changed-files:
           - any-glob-to-any-file:
-                - "packages/svelte-ast-build/**"
+                - "pkgs/svelte-ast-build/**"
 
-"package:svelte-ast-print":
+"pkg:svelte-ast-print":
     - changed-files:
           - any-glob-to-any-file:
-                - "packages/svelte-ast-print/**"
+                - "pkgs/svelte-ast-print/**"
