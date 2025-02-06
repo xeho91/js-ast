@@ -42,5 +42,28 @@
 			"default": "./src/mod.js"
 		},
 		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"build": "pnpm run \"/^build:.*/\" ",
+		"build:doc": "typedoc",
+		"check": "tsc --noEmit",
+		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
+		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
+		"clean:doc": "rm -rf \"./docs\" ",
+		"clean:test": "rm -rf \"./coverage\" ",
+		"dev": "pnpm run \"/^dev:.*/\" ",
+		"dev:doc": "typedoc --watch",
+		"dev:test": "pnpm vitest watch --passWithNoTests --ui",
+		"fix": "pnpm run \"/^fix:.*/\" ",
+		"fix:biome": "biome check . --verbose --write",
+		"fix:format": "biome format . --verbose --write",
+		"fix:js": "biome lint . --verbose --fix --unsafe",
+		"lint": "pnpm run \"/^lint:.*/\" ",
+		"lint:biome": "biome check . --verbose",
+		"lint:format": "biome format . --verbose",
+		"lint:js": "biome lint . --verbose",
+		"prepublishOnly": "pnpm lint && pnpm test",
+		"serve:doc": "serve \"./docs\" ",
+		"test": "vitest run . --passWithNoTests"
 	}
 }
