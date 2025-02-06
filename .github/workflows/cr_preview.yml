@@ -20,6 +20,9 @@ jobs:
             # https://github.com/actions/checkout
             - uses: actions/checkout@v4
 
+            # TODO: Remove this step once this issue is resolved: https://github.com/pnpm/pnpm/issues/9029
+            - run: npm install --global corepack
+
             # https://nodejs.org/api/corepack.html
             - name: Enable corepack (for pnpm)
               run: corepack enable

@@ -36,15 +36,8 @@ jobs:
             # https://github.com/actions/checkout
             - uses: actions/checkout@v4
 
-            # https://github.com/actions/cache
-            # https://turbo.build/repo/docs/guides/ci-vendors/github-actions#caching-with-github-actionscache
-            - name: Cache turbo
-              uses: actions/cache@v4
-              with:
-                  path: .turbo
-                  key: ${{ runner.os }}-turbo-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-turbo-
+            # TODO: Remove this step once this issue is resolved: https://github.com/pnpm/pnpm/issues/9029
+            - run: npm install --global corepack
 
             # https://nodejs.org/api/corepack.html
             - name: Enable corepack (for pnpm)
