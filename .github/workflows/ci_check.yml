@@ -40,5 +40,5 @@ jobs:
                   pnpm install
                   --frozen-lockfile
 
-            - name: Lint with TypeScript type-checker using Turbo
-              run: pnpm turbo run check
+            - name: Check types with TypeScript recursively
+              run: pnpm run --recursive check

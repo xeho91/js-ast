@@ -64,7 +64,7 @@ jobs:
                   --frozen-lockfile
 
             - name: Build documentation
-              run: pnpm turbo doc
+              run: pnpm "build:doc"
 
             # https://github.com/rossjrw/pr-preview-action
             - name: Create PR preview on the GitHub Pages

@@ -48,9 +48,6 @@ jobs:
                   pnpm install
                   --frozen-lockfile
 
-            - name: Build workspace packages with turbo
-              run: pnpm turbo build:pkg
-
             - name: Publish packages preview with pkg-pr-new CLI
               run: pnpx pkg-pr-new publish --pnpm './packages/*'
               if: ${{ steps.changed-files.outputs.all_changed_files_count > 0 }}
