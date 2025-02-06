@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/package",
 	"name": "js-ast-build",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"type": "module",
 	"description": "Build JavaScript AST nodes conveniently.",
 	"keywords": ["ast", "build", "javascript"],
