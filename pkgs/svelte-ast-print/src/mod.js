@@ -1,19 +1,18 @@
 /**
  * @import * as EstreeAST from "estree";
  * @import { AST as SvelteAST } from "svelte/compiler";
+ * @import { SvelteOnlyNode } from "svelte-ast-build";
  * @import { Context } from "zimmerframe";
- *
- * @import { Node, SupportedSvelteNode } from "./node.js";
  */
 
 import { print as print_es } from "esrap";
+import { isAttributeLike, isElementLike, isSvelteOnly } from "svelte-ast-build";
 import { walk } from "zimmerframe";
 
-import { is_attr_like, is_element_like, is_svelte } from "./node.js";
 import { Options } from "./options.js";
 
 /**
- * Print AST {@link SupportedSvelteNode} as a string.
+ * Print AST {@link SvelteOnlyNode} as a string.
  * Aka parse in reverse.
  *
  *  ## Usage
@@ -46,18 +45,18 @@ import { Options } from "./options.js";
  *  const output = print(ast); // AST is now in a stringified code syntax! 🎉
  *  ```
  *
- * @param {Node} node - Svelte or ESTree AST node
+ * @param {SvelteOnlyNode} node - Svelte or ESTree AST node
  * @param {Partial<ConstructorParameters<typeof Options>[0]>} options - printing options
  * @returns {string} Stringified Svelte AST node
  */
 export function print(node, options = {}) {
-	if (!is_svelte(node)) return print_es(node).code;
+	if (!isSvelteOnly(node)) return print_es(node).code;
 	return new Printer(node, new Options(options)).toString();
 }
 
 class Printer {
 	/**
-	 * @type {SupportedSvelteNode & ({})}
+	 * @type {SvelteOnlyNode}
 	 */
 	#node;
 	/**
@@ -79,7 +78,7 @@ class Printer {
 	#attributes = new Set();
 
 	/**
-	 * @param {SupportedSvelteNode} node - Svelte or ESTree AST node
+	 * @param {SvelteOnlyNode} node - Svelte or ESTree AST node
 	 * @param {Options} options - transformed options
 	 */
 	constructor(node, options) {
@@ -92,7 +91,7 @@ class Printer {
 	 * @returns {string}
 	 */
 	toString() {
-		if (is_attr_like(this.#node)) {
+		if (isAttributeLike(this.#node)) {
 			return this.#stringified_attributes;
 		}
 		return this.#output;
@@ -211,7 +210,7 @@ class Printer {
 	#has_fragment_element_like_node(fragment) {
 		const { nodes } = fragment;
 		for (const node of nodes) {
-			if (is_element_like(node)) return true;
+			if (isElementLike(node)) return true;
 			if (node.type === "Text" && this.#is_text_new_line_or_indents_only(node)) continue;
 			break;
 		}
@@ -273,7 +272,7 @@ class Printer {
 
 	/**
 	 * @param {SvelteAST.Fragment} node
-	 * @param {Context<Node, typeof this>} context
+	 * @param {Context<SvelteOnlyNode, typeof this>} context
 	 * @returns {void}
 	 */
 	#print_block_fragment(node, context) {
@@ -327,7 +326,7 @@ class Printer {
 
 	/**
 	 * @param {SvelteAST.Fragment} node
-	 * @param {Context<Node, typeof this>} context
+	 * @param {Context<SvelteOnlyNode, typeof this>} context
 	 * @returns {void}
 	 */
 	#print_element_like_fragment(node, context) {
@@ -338,7 +337,7 @@ class Printer {
 
 	/**
 	 * @param {SvelteAST.ElementLike} node
-	 * @param {Context<Node, typeof this>} context
+	 * @param {Context<SvelteOnlyNode, typeof this>} context
 	 * @returns {void}
 	 */
 	#print_element_like(node, context) {
