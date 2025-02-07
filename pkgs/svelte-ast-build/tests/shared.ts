@@ -2,7 +2,7 @@ import type * as JS from "estree";
 import * as compiler from "svelte/compiler";
 import { type Context, walk } from "zimmerframe";
 
-import type { SvelteOnlyNode } from "../src/svelte.js";
+import type { SvelteOnlyNode } from "../src/node.js";
 
 export function parse_and_extract<T extends SvelteOnlyNode | JS.BaseNode>(code: string, name: T["type"]): T {
 	const parsed = parse<T>(code);
