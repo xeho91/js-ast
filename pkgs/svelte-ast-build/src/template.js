@@ -7,6 +7,8 @@
  * @import { AST } from "svelte/compiler";
  */
 
+import { is_base_node } from "./_shared.js";
+
 import { TYPES_ATTRIBUTE_LIKE } from "./attribute.js";
 import { TYPES_BLOCK } from "./block.js";
 import { TYPES_ELEMENT_LIKE } from "./element.js";
@@ -46,6 +48,7 @@ export const TYPES_TEMPLATE = new Set(
  */
 export function isTemplate(node) {
 	return (
+		is_base_node(node) &&
 		TYPES_TEMPLATE
 			// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 			.has(node)

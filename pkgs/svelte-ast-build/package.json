@@ -41,9 +41,6 @@
 			"types": "./types.d.ts",
 			"default": "./src/mod.js"
 		},
-		"./*": {
-			"default": "./src/*.js"
-		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {

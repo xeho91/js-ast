@@ -3,6 +3,8 @@
  * @module
  */
 
+import { is_base_node } from "./_shared.js";
+
 /**
  * @import { AST } from "svelte/compiler";
  */
@@ -14,12 +16,10 @@
 export const TYPE_SVELTE_OPTIONS = "SvelteOptions";
 
 /**
- * @param {AST.BaseNode | AST.SvelteOptionsRaw | AST.SvelteOptions} node - Supported AST node to narrow down its inferred type
- * @returns {node is AST.SvelteOptionsRaw}
+ * @param {unknown} node - Supported AST node to narrow down its inferred type
+ * @returns {node is AST.SvelteOptionsRaw & AST.SvelteOptions}
  * @__NO_SIDE_EFFECTS__
- * FIXME: Broken
  */
 export function isSvelteOptions(node) {
-	// @ts-expect-error - FIXME: It's confusing, why we have SvelteOptionsRaw and SvelteOptions?
-	return node.type === TYPE_SVELTE_OPTIONS;
+	return is_base_node(node) && node.type === TYPE_SVELTE_OPTIONS;
 }

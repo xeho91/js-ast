@@ -4,9 +4,10 @@
  */
 
 /**
- * @import * as JS from "estree";
  * @import { AST } from "svelte/compiler";
  */
+
+import { is_base_node } from "../_shared.js";
 
 /**
  * Reusable constant for `<style>` AST node type.
@@ -15,12 +16,12 @@
 export const TYPE_STYLE_SHEET = "StyleSheet";
 
 /**
- * @param {AST.BaseNode} node - Supported AST node to narrow down its inferred type
+ * @param {unknown} node - Supported AST node to narrow down its inferred type
  * @returns {node is AST.CSS.StyleSheet}
  * @__NO_SIDE_EFFECTS__
  */
 export function isStyleSheet(node) {
-	return node.type === TYPE_STYLE_SHEET;
+	return is_base_node(node) && node.type === TYPE_STYLE_SHEET;
 }
 
 /**

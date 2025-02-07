@@ -7,7 +7,6 @@
  * ```js
  * import * as sv from "svelte-ast-build";
  * ```
- *
  */
 
 export * from "./attribute.js";

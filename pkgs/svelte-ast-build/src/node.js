@@ -8,6 +8,7 @@
  * @import { AST } from "svelte/compiler";
  */
 
+import { is_base_node } from "./_shared.js";
 import { TYPE_CSS } from "./css/mod.js";
 import { TYPE_FRAGMENT } from "./fragment.js";
 import { TYPE_SVELTE_OPTIONS } from "./options.js";
@@ -35,6 +36,7 @@ export const TYPES_SVELTE = new Set(
  */
 export function isNode(node) {
 	return (
+		is_base_node(node) &&
 		TYPES_SVELTE
 			// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 			.has(node.type)
@@ -67,6 +69,7 @@ export const TYPES_SVELTE_ONLY = new Set(
  */
 export function isSvelteOnly(node) {
 	return (
+		is_base_node(node) &&
 		TYPES_SVELTE_ONLY
 			// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 			.has(node.type)

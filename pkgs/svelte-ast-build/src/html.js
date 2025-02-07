@@ -7,6 +7,8 @@
  * @import { AST } from "svelte/compiler";
  */
 
+import { is_base_node } from "./_shared.js";
+
 /**
  * @typedef {AST.Comment | AST.Text} HTMLNode AST nodes related to native HTML.
  */
@@ -30,12 +32,13 @@ export const TYPES_HTML = new Set([
  * - text that is included between HTML tags - {@link AST.Text}
  * - HTML comment - {@link AST.Comment}
  *
- * @param {AST.BaseNode} node
+ * @param {unknown} node
  * @returns {node is HTMLNode}
  * @__NO_SIDE_EFFECTS__
  */
 export function isHTML(node) {
 	return (
+		is_base_node(node) &&
 		TYPES_HTML
 			// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
 			.has(node.type)
