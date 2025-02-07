@@ -11,7 +11,7 @@
  * @internal
  * Determine if the input fits the AST node object schema.
  * @param {unknown} input
- * @returns {node is AST.BaseNode}
+ * @returns {input is AST.BaseNode}
  * @__NO_SIDE_EFFECTS__
  */
 export function is_base_node(input) {
