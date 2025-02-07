@@ -1,7 +1,7 @@
 import dedent from "dedent";
 import type * as JS from "estree";
-import * as compiler from "svelte/compiler";
 import type { SvelteOnlyNode } from "svelte-ast-build";
+import * as compiler from "svelte/compiler";
 import { type Context, walk } from "zimmerframe";
 
 export function parse_and_extract<T extends SvelteOnlyNode | JS.BaseNode>(code: string, name: T["type"]): T {
