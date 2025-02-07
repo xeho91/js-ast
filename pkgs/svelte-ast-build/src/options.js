@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.SvelteOptions}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 

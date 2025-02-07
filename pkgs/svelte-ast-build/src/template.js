@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.TemplateNode}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 
@@ -31,9 +36,9 @@ export const TYPES_TEMPLATE = new Set(
  *
  * Those are:
  *
- * - root - what you obtain from the results of from using {@link parse}
- * - text that is included between HTML tags - {@link AST.Text}
- * - HTML comment - {@link AST.Comment}
+ * - root - what you obtain from the results of from using `parse()` from `"svelte/compiler"`,
+ * - text that is included between HTML tags - {@link AST.Text},
+ * - HTML comment - {@link AST.Comment}.
  *
  * @param {AST.BaseNode} node - Supported AST node to narrow down its inferred type
  * @returns {node is AST.TemplateNode}

@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.SvelteNode}.
+ * @module
+ */
+
+/**
  * @import * as JS from "estree";
  * @import { AST } from "svelte/compiler";
  */
@@ -28,7 +33,7 @@ export const TYPES_SVELTE = new Set(
  * @returns {node is AST.SvelteNode}
  * @__NO_SIDE_EFFECTS__
  */
-export function isSvelte(node) {
+export function isNode(node) {
 	return (
 		TYPES_SVELTE
 			// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string

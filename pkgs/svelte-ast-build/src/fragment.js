@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.Fragment}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 

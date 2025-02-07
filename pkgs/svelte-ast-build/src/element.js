@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.ElementLike}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 

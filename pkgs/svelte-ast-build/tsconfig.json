@@ -17,5 +17,6 @@
 		"target": "ESNext",
 		"verbatimModuleSyntax": true
 	},
+	"exclude": ["src/**/*.ts", "tests/"],
 	"include": ["src/"]
 }

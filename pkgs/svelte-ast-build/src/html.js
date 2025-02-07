@@ -1,4 +1,9 @@
 /**
+ * Related to {@link HTMLNode}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 

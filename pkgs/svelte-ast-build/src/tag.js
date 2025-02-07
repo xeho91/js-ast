@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.Tag}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 

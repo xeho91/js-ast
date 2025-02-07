@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.Block}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 
@@ -17,7 +22,7 @@ export const TYPES_BLOCK = new Set([
 	"SnippetBlock",
 ]);
 /**
- * Type check guard to check if provided AST node is a logic block {@link Block}.
+ * Type check guard to check if provided AST node is a logic block {@link AST.Block}.
  *
  * @see {@link https://svelte.dev/docs/logic-blocks}
  *

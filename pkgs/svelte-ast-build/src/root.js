@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.Root}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 
