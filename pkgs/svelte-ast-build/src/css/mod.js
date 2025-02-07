@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.CSS.Node}.
+ * @module
+ */
+
+/**
  * @import { AST } from "svelte/compiler";
  */
 

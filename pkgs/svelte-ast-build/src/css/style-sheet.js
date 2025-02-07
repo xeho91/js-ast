@@ -1,4 +1,9 @@
 /**
+ * Related to {@link AST.CSS.StyleSheet}.
+ * @module
+ */
+
+/**
  * @import * as JS from "estree";
  * @import { AST } from "svelte/compiler";
  */
