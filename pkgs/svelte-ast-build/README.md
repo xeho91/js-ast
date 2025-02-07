@@ -6,7 +6,7 @@ Utilities to work and build [Svelte] syntax [AST] nodes conveniently.
 
 ## Usage
 
-[See documentation](https://xeho91.github.io/js-ast/functions/svelte-ast-build.mod.print.html).
+[See documentation](https://xeho91.github.io/js-ast/modules/svelte-ast-print.mod.html).
 
 ---
 
@@ -17,5 +17,4 @@ Mateusz "[xeho91](https://github.com/xeho91)" Kadlubowski
 <!-- LINKS -->
 
 [AST]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
-[DX]: https://en.wikipedia.org/wiki/User_experience#Developer_experience
 [Svelte]: https://github.com/sveltejs/svelte
