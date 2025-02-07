@@ -68,6 +68,7 @@
 	},
 	"dependencies": {
 		"esrap": "catalog:",
+		"svelte-ast-build": "workspace:*",
 		"zimmerframe": "catalog:"
 	},
 	"devDependencies": {
