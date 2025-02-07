@@ -35,11 +35,14 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["src/", "types.d.ts"],
+	"files": ["src/", "!src/**/*.test.ts", "types.d.ts"],
 	"exports": {
 		".": {
 			"types": "./types.d.ts",
 			"default": "./src/mod.js"
+		},
+		"./*": {
+			"default": "./src/*.js"
 		},
 		"./package.json": "./package.json"
 	},
@@ -65,5 +68,12 @@
 		"prepublishOnly": "pnpm lint && pnpm test",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
+	},
+	"devDependencies": {
+		"@types/estree": "catalog:",
+		"zimmerframe": "catalog:"
+	},
+	"peerDependencies": {
+		"svelte": "catalog:"
 	}
 }
