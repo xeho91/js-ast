@@ -1,15 +1,17 @@
 /**
- * @import * as EstreeAST from "estree";
- * @import { AST as SvelteAST } from "svelte/compiler";
+ * @import * as JS from "estree";
+ * @import { AST as SV } from "svelte/compiler";
  * @import { SvelteOnlyNode } from "svelte-ast-build";
  * @import { Context } from "zimmerframe";
+ *
+ * @import { PrintOptions } from "./_options.js";
  */
 
 import { print as print_es } from "esrap";
 import { isAttributeLike, isElementLike, isSvelteOnly } from "svelte-ast-build";
 import { walk } from "zimmerframe";
 
-import { Options } from "./options.js";
+import { Options } from "./_options.js";
 
 /**
  * Print AST {@link SvelteOnlyNode} as a string.
@@ -45,8 +47,9 @@ import { Options } from "./options.js";
  *  const output = print(ast); // AST is now in a stringified code syntax! 🎉
  *  ```
  *
- * @param {SvelteOnlyNode} node - Svelte or ESTree AST node
- * @param {Partial<ConstructorParameters<typeof Options>[0]>} options - printing options
+ * @template {SvelteOnlyNode | JS.Node} N
+ * @param {N} node - Svelte or ESTree AST node
+ * @param {Partial<PrintOptions<N>>} options - printing options
  * @returns {string} Stringified Svelte AST node
  */
 export function print(node, options = {}) {
@@ -192,7 +195,7 @@ class Printer {
 	#was_last_text_indent_or_space_only = true;
 
 	/**
-	 * @param {SvelteAST.Text} node
+	 * @param {SV.Text} node
 	 * @returns {boolean}
 	 */
 	#is_text_new_line_or_indents_only(node) {
@@ -204,7 +207,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.Fragment} fragment
+	 * @param {SV.Fragment} fragment
 	 * @returns {boolean}
 	 */
 	#has_fragment_element_like_node(fragment) {
@@ -218,7 +221,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.Fragment} fragment
+	 * @param {SV.Fragment} fragment
 	 * @returns {boolean}
 	 */
 	#is_fragment_empty(fragment) {
@@ -271,7 +274,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.Fragment} node
+	 * @param {SV.Fragment} node
 	 * @param {Context<SvelteOnlyNode, typeof this>} context
 	 * @returns {void}
 	 */
@@ -325,7 +328,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.Fragment} node
+	 * @param {SV.Fragment} node
 	 * @param {Context<SvelteOnlyNode, typeof this>} context
 	 * @returns {void}
 	 */
@@ -336,7 +339,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.ElementLike} node
+	 * @param {SV.ElementLike} node
 	 * @param {Context<SvelteOnlyNode, typeof this>} context
 	 * @returns {void}
 	 */
@@ -359,7 +362,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.ExpressionTag} node
+	 * @param {SV.ExpressionTag} node
 	 * @returns {string}
 	 */
 	#serialize_expression_tag(node) {
@@ -368,7 +371,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {SvelteAST.Text | SvelteAST.ExpressionTag} node
+	 * @param {SV.Text | SV.ExpressionTag} node
 	 * @returns {string}
 	 */
 	#serialize_attribute_like_text_or_expression_tag(node) {
@@ -383,7 +386,7 @@ class Printer {
 	 * @typedef StringifyDirectiveParams
 	 * @property {"animate" | "bind" | "class" | "let" | "on" | "style" | "in" | "out" | "transition" | "use"} directive
 	 * @property {string} name
-	 * @property {EstreeAST.Expression | EstreeAST.MemberExpression | null} expression
+	 * @property {JS.Expression | JS.MemberExpression | null} expression
 	 * @property {string[]} [modifiers]
 	 */
 
@@ -428,7 +431,7 @@ class Printer {
 	}
 
 	/**
-	 * @param {true | SvelteAST.ExpressionTag | (SvelteAST.Text | SvelteAST.ExpressionTag)[]} node
+	 * @param {true | SV.ExpressionTag | (SV.Text | SV.ExpressionTag)[]} node
 	 * @param {string} name
 	 * @returns {boolean}
 	 */
@@ -518,7 +521,7 @@ class Printer {
 				stop();
 			},
 
-			Script(/** @type {SvelteAST.Script} */ node, context) {
+			Script(/** @type {SV.Script} */ node, context) {
 				const { attributes, content } = node;
 				const { state, visit } = context;
 				state.#print_opening_new_line();
@@ -1018,7 +1021,7 @@ class Printer {
 				const name = "if";
 				const { alternate, consequent, elseif, test } = node;
 				const { state } = context;
-				/** @param {SvelteAST.Fragment} node */
+				/** @param {SV.Fragment} node */
 				const has_alternate_else_if = (node) => node.nodes.some((n) => n.type === "IfBlock");
 				if (elseif) {
 					state.#depth--;
@@ -1266,7 +1269,7 @@ class Printer {
 			 * <svelte:options option={value} />
 			 * ```
 			 *
-			 * WARN: This one is different, because it can be extracted only from {@link SvelteAST.Root}
+			 * WARN: This one is different, because it can be extracted only from {@link SV.Root}
 			 */
 			SvelteOptions(node, context) {
 				const { attributes, name } = node;

@@ -1,5 +1,7 @@
 /**
- * @import { AST } from "svelte/compiler";
+ * @import * as JS from "estree";
+ * @import { AST as SV } from "svelte/compiler";
+ * @import { SvelteOnlyNode } from "svelte-ast-build";
  *
  * @import { print } from "./mod.js";
  */
@@ -7,9 +9,10 @@
 /**
  * Options for {@link print} defined by user.
  *
+ * @template {SvelteOnlyNode | JS.Node} [N=SvelteOnlyNode | JS.Node]
  * @typedef PrintOptions
- * @property {Partial<FormatOptions>} [format] - formatting options
- * @property {Partial<RootOptions>} [root] - Svelte AST node {@link AST.Root} based options
+ * @prop {Partial<FormatOptions>} [format] - formatting options
+ * @prop {N extends SV.Root ? Partial<RootOptions> : never} [root] - Svelte SV node {@link SV.Root} based options
  * @internal
  */
 
@@ -30,36 +33,35 @@ const DEFAULT_INDENT = "tab";
  * Provided for building a stable API - gives an space for expansion on future improvements/features.
  *
  * @typedef FormatOptions
- * @property {IndentName} [indent] - defaults to {@link DEFAULT_INDENT}
+ * @prop {IndentName} [indent] - defaults to {@link DEFAULT_INDENT}
  * @internal
  */
 
 /**
- * @typedef {Extract<keyof AST.Root, "css" | "fragment" | "instance" | "module" | "options">} RootNode
+ * @typedef {Extract<keyof SV.Root, "css" | "fragment" | "instance" | "module" | "options">} RootNode
  * @internal
  */
 
 /**
- * Specified order of {@link Root} child AST nodes to print out.
+ * Specified order of {@link Root} child SV nodes to print out.
  *
  * ## Legend
  *
- * - `"options"` - {@link AST.SvelteOptionsRaw}
- * - `"module"` - {@link AST.Script}
- * - `"instance"` - {@link AST.Script}
- * - `"fragment"` - {@link AST.Fragment}
- * - `"css"` - {@link AST.CSS.StyleSheet}
+ * - `"options"` - {@link SV.SvelteOptions}
+ * - `"module"` - {@link SV.Script}
+ * - `"instance"` - {@link SV.Script}
+ * - `"fragment"` - {@link SV.Fragment}
+ * - `"css"` - {@link SV.CSS.StyleSheet}
  *
  * @typedef {[RootNode, RootNode, RootNode, RootNode, RootNode]} RootOrder
  * @internal
  */
 
-// TODO: Use generic type parameter, so we use it only when passed node is {@link Root}
 /**
- * Options related to {@link Root} Svelte AST node.
- * @typedef RootOptions
- * @property {RootOrder} [order] - defaults to {@link DEFAULT_ORDER}
  * @internal
+ * Options related to {@link Root} Svelte SV node.
+ * @typedef RootOptions
+ * @prop {RootOrder} [order] - defaults to {@link DEFAULT_ORDER}
  */
 
 /**
@@ -70,10 +72,10 @@ const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "f
 
 /**
  * This class is for internal use only.
- * Give sa a better control on transforming passed options to the second argument of {@link print}
+ * Give sa a better control on transforming passed options to the second argument of {@link print}.
  *
- * @private
  * @internal
+ * @template {SvelteOnlyNode | JS.Node} [N=SvelteOnlyNode | JS.Node]
  */
 export class Options {
 	static INDENT = new Map(
@@ -85,17 +87,18 @@ export class Options {
 	);
 
 	/**
-	 * @type {PrintOptions} raw options - _(before transformation)_ - for better DX
+	 * @type {PrintOptions<N>} raw options - _(before transformation)_ - for better DX
 	 */
 	#raw;
 
 	/**
-	 * @param {PrintOptions} raw - provided options by user - before transformation
+	 * @param {PrintOptions<N>} raw - provided options by user - before transformation
 	 */
 	constructor(raw) {
 		this.#raw = raw;
 	}
 
+	/** @returns {typeof Options.INDENT extends Map<infer _K, infer V> ? V : never} */
 	get indent() {
 		const { format } = this.#raw;
 		const transformed = Options.INDENT.get(format?.indent ?? DEFAULT_INDENT);
@@ -108,7 +111,6 @@ export class Options {
 	/** @type {RootOrder} */
 	get order() {
 		const { root } = this.#raw;
-
 		return root?.order ?? DEFAULT_ORDER;
 	}
 }
