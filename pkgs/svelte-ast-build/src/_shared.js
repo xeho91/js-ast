@@ -8,6 +8,7 @@
  */
 
 /**
+ * @internal
  * Determine if the input fits the AST node object schema.
  * @param {unknown} input
  * @returns {node is AST.BaseNode}
