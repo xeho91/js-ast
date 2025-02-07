@@ -77,7 +77,18 @@ importers:
 
   pkgs/js-ast-build: {}
 
-  pkgs/svelte-ast-build: {}
+  pkgs/svelte-ast-build:
+    dependencies:
+      svelte:
+        specifier: 'catalog:'
+        version: 5.19.7
+    devDependencies:
+      '@types/estree':
+        specifier: 'catalog:'
+        version: 1.0.6
+      zimmerframe:
+        specifier: 'catalog:'
+        version: 1.1.2
 
   pkgs/svelte-ast-print:
     dependencies:
