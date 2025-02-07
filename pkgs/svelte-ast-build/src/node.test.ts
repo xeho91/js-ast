@@ -3,19 +3,19 @@ import { describe, it } from "vitest";
 
 import { parse_and_extract } from "../tests/shared.js";
 
-import { isSvelte, isSvelteOnly } from "./svelte.js";
+import { isNode, isSvelteOnly } from "./node.js";
 
-describe(isSvelte.name, () => {
+describe(isNode.name, () => {
 	it("returns true for Svelte node", ({ expect }) => {
 		const code = "<div>content</div>";
 		const node = parse_and_extract<AST.RegularElement>(code, "RegularElement");
-		expect(isSvelte(node)).toBe(true);
+		expect(isNode(node)).toBe(true);
 	});
 
 	it("returns true for style node", ({ expect }) => {
 		const code = "<style>div { color: red; }</style>";
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
-		expect(isSvelte(node)).toBe(true);
+		expect(isNode(node)).toBe(true);
 	});
 });
 

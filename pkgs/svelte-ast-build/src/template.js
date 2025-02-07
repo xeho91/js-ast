@@ -51,6 +51,6 @@ export function isTemplate(node) {
 		is_base_node(node) &&
 		TYPES_TEMPLATE
 			// @ts-expect-error - WARN: `Set.prototype.has` doesn't allow loose string
-			.has(node)
+			.has(node.type)
 	);
 }
