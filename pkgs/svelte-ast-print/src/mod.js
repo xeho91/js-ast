@@ -4,47 +4,45 @@
  * @import { SvelteOnlyNode } from "svelte-ast-build";
  * @import { Context } from "zimmerframe";
  *
- * @import { PrintOptions } from "./_options.js";
+ * @import { PrintOptions } from "./_option.js";
  */
 
 import { print as print_es } from "esrap";
 import { isAttributeLike, isElementLike, isSvelteOnly } from "svelte-ast-build";
 import { walk } from "zimmerframe";
 
-import { Options } from "./_options.js";
+import { Options } from "./_option.js";
 
 /**
  * Print AST {@link SvelteOnlyNode} as a string.
  * Aka parse in reverse.
  *
- *  ## Usage
+ * @example Usage
  *
- *  ```ts
- *  import { parse } from "svelte/compiler";
- *  import { print } from "svelte-ast-print";
+ * ```ts
+ * import { parse } from "svelte/compiler";
+ * import { print } from "svelte-ast-print";
  *
- *  const input = `
- *  <script>
+ * const input = `
+ * <script>
  *  	export let x;
  *  	export let y;
- *  </script>
+ * </script>
  *
- *  <slot {x} {y} />
- *  `;
+ * <slot {x} {y} />
+ * `;
  *
- *  let ast = parse(input, { modern: true });
- *  // !!!!!!!!!!!!!!!!!!!!!!!
- *  //                     👆 Only modern is supported.
- *  //                        In Svelte `v5` by default is 'false'.
- *  //                        Is it planned to be 'true' from `v6`.
- *  // !!!!!!!!!!!!!!!!!!!!!!!
+ * let ast = parse(input, { modern: true });
+ * //                     👆 Only modern is supported.
+ * //                        In Svelte `v5` by default is 'false'.
+ * //                        Is it planned to be 'true' from `v6`.
  *
- *  // ...
- *  // Do some modifications on this AST...
- *  // e.g. transform `<slot />` to `{@render children()}`
- *  // ...
+ * // ...
+ * // Do some modifications on this AST...
+ * // e.g. transform `<slot />` to `{@render children()}`
+ * // ...
  *
- *  const output = print(ast); // AST is now in a stringified code syntax! 🎉
+ * const output = print(ast); // AST is now in a stringified code syntax! 🎉
  *  ```
  *
  * @template {SvelteOnlyNode | JS.Node} N
@@ -521,7 +519,7 @@ class Printer {
 				stop();
 			},
 
-			Script(/** @type {SV.Script} */ node, context) {
+			Script(node, context) {
 				const { attributes, content } = node;
 				const { state, visit } = context;
 				state.#print_opening_new_line();

@@ -1,11 +1,11 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../../shared.ts";
+import { parse_and_extract } from "../../tests/shared.ts";
 
-import { print } from "svelte-ast-print";
+import { printCSSStyleSheet } from "./mod.js";
 
-describe("AST.CSS.StyleSheet", () => {
+describe(printCSSStyleSheet.name, () => {
 	it("it prints correctly attributes", ({ expect }) => {
 		const code = `
 				<style lang="sass">
@@ -13,7 +13,7 @@ describe("AST.CSS.StyleSheet", () => {
 				</style>
 			`;
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printCSSStyleSheet(node).toString()).toMatchInlineSnapshot(`
 				"<style lang="sass">
 
 				</style>"
@@ -49,7 +49,7 @@ describe("AST.CSS.StyleSheet", () => {
 				</style>
 			`;
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printCSSStyleSheet(node).toString()).toMatchInlineSnapshot(`
 			"<style>
 				@layer base {
 					:root {

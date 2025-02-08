@@ -2,49 +2,31 @@
  * @import * as JS from "estree";
  * @import { AST as SV } from "svelte/compiler";
  * @import { SvelteOnlyNode } from "svelte-ast-build";
- *
- * @import { print } from "./mod.js";
  */
 
 /**
- * Options for {@link print} defined by user.
- *
- * @template {SvelteOnlyNode | JS.Node} [N=SvelteOnlyNode | JS.Node]
- * @typedef PrintOptions
+ * @typedef PrintOptions Options for printing defined by user.
  * @prop {Partial<FormatOptions>} [format] - formatting options
- * @prop {N extends SV.Root ? Partial<RootOptions> : never} [root] - Svelte SV node {@link SV.Root} based options
- * @internal
+ * @prop {Partial<RootOptions>} [root] - Svelte SV node {@link SV.Root} based options
  */
 
 /**
  * Name _(alias)_ for indentation type. This package will automatically determine a desired indent.
  * @typedef {typeof Options.INDENT extends Map<infer K, infer _V> ? K : never} IndentName
- * @internal
  */
 
 /**
- * @satisfies {IndentName}
- * @internal
- */
-const DEFAULT_INDENT = "tab";
-
-/**
- * Options related to formatting.
  * Provided for building a stable API - gives an space for expansion on future improvements/features.
  *
- * @typedef FormatOptions
+ * @typedef FormatOptions Options related to formatting.
  * @prop {IndentName} [indent] - defaults to {@link DEFAULT_INDENT}
- * @internal
  */
 
 /**
  * @typedef {Extract<keyof SV.Root, "css" | "fragment" | "instance" | "module" | "options">} RootNode
- * @internal
  */
 
 /**
- * Specified order of {@link Root} child SV nodes to print out.
- *
  * ## Legend
  *
  * - `"options"` - {@link SV.SvelteOptions}
@@ -53,31 +35,33 @@ const DEFAULT_INDENT = "tab";
  * - `"fragment"` - {@link SV.Fragment}
  * - `"css"` - {@link SV.CSS.StyleSheet}
  *
- * @typedef {[RootNode, RootNode, RootNode, RootNode, RootNode]} RootOrder
- * @internal
+ * @typedef {[RootNode, RootNode, RootNode, RootNode, RootNode]} RootOrder Specified order of {@link Root} child SV nodes to print out.
+ *
  */
 
 /**
- * @internal
- * Options related to {@link Root} Svelte SV node.
- * @typedef RootOptions
+ * @typedef RootOptions Options related to {@link Root} Svelte SV node.
  * @prop {RootOrder} [order] - defaults to {@link DEFAULT_ORDER}
  */
 
 /**
  * @satisfies {RootOrder}
- * @internal
  */
 const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
 
 /**
- * This class is for internal use only.
- * Give sa a better control on transforming passed options to the second argument of {@link print}.
- *
  * @internal
+ * Give sa a better control on transforming passed options.
+ *
  * @template {SvelteOnlyNode | JS.Node} [N=SvelteOnlyNode | JS.Node]
  */
 export class Options {
+	/**
+	 * @satisfies {IndentName}
+	 * @readonly
+	 */
+	static DEFAULT_INDENT = "tab";
+	/** @readonly */
 	static INDENT = new Map(
 		/** @type {const} */ ([
 			["tab", "\t"],
@@ -87,12 +71,12 @@ export class Options {
 	);
 
 	/**
-	 * @type {PrintOptions<N>} raw options - _(before transformation)_ - for better DX
+	 * @type {PrintOptions} raw options - _(before transformation)_ - for better DX
 	 */
 	#raw;
 
 	/**
-	 * @param {PrintOptions<N>} raw - provided options by user - before transformation
+	 * @param {PrintOptions} raw - provided options by user - before transformation
 	 */
 	constructor(raw) {
 		this.#raw = raw;
@@ -101,7 +85,7 @@ export class Options {
 	/** @returns {typeof Options.INDENT extends Map<infer _K, infer V> ? V : never} */
 	get indent() {
 		const { format } = this.#raw;
-		const transformed = Options.INDENT.get(format?.indent ?? DEFAULT_INDENT);
+		const transformed = Options.INDENT.get(format?.indent ?? Options.DEFAULT_INDENT);
 		if (!transformed) {
 			throw new Error(`Unrecognized indent name - ${format?.indent}, allowed are: ${[...Options.INDENT.keys()]}`);
 		}

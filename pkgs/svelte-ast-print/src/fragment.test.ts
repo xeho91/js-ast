@@ -1,7 +1,7 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../shared.ts";
+import { parse_and_extract } from "../tests/shared.ts";
 
 import { print } from "svelte-ast-print";
 
