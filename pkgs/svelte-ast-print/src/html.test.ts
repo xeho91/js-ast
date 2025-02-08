@@ -1,11 +1,16 @@
-import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../shared.ts";
+import type { AST } from "svelte/compiler";
 
-import { print } from "svelte-ast-print";
+import { parse_and_extract } from "../tests/shared.ts";
 
-describe("Comment", () => {
+import { printComment, printHTML, printText } from "./html.js";
+
+describe(printHTML.name, () => {
+	it.todo("");
+});
+
+describe(printComment.name, () => {
 	it("prints correctly a single line comment from random code", ({ expect }) => {
 		const code = `
 			{#each boxes as box}
@@ -15,7 +20,7 @@ describe("Comment", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.Comment>(code, "Comment");
-		expect(print(node)).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
+		expect(printComment(node).toString()).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
 	});
 
 	it("supports multiple line comment", ({ expect }) => {
@@ -29,7 +34,7 @@ describe("Comment", () => {
 			-->
 		`;
 		const node = parse_and_extract<AST.Comment>(code, "Comment");
-		expect(print(node)).toMatchInlineSnapshot(
+		expect(printComment(node).toString()).toMatchInlineSnapshot(
 			`
 			"<!--
 				This
@@ -43,12 +48,12 @@ describe("Comment", () => {
 	});
 });
 
-describe("Text", () => {
+describe(printText.name, () => {
 	it("prints correctly a random text comment from random code", ({ expect }) => {
 		const code = `
 			<span>Catch me if you can</span>
 		`;
 		const node = parse_and_extract<AST.Text>(code, "Text");
-		expect(print(node)).toMatchInlineSnapshot(`"Catch me if you can"`);
+		expect(printText(node).toString()).toMatchInlineSnapshot(`"Catch me if you can"`);
 	});
 });

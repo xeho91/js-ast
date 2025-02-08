@@ -1,9 +1,22 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../shared.ts";
+import { parse_and_extract } from "../tests/shared.js";
 
-import { print } from "svelte-ast-print";
+import {
+	printBlock,
+	printAwaitBlock,
+	printEachBlock,
+	printIfBlock,
+	printKeyBlock,
+	printSnippetBlock,
+} from "./block.js";
+
+describe(printBlock.name, () => {
+	it.todo("returns true for if block", ({ expect }) => {
+		//
+	});
+});
 
 describe("AwaitBlock", () => {
 	it("correctly prints standard example", ({ expect }) => {
@@ -17,7 +30,7 @@ describe("AwaitBlock", () => {
 			{/await}
 		`;
 		const node = parse_and_extract<AST.AwaitBlock>(code, "AwaitBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printAwaitBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#await promise}
 				<p>waiting for the promise to resolve...</p>
 			{:then value}
@@ -37,7 +50,7 @@ describe("AwaitBlock", () => {
 			{/await}
 		`;
 		const node = parse_and_extract<AST.AwaitBlock>(code, "AwaitBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printAwaitBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#await promise}
 				<p>waiting for the promise to resolve...</p>
 			{:then value}
@@ -53,7 +66,7 @@ describe("AwaitBlock", () => {
 			{/await}
 		`;
 		const node = parse_and_extract<AST.AwaitBlock>(code, "AwaitBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printAwaitBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#await promise then value}
 				<p>The value is {value}</p>
 			{/await}"
@@ -67,7 +80,7 @@ describe("AwaitBlock", () => {
 			{/await}
 		`;
 		const node = parse_and_extract<AST.AwaitBlock>(code, "AwaitBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printAwaitBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#await promise catch error}
 				<p>The error is {error}</p>
 			{/await}"
@@ -83,7 +96,7 @@ describe("AwaitBlock", () => {
 			{/await}
 		`;
 		const node = parse_and_extract<AST.AwaitBlock>(code, "AwaitBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printAwaitBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#await promiseParent catch error}
 				{#await promiseChildren catch error}
 					<p>The error is {error}</p>
@@ -101,7 +114,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each items as item}
 				<li>{item.name} x {item.qty}</li>
 			{/each}"
@@ -119,7 +132,7 @@ describe("EachBlock", () => {
 			</div>
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each { length: 8 }, rank}
 				{#each { length: 8 }, file}
 					<div class:black={(rank + file) % 2 === 1} />
@@ -135,7 +148,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each items as item, i}
 				<li>{i + 1}: {item.name} x {item.qty}</li>
 			{/each}"
@@ -149,7 +162,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each items as item, i (item.id)}
 				<li>{i + 1}: {item.name} x {item.qty}</li>
 			{/each}"
@@ -163,7 +176,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each items as { id, name, qty }, i (id)}
 				<li>{i + 1}: {name} x {qty}</li>
 			{/each}"
@@ -180,7 +193,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each objects as { id, ...rest }}
 				<li>
 					<span>{id}</span>
@@ -200,7 +213,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each items as [id, ...rest]}
 				<li>
 					<span>{id}</span>
@@ -219,7 +232,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each todos as todo}
 				<p>{todo.text}</p>
 			{:else}
@@ -241,7 +254,7 @@ describe("EachBlock", () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printEachBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#each todos as todo}
 				{#each todo.subtasks as subtask}
 					<p>{subtask.test}</p>
@@ -263,7 +276,7 @@ describe("IfBlock", () => {
 			{/if}
 		`;
 		const node = parse_and_extract<AST.IfBlock>(code, "IfBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printIfBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#if test}
 				<span>simple if</span>
 			{/if}"
@@ -279,7 +292,7 @@ describe("IfBlock", () => {
 			{/if}
 		`;
 		const node = parse_and_extract<AST.IfBlock>(code, "IfBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printIfBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#if test}
 				<span>if body</span>
 			{:else}
@@ -297,7 +310,7 @@ describe("IfBlock", () => {
 			{/if}
 		`;
 		const node = parse_and_extract<AST.IfBlock>(code, "IfBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printIfBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#if test1}
 				<span>if body</span>
 			{:else if test2}
@@ -317,7 +330,7 @@ describe("IfBlock", () => {
 			{/if}
 		`;
 		const node = parse_and_extract<AST.IfBlock>(code, "IfBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printIfBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#if test1}
 				<span>if body</span>
 			{:else if test2}
@@ -341,7 +354,7 @@ describe("IfBlock", () => {
 			{/if}
 		`;
 		const node = parse_and_extract<AST.IfBlock>(code, "IfBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printIfBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#if test1}
 				<span>if body</span>
 			{:else if test2}
@@ -366,7 +379,7 @@ describe("IfBlock", () => {
 			{/if}
 		`;
 		const node = parse_and_extract<AST.IfBlock>(code, "IfBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printIfBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#if test1}
 				if body
 			{:else if test2}
@@ -387,8 +400,8 @@ describe("KeyBlock", () => {
 				<div transition:fade>{value}</div>
 			{/key}
 		`;
-		const node1 = parse_and_extract<AST.KeyBlock>(code, "KeyBlock");
-		expect(print(node1)).toMatchInlineSnapshot(`
+		const node = parse_and_extract<AST.KeyBlock>(code, "KeyBlock");
+		expect(printKeyBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#key value}
 				<div transition:fade>{value}</div>
 			{/key}"
@@ -402,7 +415,7 @@ describe("KeyBlock", () => {
 			{/key}
 		`;
 		const node = parse_and_extract<AST.KeyBlock>(code, "KeyBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printKeyBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#key value}
 				<Component />
 			{/key}"
@@ -417,8 +430,8 @@ describe("SnippetBlock", () => {
 				<p>hello {name}! {message}!</p>
 			{/snippet}
 		`;
-		const node1 = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
-		expect(print(node1)).toMatchInlineSnapshot(`
+		const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
+		expect(printSnippetBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#snippet hello(name)}
 				<p>hello {name}! {message}!</p>
 			{/snippet}"
@@ -440,7 +453,7 @@ describe("SnippetBlock", () => {
 			{/snippet}
 		`;
 		const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printSnippetBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#snippet figure(image)}
 				<figure>
 					<img src={image.src} alt={image.caption} width={image.width} height={image.height} />
@@ -459,7 +472,7 @@ describe("SnippetBlock", () => {
 			{/snippet}
 		`;
 		const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printSnippetBlock(node).toString()).toMatchInlineSnapshot(`
 			"{#snippet parent(message)}
 				{#snippet children(name)}
 					<p>hello {name}! {message}!</p>
