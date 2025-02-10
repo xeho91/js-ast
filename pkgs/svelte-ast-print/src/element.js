@@ -4,7 +4,7 @@
  * @import { PrintOptions } from "./_option.js";
  */
 
-import { Line, Result, SP } from "./_result.js";
+import { Line, Result, SP } from "./_state.js";
 import { printAttributeLike } from "./attribute.js";
 import { printFragment } from "./fragment.js";
 

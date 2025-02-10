@@ -5,7 +5,7 @@
  * @import { PrintOptions } from "./_option.js";
  */
 
-import { Result } from "./_result.js";
+import { Result } from "./_state.js";
 
 /**
  * @param {SV.Fragment} n

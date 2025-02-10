@@ -8,9 +8,9 @@
 import { print as print_js } from "esrap";
 import { isExpressionTag } from "svelte-ast-build";
 
-import { Result } from "./_result.js";
-import { printExpressionTag } from "./tag.js";
+import { Result } from "./_state.js";
 import { printText } from "./html.js";
+import { printExpressionTag } from "./tag.js";
 
 /**
  * @param {SV.AttributeLike} n

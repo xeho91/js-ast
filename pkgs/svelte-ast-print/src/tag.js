@@ -6,7 +6,7 @@
 
 import { print as print_js } from "esrap";
 
-import { Result, SP } from "./_result.js";
+import { Result, SP } from "./_state.js";
 
 /**
  * @param {SV.Tag} n

@@ -25,7 +25,7 @@ describe(printCSSBlock.name, () => {
 	});
 });
 
-describe("AST.CSS.Declaration", () => {
+describe(printCSSDeclaration.name, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -54,8 +54,8 @@ describe(printCSSAtrule.name, () => {
 		expect(printCSSAtrule(node).toString()).toMatchInlineSnapshot(`
 			"@media screen and (max-width: 1000px) {
 				p {
-				max-width: 60ch;
-			}
+					max-width: 60ch;
+				}
 			}"
 		`);
 	});

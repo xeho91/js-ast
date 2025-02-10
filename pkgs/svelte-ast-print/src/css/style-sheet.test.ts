@@ -40,7 +40,6 @@ describe(printCSSStyleSheet.name, () => {
 						.toast {
 							transition-duration: var(--transition-dur);
 							transition-timing-function: var(--transition-fn);
-
 							transition-property:
 								var(--transition-props-color),
 								var(--transition-props-shadow);
@@ -57,10 +56,9 @@ describe(printCSSStyleSheet.name, () => {
 						--transition-dur: 250ms;
 					}
 				}
-
 				@layer component {
 					@container toast (max-width: 426px) {
-						.toast ~[aria-live="polite"] {
+						.toast ~ [aria-live="polite"] {
 							width: 100px;
 						}
 					}

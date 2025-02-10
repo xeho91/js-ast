@@ -6,7 +6,7 @@
 
 import { print as print_js } from "esrap";
 
-import { NL, Result, SP } from "./_result.js";
+import { NL, Result, SP } from "./_state.js";
 import { printAttributeLike } from "./attribute.js";
 import { EL } from "./element.js";
 
