@@ -2,6 +2,7 @@ name: Preview
 
 on:
     workflow_call:
+    workflow_dispatch:
 
 defaults:
     run:
@@ -52,7 +53,7 @@ jobs:
                   --frozen-lockfile
 
             - name: Publish packages preview with pkg-pr-new CLI
-              run: pnpx pkg-pr-new publish --pnpm './packages/*'
+              run: pnpx pkg-pr-new publish --pnpm './pkgs/*' --packageManager=pnpm
               if: ${{ steps.changed-files.outputs.all_changed_files_count > 0 }}
               env:
                   CHANGED_DIRS: ${{ steps.changed-files.outputs.all_changed_files }}
