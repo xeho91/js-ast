@@ -6,9 +6,9 @@
  */
 
 import * as char from "../_char.js";
-import { printAttributeLike } from "../template/mod.js";
-import { print_js, State } from "../_internal.js";
+import { State, print_js } from "../_internal.js";
 import { HTMLClosingTag, HTMLOpeningTag } from "../html/mod.js";
+import { printAttributeLike } from "../template/mod.js";
 
 /**
  * @param {SV.Script} n

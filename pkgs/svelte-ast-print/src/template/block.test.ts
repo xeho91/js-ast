@@ -3,7 +3,7 @@ import { describe, it } from "vitest";
 
 import { parse_and_extract } from "../../tests/shared.js";
 
-import { printBlock, printAwaitBlock, printEachBlock, printIfBlock, printKeyBlock, printSnippetBlock } from "./mod.js";
+import { printAwaitBlock, printBlock, printEachBlock, printIfBlock, printKeyBlock, printSnippetBlock } from "./mod.js";
 
 describe(printBlock.name, () => {
 	describe("AwaitBlock", () => {
