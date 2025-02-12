@@ -16,7 +16,7 @@ jobs:
         name: pkg.pr.new
         runs-on: macos-latest
         timeout-minutes: 5
-        if: github.event_name == 'pull_request'
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' }}
         steps:
             # https://github.com/actions/checkout
             - uses: actions/checkout@v4
@@ -35,17 +35,6 @@ jobs:
                   cache: pnpm
                   node-version-file: ".node-version"
 
-            # https://github.com/tj-actions/changed-files
-            - name: Run changed-files
-              id: changed-files
-              uses: tj-actions/changed-files@v45
-              with:
-                  separator: " "
-                  dir_names: "true"
-                  dir_names_max_depth: "2" # truncates the path to packages/package-name
-                  files: |
-                      pkgs/**
-
             # https://pnpm.io/cli/install
             - name: Install Node.js dependencies with pnpm
               run: >
@@ -55,5 +44,3 @@ jobs:
             - name: Publish packages preview with pkg-pr-new CLI
               run: pnpx pkg-pr-new publish --pnpm './pkgs/*' --packageManager=pnpm
               if: ${{ steps.changed-files.outputs.all_changed_files_count > 0 }}
-              env:
-                  CHANGED_DIRS: ${{ steps.changed-files.outputs.all_changed_files }}
