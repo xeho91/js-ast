@@ -17,7 +17,7 @@
 		"fix:biome": "biome check . --verbose --write",
 		"fix:format": "biome format . --verbose --write",
 		"fix:js": "biome lint . --verbose --fix --unsafe",
-		"knip": "knip",
+		"knip": "knip --tags=-lintignore ",
 		"lint": "pnpm run --reporter=append-only --workspace-root \"/^lint:.*/\" ",
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",

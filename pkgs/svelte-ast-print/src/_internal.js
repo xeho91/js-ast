@@ -96,7 +96,7 @@ export class State {
  * @internal
  * An instance which can be pushed into collector, and give us a hint to break down the line.
  */
-export class Break {
+class Break {
 	/**
 	 * Level of the depth for indentation purposes.
 	 * @type {number}
@@ -131,7 +131,7 @@ export class Break {
 /**
  * @internal
  */
-export class Collector {
+class Collector {
 	/**
 	 * Collected pieces to be processed later.
 	 * @type {Piece[]}
@@ -186,6 +186,7 @@ export class Collector {
 
 /**
  * @internal
+ * @lintignore
  * @template {SvelteOnlyNode} [N=SvelteOnlyNode]
  */
 export class Result {
@@ -460,6 +461,7 @@ export class DoubleQuotes extends Wrapper {
 }
 
 /**
+ * @internal
  * @param {JS.Node} n
  * @param {Options} opts
  * @returns {string}
