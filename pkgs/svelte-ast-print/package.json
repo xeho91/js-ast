@@ -35,26 +35,26 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["src/"],
+	"files": ["src/", "!src/**/*.test.ts"],
 	"exports": {
 		".": {
 			"types": "./src/types.d.ts",
 			"default": "./src/lib.js"
 		},
 		"./css": {
-			"types": "./src/types.d.ts",
+			"types": "./src/css/types.d.ts",
 			"default": "./src/css/mod.js"
 		},
 		"./html": {
-			"types": "./src/types.d.ts",
+			"types": "./src/html/types.d.ts",
 			"default": "./src/html/mod.js"
 		},
 		"./js": {
-			"types": "./src/types.d.ts",
+			"types": "./src/js/types.d.ts",
 			"default": "./src/js/mod.js"
 		},
 		"./template": {
-			"types": "./src/types.d.ts",
+			"types": "./src/template/types.d.ts",
 			"default": "./src/template/mod.js"
 		},
 		"./package.json": "./package.json"
@@ -78,7 +78,7 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm lint && pnpm test",
+		"prepublishOnly": "pnpm --filter svelte-ast-print run --parallel \"/^check|^lint|^test/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	},
