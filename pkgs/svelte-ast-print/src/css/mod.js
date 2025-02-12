@@ -1,13 +1,19 @@
 /**
  * @import { AST as SV } from "svelte/compiler";
  *
- * @import { Result } from "../_internal.js";
- * @import { PrintOptions } from "../_option.js";
+ * @import { Result } from "../_internal/shared.js";
+ * @import { PrintOptions } from "../_internal/option.js";
  */
 
-import * as char from "../_char.js";
-import { CurlyBrackets, DoubleQuotes, RoundBrackets, SquareBrackets, State } from "../_internal.js";
-import { HTMLClosingTag, HTMLOpeningTag } from "../html/mod.js";
+/**
+ * Printers related to Svelte **CSS**-related AST nodes only.
+ * @module svelte-ast-print/css
+ */
+
+import * as char from "../_internal/char.js";
+import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.js";
+import { State } from "../_internal/shared.js";
+import { CurlyBrackets, DoubleQuotes, RoundBrackets, SquareBrackets } from "../_internal/wrapper.js";
 import { printAttributeLike } from "../template/mod.js";
 
 /**

@@ -1,13 +1,19 @@
 /**
  * @import { AST as SV } from "svelte/compiler";
  *
- * @import { PrintOptions } from "../_option.js";
- * @import { Result } from "../_internal.js";
+ * @import { PrintOptions } from "../_internal/option.js";
+ * @import { Result } from "../_internal/shared.js";
  */
 
-import * as char from "../_char.js";
-import { State, print_js } from "../_internal.js";
-import { HTMLClosingTag, HTMLOpeningTag } from "../html/mod.js";
+/**
+ * Printers related to Svelte **JS** AST nodes only.
+ * @module svelte-ast-print/js
+ */
+
+import * as char from "../_internal/char.js";
+import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.js";
+import { print_js } from "../_internal/js.js";
+import { State } from "../_internal/shared.js";
 import { printAttributeLike } from "../template/mod.js";
 
 /**

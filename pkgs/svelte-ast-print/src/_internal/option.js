@@ -1,7 +1,5 @@
 /**
- * @import * as JS from "estree";
  * @import { AST as SV } from "svelte/compiler";
- * @import { SvelteOnlyNode } from "svelte-ast-build";
  */
 
 /**
@@ -19,7 +17,7 @@
  * Provided for building a stable API - gives an space for expansion on future improvements/features.
  *
  * @typedef FormatOptions Options related to formatting.
- * @prop {IndentName} [indent] - defaults to {@link DEFAULT_INDENT}
+ * @prop {IndentName} [indent] - defaults to {@link Options.DEFAULT_INDENT}
  */
 
 /**
@@ -45,15 +43,8 @@
  */
 
 /**
- * @satisfies {RootOrder}
- */
-const DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
-
-/**
  * @internal
- * Give sa a better control on transforming passed options.
- *
- * @template {SvelteOnlyNode | JS.Node} [N=SvelteOnlyNode | JS.Node]
+ * Gives us a better control on transforming passed options.
  */
 export class Options {
 	/**
@@ -61,6 +52,12 @@ export class Options {
 	 * @readonly
 	 */
 	static DEFAULT_INDENT = "tab";
+	/**
+	 * @satisfies {RootOrder}
+	 * @readonly
+	 */
+	static DEFAULT_ORDER = /** @type {const} */ (["options", "module", "instance", "fragment", "css"]);
+
 	/** @readonly */
 	static INDENT = new Map(
 		/** @type {const} */ ([
@@ -95,6 +92,6 @@ export class Options {
 	/** @type {RootOrder} */
 	get order() {
 		const { root } = this.#raw;
-		return root?.order ?? DEFAULT_ORDER;
+		return root?.order ?? Options.DEFAULT_ORDER;
 	}
 }

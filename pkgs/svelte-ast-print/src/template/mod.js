@@ -1,17 +1,31 @@
 /**
- * @import * as JS from "estree";
  * @import { AST as SV } from "svelte/compiler";
  *
- * @import { Result } from "../_internal.js";
- * @import { PrintOptions } from "../_option.js";
+ * @import { Result } from "../_internal/shared.js";
+ * @import { PrintOptions } from "../_internal/option.js";
+ */
+
+/**
+ * Printers related to Svelte **template**-related AST nodes only.
+ * @module svelte-ast-print/template
  */
 
 import { isBlock, isElementLike, isExpressionTag } from "svelte-ast-build";
 
-import * as char from "../_char.js";
-import { CurlyBrackets, DoubleQuotes, RoundBrackets, State, Wrapper, print_js } from "../_internal.js";
+import * as char from "../_internal/char.js";
+import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.js";
+import { print_js } from "../_internal/js.js";
+import { State } from "../_internal/shared.js";
+import { is_attr_exp_shorthand, print_directive } from "../_internal/template/attribute.js";
+import { ClosingBlock, MidBlock, OpeningBlock, get_if_block_alternate } from "../_internal/template/block.js";
+import {
+	print_maybe_self_closing_el,
+	print_non_self_closing_el,
+	print_self_closing_el,
+} from "../_internal/template/element.js";
+import { CurlyBrackets, DoubleQuotes, RoundBrackets } from "../_internal/wrapper.js";
 import { printCSSStyleSheet } from "../css/mod.js";
-import { HTMLClosingTag, HTMLOpeningTag, HTMLSelfClosingTag, printHTML, printText } from "../html/mod.js";
+import { printHTML, printText } from "../html/mod.js";
 import { printScript } from "../js/mod.js";
 
 /**
@@ -108,18 +122,6 @@ export function printTemplate(n, opts = {}) {
 }
 
 /**
- * @param {SV.Fragment["nodes"]} nodes
- * @return {boolean}
- * @__NO_SIDE_EFFECTS__
- */
-function has_fragment_text_or_exp_tag_only(nodes) {
-	for (const ch of nodes) {
-		if (ch.type !== "Text" && ch.type !== "ExpressionTag") return false;
-	}
-	return true;
-}
-
-/**
  * @param {SV.Fragment} n
  * @param {Partial<PrintOptions>} [opts]
  * @return {Result<SV.Fragment>}
@@ -153,7 +155,36 @@ export function printFragment(n, opts = {}) {
 		if (isBlock(prev) || prev?.type === "Comment" || isElementLike(prev)) {
 			st.break();
 		}
-		st.add(printTemplate(ch, opts));
+		// biome-ignore format: Prettier
+		// prettier-ignore
+		switch (ch.type) {
+			case "AwaitBlock":
+			case "KeyBlock":
+			case "EachBlock":
+			case "IfBlock":
+			case "SnippetBlock": st.add(printBlock(ch, opts)); break;
+			case "Component":
+			case "RegularElement":
+			case "SlotElement":
+			case "SvelteBody":
+			case "SvelteBoundary":
+			case "SvelteComponent":
+			case "SvelteDocument":
+			case "SvelteElement":
+			case "SvelteFragment":
+			case "SvelteHead":
+			case "SvelteOptions":
+			case "SvelteSelf":
+			case "SvelteWindow":
+			case "TitleElement": st.add(printElementLike(ch, opts)); break;
+			case "ConstTag":
+			case "DebugTag":
+			case "ExpressionTag":
+			case "HtmlTag":
+			case "RenderTag": st.add(printTag(ch, opts));break;
+			case "Comment":
+			case "Text": st.add(printHTML(ch, opts)); break;
+		}
 	}
 	return st.result;
 }
@@ -196,7 +227,7 @@ export function printAttribute(n, opts = {}) {
 		return st.result;
 	}
 	if (isExpressionTag(n.value)) {
-		if (is_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
+		if (is_attr_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
 		else st.add(n.name, char.ASSIGN, printExpressionTag(n.value, opts));
 		return st.result;
 	}
@@ -366,7 +397,7 @@ export function printStyleDirective(n, opts = {}) {
 	const st = State.get(n, opts);
 	st.add("style", char.COLON, n.name);
 	if (n.modifiers.length > 0) st.add(char.PIPE, n.modifiers.join(char.PIPE));
-	if (n.value === true || (isExpressionTag(n.value) && is_exp_shorthand(n, n.value.expression))) {
+	if (n.value === true || (isExpressionTag(n.value) && is_attr_exp_shorthand(n, n.value.expression))) {
 		return st.result;
 	}
 	if (isExpressionTag(n.value)) {
@@ -453,36 +484,6 @@ export function printUseDirective(n, opts = {}) {
 }
 
 /**
- * @internal
- * Abstraction for printing shared schema in directives
- *
- * @template {Exclude<SV.Directive, SV.StyleDirective>} N
- * @param {string} name
- * @param {N} n
- * @param {Partial<PrintOptions>} [opts]
- * @return {Result<N>}
- * @__NO_SIDE_EFFECTS__
- */
-function print_directive(name, n, opts = {}) {
-	const st = State.get(n, opts);
-	st.add(name, char.COLON, n.name);
-	if ("modifiers" in n && n.modifiers.length > 0) st.add(char.PIPE, n.modifiers.join(char.PIPE));
-	if (n.expression && !is_exp_shorthand(n, n.expression)) {
-		st.add(char.ASSIGN, new CurlyBrackets("inline", print_js(n.expression, st.opts)));
-	}
-	return st.result;
-}
-
-/**
- * @param {Exclude<SV.AttributeLike, SV.SpreadAttribute>} n
- * @param {JS.Expression} exp
- * @returns {boolean}
- */
-function is_exp_shorthand(n, exp) {
-	return exp.type === "Identifier" && exp.name === n.name;
-}
-
-/**
  * @param {SV.Block} n
  * @param {Partial<PrintOptions>} [opts]
  * @return {Result<SV.Block>}
@@ -498,25 +499,6 @@ export function printBlock(n, opts = {}) {
 		case "KeyBlock": return printKeyBlock(n, opts);
 		case "SnippetBlock": return printSnippetBlock(n, opts);
 	}
-}
-
-class OpeningBlock extends Wrapper {
-	/** @readonly */
-	static START = "{#";
-	/** @readonly */
-	static END = "}";
-}
-class MidBlock extends Wrapper {
-	/** @readonly */
-	static START = "{:";
-	/** @readonly */
-	static END = "}";
-}
-class ClosingBlock extends Wrapper {
-	/** @readonly */
-	static START = "{/";
-	/** @readonly */
-	static END = "}";
 }
 
 /**
@@ -777,15 +759,6 @@ export function printSnippetBlock(n, opts = {}) {
 }
 
 /**
- * @internal
- * Checks if `alternate` contains `IfBlock` with `{:else if}`
- * @param {SV.IfBlock['alternate']} n
- */
-function get_if_block_alternate(n) {
-	return n?.nodes.find((n) => n.type === "IfBlock");
-}
-
-/**
  * @param {SV.ElementLike} n
  * @param {Partial<PrintOptions>} [opts]
  * @return {Result<SV.ElementLike>}
@@ -821,7 +794,12 @@ export function printElementLike(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printComponent(n, opts = {}) {
-	return print_maybe_self_closing_el(n, opts);
+	return print_maybe_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**
@@ -833,7 +811,12 @@ export function printComponent(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printRegularElement(n, opts = {}) {
-	return print_maybe_self_closing_el(n, opts);
+	return print_maybe_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**
@@ -845,7 +828,12 @@ export function printRegularElement(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSlotElement(n, opts = {}) {
-	return print_maybe_self_closing_el(n, opts);
+	return print_maybe_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**
@@ -857,7 +845,11 @@ export function printSlotElement(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteBody(n, opts = {}) {
-	return print_self_closing_el(n, opts);
+	return print_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+	});
 }
 
 /**
@@ -869,7 +861,12 @@ export function printSvelteBody(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteBoundary(n, opts = {}) {
-	return print_non_self_closing_el(n, opts);
+	return print_non_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**
@@ -881,7 +878,11 @@ export function printSvelteBoundary(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteComponent(n, opts = {}) {
-	return print_self_closing_el(n, opts);
+	return print_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+	});
 }
 
 /**
@@ -893,7 +894,11 @@ export function printSvelteComponent(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteDocument(n, opts = {}) {
-	return print_self_closing_el(n, opts);
+	return print_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+	});
 }
 
 /**
@@ -932,7 +937,12 @@ export function printSvelteElement(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteFragment(n, opts = {}) {
-	return print_non_self_closing_el(n, opts);
+	return print_non_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**
@@ -944,7 +954,12 @@ export function printSvelteFragment(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteHead(n, opts = {}) {
-	return print_non_self_closing_el(n, opts);
+	return print_non_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**
@@ -972,9 +987,9 @@ export function printSvelteOptions(n, opts = {}) {
 	let { attributes, customElement, options, start, end, ...rest } = n;
 	if (!attributes) attributes = options.attributes;
 	// @ts-expect-error
-	return print_self_closing_el(
+	return print_self_closing_el({
 		// @ts-expect-error
-		{
+		n: {
 			type: "SvelteOptions",
 			name: "svelte:options",
 			attributes,
@@ -985,7 +1000,8 @@ export function printSvelteOptions(n, opts = {}) {
 			...rest,
 		},
 		opts,
-	);
+		attr_printer: printAttributeLike,
+	});
 }
 
 /**
@@ -997,7 +1013,11 @@ export function printSvelteOptions(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteSelf(n, opts = {}) {
-	return print_self_closing_el(n, opts);
+	return print_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+	});
 }
 
 /**
@@ -1009,7 +1029,11 @@ export function printSvelteSelf(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteWindow(n, opts = {}) {
-	return print_self_closing_el(n, opts);
+	return print_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+	});
 }
 
 /**
@@ -1021,172 +1045,12 @@ export function printSvelteWindow(n, opts = {}) {
  * @__NO_SIDE_EFFECTS__
  */
 export function printTitleElement(n, opts = {}) {
-	return print_non_self_closing_el(n, opts);
-}
-
-/**
- * @internal
- * @__NO_SIDE_EFFECTS__
- */
-const NATIVE_SELF_CLOSEABLE_ELS = new Set(
-	/** @type {const} */ ([
-		// Native
-		"area",
-		"base",
-		"br",
-		"col",
-		"embed",
-		"hr",
-		"img",
-		"input",
-		"link",
-		"meta",
-		"param",
-		"source",
-		"track",
-		"wbr",
-	]),
-);
-
-/**
- * @internal
- * @__NO_SIDE_EFFECTS__
- */
-const NATIVE_INLINE_ELS = new Set(
-	/** @type {const} */ ([
-		"a",
-		"abbr",
-		"b",
-		"bdo",
-		"bdi",
-		"br",
-		"cite",
-		"code",
-		"data",
-		"dfn",
-		"em",
-		"i",
-		"kbd",
-		"mark",
-		"q",
-		"rp",
-		"rt",
-		"ruby",
-		"s",
-		"samp",
-		"small",
-		"span",
-		"strong",
-		"sub",
-		"sup",
-		"time",
-		"u",
-		"var",
-		"wbr",
-		"button",
-		"input",
-		"label",
-		"select",
-		"textarea",
-	]),
-);
-
-/**
- * @internal
- * @param {SV.ElementLike} n
- * @return {boolean}
- * @__NO_SIDE_EFFECTS__
- */
-function is_el_self_closing(n) {
-	return (
-		NATIVE_SELF_CLOSEABLE_ELS
-			// @ts-expect-error: WARN: `Set.prototype.has()` doesn't accept loose string
-			.has(n.name) ||
-		// or if there's no "children"
-		n.fragment.nodes.length === 0
-	);
-}
-
-/**
- * @internal
- * @template {SV.ElementLike} N
- * @param {N} n
- * @param {Partial<PrintOptions>} [opts]
- * @return {Result<N>}
- * @__NO_SIDE_EFFECTS__
- */
-function print_maybe_self_closing_el(n, opts = {}) {
-	const st = State.get(n, opts);
-	const self_closing = is_el_self_closing(n);
-	if (self_closing) {
-		const tag = new HTMLSelfClosingTag(
-			//
-			"inline",
-			n.name,
-		);
-		if (n.attributes.length > 0) {
-			for (const a of n.attributes) tag.insert(char.SPACE, printAttributeLike(a));
-		}
-		tag.insert(char.SPACE);
-		st.add(tag);
-		return st.result;
-	}
-	const opening = new HTMLOpeningTag("inline", n.name);
-	if (n.attributes.length > 0) {
-		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
-	}
-	st.add(opening);
-	const should_break =
-		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
-		!NATIVE_INLINE_ELS.has(n.name) && !has_fragment_text_or_exp_tag_only(n.fragment.nodes);
-	if (should_break) st.break(+1);
-	if (n.fragment) st.add(printFragment(n.fragment, opts));
-	if (should_break) st.break(-1);
-	st.add(new HTMLClosingTag("inline", n.name));
-	return st.result;
-}
-
-/**
- * @internal
- * @template {SV.ElementLike} N
- * @param {N} n
- * @param {Partial<PrintOptions>} [opts]
- * @return {Result<N>}
- * @__NO_SIDE_EFFECTS__
- */
-function print_self_closing_el(n, opts = {}) {
-	const st = State.get(n, opts);
-	const tag = new HTMLSelfClosingTag("inline", n.name);
-	if (n.attributes.length > 0) {
-		for (const a of n.attributes) tag.insert(char.SPACE, printAttributeLike(a));
-	}
-	tag.insert(char.SPACE);
-	st.add(tag);
-	return st.result;
-}
-
-/**
- * @internal
- * @template {SV.ElementLike} N
- * @param {N} n
- * @param {Partial<PrintOptions>} [opts]
- * @return {Result<N>}
- */
-function print_non_self_closing_el(n, opts = {}) {
-	const st = State.get(n, opts);
-	const opening = new HTMLOpeningTag("inline", n.name);
-	if (n.attributes.length > 0) {
-		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
-	}
-	st.add(opening);
-	const should_break =
-		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
-		!NATIVE_INLINE_ELS.has(n.name) && !has_fragment_text_or_exp_tag_only(n.fragment.nodes);
-	if (should_break) st.break(+1);
-	st.add(printFragment(n.fragment, opts));
-	if (should_break) st.break(-1);
-	st.add(new HTMLClosingTag("inline", n.name));
-	return st.result;
+	return print_non_self_closing_el({
+		n,
+		opts,
+		attr_printer: printAttributeLike,
+		frag_printer: printFragment,
+	});
 }
 
 /**

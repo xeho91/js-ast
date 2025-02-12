@@ -231,9 +231,7 @@ describe(printAttributeLike.name, () => {
 			</form>
 		`;
 			const node = parse_and_extract<AST.OnDirective>(code, "OnDirective");
-			expect(printOnDirective(node).code).toMatchInlineSnapshot(
-				`"on:submit|preventDefault={handleSubmit}"`,
-			);
+			expect(printOnDirective(node).code).toMatchInlineSnapshot(`"on:submit|preventDefault={handleSubmit}"`);
 		});
 	});
 

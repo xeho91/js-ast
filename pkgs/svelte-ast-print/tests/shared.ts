@@ -23,7 +23,7 @@ function extract<T extends SvelteOnlyNode | JS.BaseNode>(parsed: T, name: T["typ
 		state,
 		// @ts-expect-error: WARN: Too lazy to type
 		{
-			[name](node: T, ctx: Context<Node, State>) {
+			[name](node: T, ctx: Context<T, State>) {
 				ctx.state.target = node;
 				ctx.stop();
 			},

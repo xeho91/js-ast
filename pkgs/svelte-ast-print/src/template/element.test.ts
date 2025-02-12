@@ -120,9 +120,7 @@ describe(printElementLike.name, () => {
 			<span class="{name} primary">test</span>
 		`;
 			const node = parse_and_extract<AST.RegularElement>(code, "RegularElement");
-			expect(printRegularElement(node).code).toMatchInlineSnapshot(
-				`"<span class="{name} primary">test</span>"`,
-			);
+			expect(printRegularElement(node).code).toMatchInlineSnapshot(`"<span class="{name} primary">test</span>"`);
 		});
 	});
 

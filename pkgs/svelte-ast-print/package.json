@@ -39,7 +39,23 @@
 	"exports": {
 		".": {
 			"types": "./types.d.ts",
-			"default": "./src/mod.js"
+			"default": "./src/lib.js"
+		},
+		"./css": {
+			"types": "./types.d.ts",
+			"default": "./src/css/mod.js"
+		},
+		"./html": {
+			"types": "./types.d.ts",
+			"default": "./src/html/mod.js"
+		},
+		"./js": {
+			"types": "./types.d.ts",
+			"default": "./src/js/mod.js"
+		},
+		"./template": {
+			"types": "./types.d.ts",
+			"default": "./src/template/mod.js"
 		},
 		"./package.json": "./package.json"
 	},

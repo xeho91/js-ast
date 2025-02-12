@@ -2,44 +2,17 @@
  * @import { AST as SV } from "svelte/compiler";
  * @import { HTMLNode } from "svelte-ast-build";
  *
- * @import { Result } from "../_internal.js";
- * @import { PrintOptions } from "../_option.js";
+ * @import { Result } from "../_internal/shared.js";
+ * @import { PrintOptions } from "../_internal/option.js";
  */
 
-import { AngleBrackets, State, Wrapper } from "../_internal.js";
+/**
+ * Printers related to Svelte **HTML**-related AST nodes only.
+ * @module svelte-ast-print/html
+ */
 
-/**
- * Alias for code readability.
- * @internal
- */
-export const HTMLOpeningTag = AngleBrackets;
-/**
- * @internal
- */
-export class HTMLSelfClosingTag extends Wrapper {
-	/** @readonly */
-	static START = "<";
-	/** @readonly */
-	static END = "/>";
-}
-/**
- * @internal
- */
-export class HTMLClosingTag extends Wrapper {
-	/** @readonly */
-	static START = "</";
-	/** @readonly */
-	static END = ">";
-}
-/**
- * @internal
- */
-export class HTMLComment extends Wrapper {
-	/** @readonly */
-	static START = "<!--";
-	/** @readonly */
-	static END = "-->";
-}
+import { HTMLComment } from "../_internal/html.js";
+import { State } from "../_internal/shared.js";
 
 /**
  * @param {HTMLNode} n
