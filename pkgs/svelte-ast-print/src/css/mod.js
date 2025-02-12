@@ -1,22 +1,14 @@
 /**
  * @import { AST as SV } from "svelte/compiler";
  *
- * @import { Result } from "../_result.js";
+ * @import { Result } from "../_internal.js";
  * @import { PrintOptions } from "../_option.js";
  */
 
 import * as char from "../_char.js";
-import {
-	AngleBrackets,
-	CurlyBrackets,
-	DoubleQuotes,
-	HTMLClosingTag,
-	HTMLOpeningTag,
-	RoundBrackets,
-	SquareBrackets,
-} from "../_result.js";
-import { State } from "../_state.js";
-import { printAttributeLike } from "../attribute.js";
+import { CurlyBrackets, DoubleQuotes, RoundBrackets, SquareBrackets, State } from "../_internal.js";
+import { HTMLClosingTag, HTMLOpeningTag } from "../html/mod.js";
+import { printAttributeLike } from "../template/mod.js";
 
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors}
@@ -66,25 +58,23 @@ export function printCSSBlock(n, opts = {}) {
 	const st = State.get(n, opts);
 	const brackets = new CurlyBrackets("mutliline");
 	for (const ch of n.children) {
-		// biome-ignore format: Prettier
-		// prettier-ignore
-		switch(ch.type) {
+		switch (ch.type) {
 			case "Declaration": {
-				brackets.collector.append(printCSSDeclaration(ch, opts));
+				brackets.insert(printCSSDeclaration(ch, opts));
 				break;
 			}
 			case "Rule": {
-				brackets.collector.append(printCSSRule(ch, opts));
+				brackets.insert(printCSSRule(ch, opts));
 				break;
 			}
-			case "Atrule":{
-				brackets.collector.append(printCSSAtrule(ch, opts));
+			case "Atrule": {
+				brackets.insert(printCSSAtrule(ch, opts));
 				break;
 			}
 		}
 	}
+	// st.break(-1);
 	st.add(brackets);
-	console.log({ collector: st.collector });
 	return st.result;
 }
 
@@ -116,8 +106,8 @@ export function printCSSDeclaration(n, opts = {}) {
 		//
 		n.property,
 		char.COLON,
-		char.SP,
-		n.value.split(/[\n|\t]+/g).join(" "),
+		char.SPACE,
+		n.value.split(/[\n|\t]+/g).join(char.SPACE),
 		char.SEMI,
 	);
 	return st.result;
@@ -166,7 +156,7 @@ export function printCSSAttributeSelector(n, opts = {}) {
 		n.name,
 		n.matcher,
 		n.value && new DoubleQuotes("inline", n.value),
-		n.flags && [char.SP, n.flags],
+		n.flags && [char.SPACE, n.flags],
 	);
 	st.add(brackets);
 	return st.result;
@@ -272,7 +262,7 @@ export function printCSSPseudoElementSelector(n, opts = {}) {
  */
 export function printCSSRelativeSelector(n, opts = {}) {
 	const st = State.get(n, opts);
-	if (n.combinator) st.add(printCSSCombinator(n.combinator, opts), char.SP);
+	if (n.combinator) st.add(printCSSCombinator(n.combinator, opts), char.SPACE);
 	for (const s of n.selectors) st.add(printCSSSimpleSelector(s, opts));
 	return st.result;
 }
@@ -331,7 +321,7 @@ export function printCSSSelectorList(n, opts = {}) {
 	for (const [idx, ch] of n.children.entries()) {
 		st.add(
 			//
-			idx > 0 && char.SP,
+			idx > 0 && char.SPACE,
 			printCSSComplexSelector(ch, opts),
 		);
 	}
@@ -362,7 +352,7 @@ export function printCSSComplexSelector(n, opts = {}) {
 		st.add(
 			//
 			printCSSRelativeSelector(c, opts),
-			idx !== n.children.length - 1 && char.SP,
+			idx !== n.children.length - 1 && char.SPACE,
 		);
 	}
 	return st.result;
@@ -376,8 +366,8 @@ export function printCSSComplexSelector(n, opts = {}) {
  */
 export function printCSSAtrule(n, opts = {}) {
 	const st = State.get(n, opts);
-	st.add(char.AT, n.name, char.SP, n.prelude);
-	if (n.block) st.add(char.SP, printCSSBlock(n.block, opts));
+	st.add(char.AT, n.name, char.SPACE, n.prelude);
+	if (n.block) st.add(char.SPACE, printCSSBlock(n.block, opts));
 	else st.add(char.SEMI);
 	return st.result;
 }
@@ -393,7 +383,7 @@ export function printCSSRule(n, opts = {}) {
 	st.add(
 		//
 		printCSSSelectorList(n.prelude, opts),
-		char.SP,
+		char.SPACE,
 		printCSSBlock(n.block, opts),
 	);
 	return st.result;
@@ -410,11 +400,11 @@ export function printCSSRule(n, opts = {}) {
 export function printCSSStyleSheet(n, opts = {}) {
 	const st = State.get(n, opts);
 	const name = "style";
-	const opening_tag = new HTMLOpeningTag("inline", name);
+	const opening = new HTMLOpeningTag("inline", name);
 	if (n.attributes.length > 0) {
-		for (const a of n.attributes) st.add(char.SP, printAttributeLike(a));
+		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	}
-	st.add(opening_tag);
+	st.add(opening);
 	st.break(+1);
 	for (const [idx, ch] of n.children.entries()) {
 		// biome-ignore format: Prettier

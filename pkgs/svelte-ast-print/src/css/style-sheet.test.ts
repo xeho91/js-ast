@@ -14,10 +14,10 @@ describe(printCSSStyleSheet.name, () => {
 			`;
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
 		expect(printCSSStyleSheet(node).toString()).toMatchInlineSnapshot(`
-				"<style lang="sass">
-
-				</style>"
-			`);
+			"<style lang="sass">
+				
+			</style>"
+		`);
 	});
 
 	it("it prints correctly advanced styles", ({ expect }) => {
