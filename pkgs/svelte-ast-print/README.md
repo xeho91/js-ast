@@ -27,19 +27,14 @@ A.k.a. [`parse()`] in reverse.
 >
 > You can omit it from [Svelte] `v6` - [source](https://github.com/sveltejs/svelte/blob/5a05f6371a994286626a44168cb2c02f8a2ad567/packages/svelte/src/compiler/index.js#L99-L100).
 
-### Options
-
-[See documentation](https://xeho91.github.io/js-ast/interfaces/svelte-ast-print.options.PrintOptions.html).
-
 ---
 
 ## How does it work under the hood?
 
 1. It determines whether the provided AST node `type` is related to [Svelte] syntax only.
 1. Based on node's `type` check from above:
-
-    a. it uses either this package's printer to print [AST] node related to [Svelte] syntax,
-    b. otherwise it uses [`esrap`] to print [ESTree] specification-complaint [AST] node.
+    - it uses either this package's printer to print [AST] node related to [Svelte] syntax,
+    - otherwise it uses [`esrap`] to print [ESTree] specification-complaint [AST] node.
 
 ---
 

@@ -1,4 +1,5 @@
 /**
+ * @import { AST } from "svelte/compiler";
  * @import { PrintOptions } from "./_internal/option.js";
  */
 
@@ -9,7 +10,7 @@
  *
  * @example Recommended usage
  *
- * If you know which _specific_ AST node from Svelte syntax you want to print.
+ * If you know which _specific_ AST node from Svelte syntax you want to print. For example {@link AST.SnippetBlock}.
  *
  * ```ts
  * import type { AST } from "svelte/compiler";
