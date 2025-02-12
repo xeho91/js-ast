@@ -42,7 +42,7 @@ export const TYPES_TEMPLATE = new Set(
  * - text that is included between HTML tags - {@link AST.Text},
  * - HTML comment - {@link AST.Comment}.
  *
- * @param {AST.BaseNode} node - Supported AST node to narrow down its inferred type
+ * @param {unknown} node - Supported AST node to narrow down its inferred type
  * @returns {node is AST.TemplateNode}
  * @__NO_SIDE_EFFECTS__
  */

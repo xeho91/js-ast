@@ -1,11 +1,11 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../shared.ts";
+import { parse_and_extract } from "../../tests/shared.ts";
 
-import { print } from "svelte-ast-print";
+import { printRoot } from "./mod.js";
 
-describe("Root", () => {
+describe(printRoot.name, () => {
 	it("it prints correctly Svelte code without TypeScript syntax", ({ expect }) => {
 		const code = `
 			<script context="module">
@@ -78,7 +78,7 @@ describe("Root", () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(print(node)).toMatchInlineSnapshot(
+		expect(printRoot(node).code).toMatchInlineSnapshot(
 			`
 			"<script context="module">
 				export const FOO = "BAR";
@@ -113,12 +113,8 @@ describe("Root", () => {
 					{/each}
 				</ul>
 				<p>{remaining} remaining</p>
-				<button on:click={add}>
-					Add new
-				</button>
-				<button on:click={clear}>
-					Clear completed
-				</button>
+				<button on:click={add}>Add new</button>
+				<button on:click={clear}>Clear completed</button>
 			</div>
 
 			<style>
@@ -126,15 +122,12 @@ describe("Root", () => {
 					max-width: 20em;
 					margin: 0 auto;
 				}
-
 				.done {
 					opacity: 0.4;
 				}
-
 				li {
 					display: flex;
 				}
-
 				input[type="text"] {
 					flex: 1;
 					padding: 0.5em;
@@ -206,7 +199,7 @@ describe("Root", () => {
 			</Story>
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(print(node)).toMatchInlineSnapshot(
+		expect(printRoot(node).code).toMatchInlineSnapshot(
 			`
 			"<script context="module" lang="ts">
 				import {
@@ -279,7 +272,7 @@ describe("Root", () => {
 			<Story name="Default" />
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printRoot(node).code).toMatchInlineSnapshot(`
 			"<script context="module">
 				import { defineMeta } from "@storybook/addon-svelte-csf";
 
@@ -312,7 +305,7 @@ I am good.
 			hello world
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printRoot(node).code).toMatchInlineSnapshot(`
 			"<script>
 				const text = \`
 			I am just a story.

@@ -9,19 +9,19 @@
 			"vite": false
 		},
 		"pkgs/js-ast-build": {
-			"entry": ["src/mod.js"],
+			"entry": ["src/lib.js"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/ts-ast-build": {
-			"entry": ["src/mod.js"],
+			"entry": ["src/lib.js"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/svelte-ast-build": {
-			"entry": ["src/mod.js"],
+			"entry": ["src/lib.js"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/svelte-ast-print": {
-			"entry": ["src/mod.js"],
+			"entry": ["src/lib.js"],
 			"project": ["**/*.{json,js,ts}"]
 		}
 	}

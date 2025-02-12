@@ -1,11 +1,11 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../shared.ts";
+import { parse_and_extract } from "../../tests/shared.ts";
 
-import { print } from "svelte-ast-print";
+import { printFragment } from "./mod.js";
 
-describe("Fragment", () => {
+describe(printFragment.name, () => {
 	it("it prints correctly fragment code", ({ expect }) => {
 		const code = `
 			<h1>Shopping list</h1>
@@ -44,7 +44,7 @@ describe("Fragment", () => {
 			{/key}
 		`;
 		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printFragment(node).code).toMatchInlineSnapshot(`
 			"<h1>Shopping list</h1>
 			<ul>
 				{#each items as item}
@@ -89,7 +89,7 @@ describe("Fragment", () => {
 			{/snippet}
 		`;
 		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
-		expect(print(node)).toMatchInlineSnapshot(`
+		expect(printFragment(node).code).toMatchInlineSnapshot(`
 			"{#snippet template({ children, ...args }: Args<typeof Story>, context: StoryContext<typeof Story>)}
 				<Button {...args}>{children}</Button>
 			{/snippet}"
