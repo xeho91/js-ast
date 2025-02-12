@@ -13,7 +13,7 @@ describe(printScript.name, () => {
 			</script>
 		`;
 		const node = parse_and_extract<AST.Script>(code, "Script");
-		expect(printScript(node).toString()).toMatchInlineSnapshot(`
+		expect(printScript(node).code).toMatchInlineSnapshot(`
 			"<script context="module" lang="ts">
 				export const BUTTON_DEFAULT_VARIANT = "primary";
 			</script>"
@@ -74,7 +74,7 @@ describe(printScript.name, () => {
 			</script>
 		`;
 		const node = parse_and_extract<AST.Script>(code, "Script");
-		expect(printScript(node).toString()).toMatchInlineSnapshot(`
+		expect(printScript(node).code).toMatchInlineSnapshot(`
 			"<script>
 				import Eliza from 'elizabot';
 				import { beforeUpdate, afterUpdate } from 'svelte';
@@ -129,7 +129,7 @@ describe(printScript.name, () => {
 			</script>
 		`;
 		const node = parse_and_extract<AST.Script>(code, "Script");
-		expect(printScript(node).toString()).toMatchInlineSnapshot(`
+		expect(printScript(node).code).toMatchInlineSnapshot(`
 			"<script lang="ts">
 				let name: string = 'world';
 

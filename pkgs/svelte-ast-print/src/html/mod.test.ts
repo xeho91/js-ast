@@ -17,7 +17,7 @@ describe(printHTML.name, () => {
 			{/each}
 		`;
 			const node = parse_and_extract<AST.Comment>(code, "Comment");
-			expect(printComment(node).toString()).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
+			expect(printComment(node).code).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
 		});
 
 		it("supports multiple line comment", ({ expect }) => {
@@ -31,7 +31,7 @@ describe(printHTML.name, () => {
 			-->
 		`;
 			const node = parse_and_extract<AST.Comment>(code, "Comment");
-			expect(printComment(node).toString()).toMatchInlineSnapshot(
+			expect(printComment(node).code).toMatchInlineSnapshot(
 				`
 			"<!--
 				This
@@ -51,7 +51,7 @@ describe(printHTML.name, () => {
 			<span>Catch me if you can</span>
 		`;
 			const node = parse_and_extract<AST.Text>(code, "Text");
-			expect(printText(node).toString()).toMatchInlineSnapshot(`"Catch me if you can"`);
+			expect(printText(node).code).toMatchInlineSnapshot(`"Catch me if you can"`);
 		});
 	});
 });

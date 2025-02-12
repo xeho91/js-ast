@@ -25,7 +25,7 @@ describe(printAttributeLike.name, () => {
 			<input required />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"required"`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"required"`);
 		});
 
 		it("correctly prints empty text expression value", ({ expect }) => {
@@ -33,7 +33,7 @@ describe(printAttributeLike.name, () => {
 			<input required="" />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"required="""`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"required="""`);
 		});
 
 		it("correctly prints text expression value with text", ({ expect }) => {
@@ -41,7 +41,7 @@ describe(printAttributeLike.name, () => {
 			<div aria-label="this is a modal box" />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"aria-label="this is a modal box""`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"aria-label="this is a modal box""`);
 		});
 
 		it("correctly prints booleanish expression tag value", ({ expect }) => {
@@ -49,7 +49,7 @@ describe(printAttributeLike.name, () => {
 			<button {disabled} />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"{disabled}"`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"{disabled}"`);
 		});
 
 		it("correctly prints expression tag value with string template", ({ expect }) => {
@@ -57,7 +57,7 @@ describe(printAttributeLike.name, () => {
 			<Button id={\`button-\${id}\`} />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"id={\`button-\${id}\`}"`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"id={\`button-\${id}\`}"`);
 		});
 
 		it("correctly prints expression tag with string", ({ expect }) => {
@@ -65,7 +65,7 @@ describe(printAttributeLike.name, () => {
 			<Tab name={"Home"} />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"name={"Home"}"`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"name={"Home"}"`);
 		});
 
 		it("correctly prints string with expression tags inside", ({ expect }) => {
@@ -73,7 +73,7 @@ describe(printAttributeLike.name, () => {
 			<Button class="{variant} small" />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"class="{variant} small""`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"class="{variant} small""`);
 		});
 
 		it("correctly prints expression tag with array expression", ({ expect }) => {
@@ -81,7 +81,7 @@ describe(printAttributeLike.name, () => {
 			<Select values={[1, 2, 3]} />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(`"values={[1, 2, 3]}"`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"values={[1, 2, 3]}"`);
 		});
 
 		it("correctly prints expression tag with object expression", ({ expect }) => {
@@ -89,7 +89,7 @@ describe(printAttributeLike.name, () => {
 			<Container values={{ min: 1000, max: 1200, display: "grid" }} />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).toString()).toMatchInlineSnapshot(
+			expect(printAttribute(node).code).toMatchInlineSnapshot(
 				`"values={{ min: 1000, max: 1200, display: "grid" }}"`,
 			);
 		});
@@ -101,7 +101,7 @@ describe(printAttributeLike.name, () => {
 			<Widget {...things} />
 		`;
 			const node = parse_and_extract<AST.SpreadAttribute>(code, "SpreadAttribute");
-			expect(printSpreadAttribute(node).toString()).toMatchInlineSnapshot(`"{...things}"`);
+			expect(printSpreadAttribute(node).code).toMatchInlineSnapshot(`"{...things}"`);
 		});
 
 		it("works using $$props", ({ expect }) => {
@@ -109,7 +109,7 @@ describe(printAttributeLike.name, () => {
 			<Widget {...$$props} />
 		`;
 			const node = parse_and_extract<AST.SpreadAttribute>(code, "SpreadAttribute");
-			expect(printSpreadAttribute(node).toString()).toMatchInlineSnapshot(`"{...$$props}"`);
+			expect(printSpreadAttribute(node).code).toMatchInlineSnapshot(`"{...$$props}"`);
 		});
 
 		it("works using $$restProps", ({ expect }) => {
@@ -117,7 +117,7 @@ describe(printAttributeLike.name, () => {
 			<Widget {...$$restProps} />
 		`;
 			const node = parse_and_extract<AST.SpreadAttribute>(code, "SpreadAttribute");
-			expect(printSpreadAttribute(node).toString()).toMatchInlineSnapshot(`"{...$$restProps}"`);
+			expect(printSpreadAttribute(node).code).toMatchInlineSnapshot(`"{...$$restProps}"`);
 		});
 	});
 
@@ -129,7 +129,7 @@ describe(printAttributeLike.name, () => {
 			{/each}
 		`;
 			const node = parse_and_extract<AST.AnimateDirective>(code, "AnimateDirective");
-			expect(printAnimateDirective(node).toString()).toMatchInlineSnapshot(`"animate:flip"`);
+			expect(printAnimateDirective(node).code).toMatchInlineSnapshot(`"animate:flip"`);
 		});
 
 		it("works on with params variant", ({ expect }) => {
@@ -139,7 +139,7 @@ describe(printAttributeLike.name, () => {
 			{/each}
 		`;
 			const node = parse_and_extract<AST.AnimateDirective>(code, "AnimateDirective");
-			expect(printAnimateDirective(node).toString()).toMatchInlineSnapshot(`"animate:flip={{ delay: 500 }}"`);
+			expect(printAnimateDirective(node).code).toMatchInlineSnapshot(`"animate:flip={{ delay: 500 }}"`);
 		});
 	});
 
@@ -153,7 +153,7 @@ describe(printAttributeLike.name, () => {
 			<input type="text" bind:value />
 		`;
 			const node = parse_and_extract<AST.BindDirective>(code, "BindDirective");
-			expect(printBindDirective(node).toString()).toMatchInlineSnapshot(`"bind:value"`);
+			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:value"`);
 		});
 
 		it("works on binding input value", ({ expect }) => {
@@ -161,7 +161,7 @@ describe(printAttributeLike.name, () => {
 			<input bind:value={name} />
 		`;
 			const node = parse_and_extract<AST.BindDirective>(code, "BindDirective");
-			expect(printBindDirective(node).toString()).toMatchInlineSnapshot(`"bind:value={name}"`);
+			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:value={name}"`);
 		});
 
 		it("works on binding input checked", ({ expect }) => {
@@ -169,7 +169,7 @@ describe(printAttributeLike.name, () => {
 			<input type="checkbox" bind:checked={yes} />
 		`;
 			const node = parse_and_extract<AST.BindDirective>(code, "BindDirective");
-			expect(printBindDirective(node).toString()).toMatchInlineSnapshot(`"bind:checked={yes}"`);
+			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:checked={yes}"`);
 		});
 	});
 
@@ -179,7 +179,7 @@ describe(printAttributeLike.name, () => {
 			<div class:active={isActive}>...</div>
 		`;
 			const node = parse_and_extract<AST.ClassDirective>(code, "ClassDirective");
-			expect(printClassDirective(node).toString()).toMatchInlineSnapshot(`"class:active={isActive}"`);
+			expect(printClassDirective(node).code).toMatchInlineSnapshot(`"class:active={isActive}"`);
 		});
 
 		it("works without value - shorthand", ({ expect }) => {
@@ -187,7 +187,7 @@ describe(printAttributeLike.name, () => {
 			<div class:active>...</div>
 		`;
 			const node = parse_and_extract<AST.ClassDirective>(code, "ClassDirective");
-			expect(printClassDirective(node).toString()).toMatchInlineSnapshot(`"class:active"`);
+			expect(printClassDirective(node).code).toMatchInlineSnapshot(`"class:active"`);
 		});
 	});
 
@@ -199,7 +199,7 @@ describe(printAttributeLike.name, () => {
 			</FancyList>
 		`;
 			const node = parse_and_extract<AST.LetDirective>(code, "LetDirective");
-			expect(printLetDirective(node).toString()).toMatchInlineSnapshot(`"let:prop={thing}"`);
+			expect(printLetDirective(node).code).toMatchInlineSnapshot(`"let:prop={thing}"`);
 		});
 
 		it("works on without value", ({ expect }) => {
@@ -209,7 +209,7 @@ describe(printAttributeLike.name, () => {
 			</Story>
 		`;
 			const node = parse_and_extract<AST.LetDirective>(code, "LetDirective");
-			expect(printLetDirective(node).toString()).toMatchInlineSnapshot(`"let:args"`);
+			expect(printLetDirective(node).code).toMatchInlineSnapshot(`"let:args"`);
 		});
 	});
 
@@ -221,7 +221,7 @@ describe(printAttributeLike.name, () => {
 			</button>
 		`;
 			const node = parse_and_extract<AST.OnDirective>(code, "OnDirective");
-			expect(printOnDirective(node).toString()).toMatchInlineSnapshot(`"on:click={() => count += 1}"`);
+			expect(printOnDirective(node).code).toMatchInlineSnapshot(`"on:click={() => count += 1}"`);
 		});
 
 		it("works on with modifiers variant", ({ expect }) => {
@@ -231,7 +231,7 @@ describe(printAttributeLike.name, () => {
 			</form>
 		`;
 			const node = parse_and_extract<AST.OnDirective>(code, "OnDirective");
-			expect(printOnDirective(node).toString()).toMatchInlineSnapshot(
+			expect(printOnDirective(node).code).toMatchInlineSnapshot(
 				`"on:submit|preventDefault={handleSubmit}"`,
 			);
 		});
@@ -243,7 +243,7 @@ describe(printAttributeLike.name, () => {
 			<div style:color={myColor}>...</div>
 		`;
 			const node = parse_and_extract<AST.StyleDirective>(code, "StyleDirective");
-			expect(printStyleDirective(node).toString()).toMatchInlineSnapshot(`"style:color={myColor}"`);
+			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color={myColor}"`);
 		});
 
 		it("works with shorthand", ({ expect }) => {
@@ -251,7 +251,7 @@ describe(printAttributeLike.name, () => {
 			<div style:color>...</div>
 		`;
 			const node = parse_and_extract<AST.StyleDirective>(code, "StyleDirective");
-			expect(printStyleDirective(node).toString()).toMatchInlineSnapshot(`"style:color"`);
+			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color"`);
 		});
 
 		it("works with text expression", ({ expect }) => {
@@ -259,7 +259,7 @@ describe(printAttributeLike.name, () => {
 			<div style:color="red">...</div>
 		`;
 			const node = parse_and_extract<AST.StyleDirective>(code, "StyleDirective");
-			expect(printStyleDirective(node).toString()).toMatchInlineSnapshot(`"style:color="red""`);
+			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color="red""`);
 		});
 
 		it("works with modifiers and text expression", ({ expect }) => {
@@ -267,7 +267,7 @@ describe(printAttributeLike.name, () => {
 			<div style:color|important="red">...</div>
 		`;
 			const node = parse_and_extract<AST.StyleDirective>(code, "StyleDirective");
-			expect(printStyleDirective(node).toString()).toMatchInlineSnapshot(`"style:color|important="red""`);
+			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color|important="red""`);
 		});
 	});
 
@@ -279,7 +279,7 @@ describe(printAttributeLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.TransitionDirective>(code, "TransitionDirective");
-			expect(printTransitionDirective(node).toString()).toMatchInlineSnapshot(`"transition:scale"`);
+			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"transition:scale"`);
 		});
 
 		it("works when using intro", ({ expect }) => {
@@ -289,7 +289,7 @@ describe(printAttributeLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.TransitionDirective>(code, "TransitionDirective");
-			expect(printTransitionDirective(node).toString()).toMatchInlineSnapshot(`"in:fly"`);
+			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"in:fly"`);
 		});
 
 		it("works when using outro", ({ expect }) => {
@@ -299,7 +299,7 @@ describe(printAttributeLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.TransitionDirective>(code, "TransitionDirective");
-			expect(printTransitionDirective(node).toString()).toMatchInlineSnapshot(`"out:fade"`);
+			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"out:fade"`);
 		});
 
 		it("works when using params", ({ expect }) => {
@@ -311,7 +311,7 @@ describe(printAttributeLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.TransitionDirective>(code, "TransitionDirective");
-			expect(printTransitionDirective(node).toString()).toMatchInlineSnapshot(
+			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(
 				`"transition:fly={{ y: 200, duration: 2000 }}"`,
 			);
 		});
@@ -323,7 +323,7 @@ describe(printAttributeLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.TransitionDirective>(code, "TransitionDirective");
-			expect(printTransitionDirective(node).toString()).toMatchInlineSnapshot(`"transition:fade|global"`);
+			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"transition:fade|global"`);
 		});
 
 		it("works when using modifiers and with params", ({ expect }) => {
@@ -333,7 +333,7 @@ describe(printAttributeLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.TransitionDirective>(code, "TransitionDirective");
-			expect(printTransitionDirective(node).toString()).toMatchInlineSnapshot(
+			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(
 				`"transition:fade|local={{ y: 200, duration: 2000 }}"`,
 			);
 		});
@@ -345,7 +345,7 @@ describe(printAttributeLike.name, () => {
 			<div use:foo={bar} />
 		`;
 			const node = parse_and_extract<AST.UseDirective>(code, "UseDirective");
-			expect(printUseDirective(node).toString()).toMatchInlineSnapshot(`"use:foo={bar}"`);
+			expect(printUseDirective(node).code).toMatchInlineSnapshot(`"use:foo={bar}"`);
 		});
 
 		it("works on without parameters - shorthand", ({ expect }) => {
@@ -353,7 +353,7 @@ describe(printAttributeLike.name, () => {
 			<div use:foo />
 		`;
 			const node = parse_and_extract<AST.UseDirective>(code, "UseDirective");
-			expect(printUseDirective(node).toString()).toMatchInlineSnapshot(`"use:foo"`);
+			expect(printUseDirective(node).code).toMatchInlineSnapshot(`"use:foo"`);
 		});
 	});
 });

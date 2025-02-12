@@ -10,31 +10,31 @@ describe(printTag.name, () => {
 	it("print correctly `@const` tag", ({ expect }) => {
 		const code = "{@const area = box.width * box.height}";
 		const node = parse_and_extract<AST.ConstTag>(code, "ConstTag");
-		expect(printTag(node).toString()).toMatchInlineSnapshot(`"{@const area = box.width * box.height}"`);
+		expect(printTag(node).code).toMatchInlineSnapshot(`"{@const area = box.width * box.height}"`);
 	});
 
 	it("print correctly  `@debug` tag", ({ expect }) => {
 		const code = "{@debug user}";
 		const node = parse_and_extract<AST.DebugTag>(code, "DebugTag");
-		expect(printTag(node).toString()).toMatchInlineSnapshot(`"{@debug user}"`);
+		expect(printTag(node).code).toMatchInlineSnapshot(`"{@debug user}"`);
 	});
 
 	it("print correctly `{expression}` tag", ({ expect }) => {
 		const code = "{name}";
 		const node = parse_and_extract<AST.ExpressionTag>(code, "ExpressionTag");
-		expect(printTag(node).toString()).toMatchInlineSnapshot(`"{name}"`);
+		expect(printTag(node).code).toMatchInlineSnapshot(`"{name}"`);
 	});
 
 	it("print correctly  `@html` tag", ({ expect }) => {
 		const code = "{@html '<h1>Svelte 🧡</h1>'}";
 		const node = parse_and_extract<AST.HtmlTag>(code, "HtmlTag");
-		expect(printTag(node).toString()).toMatchInlineSnapshot(`"{@html '<h1>Svelte 🧡</h1>'}"`);
+		expect(printTag(node).code).toMatchInlineSnapshot(`"{@html '<h1>Svelte 🧡</h1>'}"`);
 	});
 
 	it("print correctly  `@render` tag", ({ expect }) => {
 		const code = "{@render children()}";
 		const node = parse_and_extract<AST.RenderTag>(code, "RenderTag");
-		expect(printTag(node).toString()).toMatchInlineSnapshot(`"{@render children()}"`);
+		expect(printTag(node).code).toMatchInlineSnapshot(`"{@render children()}"`);
 	});
 });
 
@@ -47,7 +47,7 @@ describe(printConstTag.name, () => {
 			{/each}
 		`;
 		const node = parse_and_extract<AST.ConstTag>(code, "ConstTag");
-		expect(printConstTag(node).toString()).toMatchInlineSnapshot(`"{@const area = box.width * box.height}"`);
+		expect(printConstTag(node).code).toMatchInlineSnapshot(`"{@const area = box.width * box.height}"`);
 	});
 });
 
@@ -66,7 +66,7 @@ describe(printDebugTag.name, () => {
 			<h1>Hello {user.firstname}!</h1>
 		`;
 		const node = parse_and_extract<AST.DebugTag>(code, "DebugTag");
-		expect(printDebugTag(node).toString()).toMatchInlineSnapshot(`"{@debug user}"`);
+		expect(printDebugTag(node).code).toMatchInlineSnapshot(`"{@debug user}"`);
 	});
 });
 
@@ -74,19 +74,19 @@ describe(printExpressionTag.name, () => {
 	it("correctly prints an reactive and simple Svelte expression in template", ({ expect }) => {
 		const code = "{name}";
 		const node = parse_and_extract<AST.ExpressionTag>(code, "ExpressionTag");
-		expect(printExpressionTag(node).toString()).toMatchInlineSnapshot(`"{name}"`);
+		expect(printExpressionTag(node).code).toMatchInlineSnapshot(`"{name}"`);
 	});
 
 	it("supports dot notation", ({ expect }) => {
 		const code = "{svelte.is.the.best.framework}";
 		const node = parse_and_extract<AST.ExpressionTag>(code, "ExpressionTag");
-		expect(printExpressionTag(node).toString()).toMatchInlineSnapshot(`"{svelte.is.the.best.framework}"`);
+		expect(printExpressionTag(node).code).toMatchInlineSnapshot(`"{svelte.is.the.best.framework}"`);
 	});
 
 	it("supports brackets notation and question mark", ({ expect }) => {
 		const code = "{svelte[5].release?.date}";
 		const node = parse_and_extract<AST.ExpressionTag>(code, "ExpressionTag");
-		expect(printExpressionTag(node).toString()).toMatchInlineSnapshot(`"{svelte[5].release?.date}"`);
+		expect(printExpressionTag(node).code).toMatchInlineSnapshot(`"{svelte[5].release?.date}"`);
 	});
 });
 
@@ -99,7 +99,7 @@ describe(printHtmlTag.name, () => {
 				</div>
 			`;
 		const node = parse_and_extract<AST.HtmlTag>(code, "HtmlTag");
-		expect(printHtmlTag(node).toString()).toMatchInlineSnapshot(`"{@html post.content}"`);
+		expect(printHtmlTag(node).code).toMatchInlineSnapshot(`"{@html post.content}"`);
 	});
 });
 
@@ -113,6 +113,6 @@ describe(printRenderTag.name, () => {
 			{@render hello('alice')}
 		`;
 		const node = parse_and_extract<AST.RenderTag>(code, "RenderTag");
-		expect(printRenderTag(node).toString()).toMatchInlineSnapshot(`"{@render hello('alice')}"`);
+		expect(printRenderTag(node).code).toMatchInlineSnapshot(`"{@render hello('alice')}"`);
 	});
 });

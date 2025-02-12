@@ -44,7 +44,7 @@ describe(printFragment.name, () => {
 			{/key}
 		`;
 		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
-		expect(printFragment(node).toString()).toMatchInlineSnapshot(`
+		expect(printFragment(node).code).toMatchInlineSnapshot(`
 			"<h1>Shopping list</h1>
 			<ul>
 				{#each items as item}
@@ -89,7 +89,7 @@ describe(printFragment.name, () => {
 			{/snippet}
 		`;
 		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
-		expect(printFragment(node).toString()).toMatchInlineSnapshot(`
+		expect(printFragment(node).code).toMatchInlineSnapshot(`
 			"{#snippet template({ children, ...args }: Args<typeof Story>, context: StoryContext<typeof Story>)}
 				<Button {...args}>{children}</Button>
 			{/snippet}"

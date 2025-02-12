@@ -34,7 +34,7 @@ describe(printElementLike.name, () => {
 			/>
 		`;
 			const node = parse_and_extract<AST.Component>(code, "Component");
-			expect(printComponent(node).toString()).toMatchInlineSnapshot(
+			expect(printComponent(node).code).toMatchInlineSnapshot(
 				`"<Slider bind:value min={0} --rail-color="black" --track-color="rgb(0, 0, 255)" />"`,
 			);
 		});
@@ -66,7 +66,7 @@ describe(printElementLike.name, () => {
 			</Navbar>
 		`;
 			const node = parse_and_extract<AST.Component>(code, "Component");
-			expect(printComponent(node).toString()).toMatchInlineSnapshot(`
+			expect(printComponent(node).code).toMatchInlineSnapshot(`
 			"<Navbar let:hidden let:toggle>
 				<NavBrand href="/">
 					<img src="/images/flowbite-svelte-icon-logo.svg" class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
@@ -100,7 +100,7 @@ describe(printElementLike.name, () => {
 			/>
 		`;
 			const node = parse_and_extract<AST.RegularElement>(code, "RegularElement");
-			expect(printRegularElement(node).toString()).toMatchInlineSnapshot(
+			expect(printRegularElement(node).code).toMatchInlineSnapshot(
 				`"<input bind:value min={0} style:--rail-color="black" style:--track-color="rgb(0, 0, 255)" />"`,
 			);
 		});
@@ -110,7 +110,7 @@ describe(printElementLike.name, () => {
 			<button on:click={increment}>Clicked {count} {count === 1 ? 'time' : 'times'}</button>
 		`;
 			const node = parse_and_extract<AST.RegularElement>(code, "RegularElement");
-			expect(printRegularElement(node).toString()).toMatchInlineSnapshot(`
+			expect(printRegularElement(node).code).toMatchInlineSnapshot(`
 			"<button on:click={increment}>Clicked {count} {count === 1 ? 'time' : 'times'}</button>"
 		`);
 		});
@@ -120,7 +120,7 @@ describe(printElementLike.name, () => {
 			<span class="{name} primary">test</span>
 		`;
 			const node = parse_and_extract<AST.RegularElement>(code, "RegularElement");
-			expect(printRegularElement(node).toString()).toMatchInlineSnapshot(
+			expect(printRegularElement(node).code).toMatchInlineSnapshot(
 				`"<span class="{name} primary">test</span>"`,
 			);
 		});
@@ -132,7 +132,7 @@ describe(printElementLike.name, () => {
 			<slot name="description" />
 		`;
 			const node = parse_and_extract<AST.SlotElement>(code, "SlotElement");
-			expect(printSlotElement(node).toString()).toMatchInlineSnapshot(`"<slot name="description" />"`);
+			expect(printSlotElement(node).code).toMatchInlineSnapshot(`"<slot name="description" />"`);
 		});
 
 		it("works on example component with children", ({ expect }) => {
@@ -143,7 +143,7 @@ describe(printElementLike.name, () => {
 			</div>
 		`;
 			const node = parse_and_extract<AST.SlotElement>(code, "SlotElement");
-			expect(printSlotElement(node).toString()).toMatchInlineSnapshot(
+			expect(printSlotElement(node).code).toMatchInlineSnapshot(
 				`"<slot name="header">No header was provided</slot>"`,
 			);
 		});
@@ -155,7 +155,7 @@ describe(printElementLike.name, () => {
 			<svelte:body on:mouseenter={handleMouseenter} on:mouseleave={handleMouseleave} use:someAction />
 		`;
 			const node = parse_and_extract<AST.SvelteBody>(code, "SvelteBody");
-			expect(printSvelteBody(node).toString()).toMatchInlineSnapshot(
+			expect(printSvelteBody(node).code).toMatchInlineSnapshot(
 				`"<svelte:body on:mouseenter={handleMouseenter} on:mouseleave={handleMouseleave} use:someAction />"`,
 			);
 		});
@@ -172,7 +172,7 @@ describe(printElementLike.name, () => {
 			 </svelte:boundary>
 		`;
 			const node = parse_and_extract<AST.SvelteBoundary>(code, "SvelteBoundary");
-			expect(printSvelteBoundary(node).toString()).toMatchInlineSnapshot(
+			expect(printSvelteBoundary(node).code).toMatchInlineSnapshot(
 				`
 			"<svelte:boundary>
 				<FlakyComponent />
@@ -191,7 +191,7 @@ describe(printElementLike.name, () => {
 			<svelte:component this={currentSelection.component} foo={bar} />
 		`;
 			const node = parse_and_extract<AST.SvelteComponent>(code, "SvelteComponent");
-			expect(printSvelteComponent(node).toString()).toMatchInlineSnapshot(`"<svelte:component foo={bar} />"`);
+			expect(printSvelteComponent(node).code).toMatchInlineSnapshot(`"<svelte:component foo={bar} />"`);
 		});
 	});
 
@@ -201,7 +201,7 @@ describe(printElementLike.name, () => {
 				<svelte:document on:visibilitychange={handleVisibilityChange} use:someAction />
 			`;
 			const node = parse_and_extract<AST.SvelteDocument>(code, "SvelteDocument");
-			expect(printSvelteDocument(node).toString()).toMatchInlineSnapshot(
+			expect(printSvelteDocument(node).code).toMatchInlineSnapshot(
 				`"<svelte:document on:visibilitychange={handleVisibilityChange} use:someAction />"`,
 			);
 		});
@@ -213,7 +213,7 @@ describe(printElementLike.name, () => {
 			<svelte:element this={tag} on:click={handler}>Foo</svelte:element>
 		`;
 			const node = parse_and_extract<AST.SvelteElement>(code, "SvelteElement");
-			expect(printSvelteElement(node).toString()).toMatchInlineSnapshot(
+			expect(printSvelteElement(node).code).toMatchInlineSnapshot(
 				`"<svelte:element this={tag} on:click={handler}>Foo</svelte:element>"`,
 			);
 		});
@@ -228,7 +228,7 @@ describe(printElementLike.name, () => {
 			</svelte:fragment>
 		`;
 			const node = parse_and_extract<AST.SvelteFragment>(code, "SvelteFragment");
-			expect(printSvelteFragment(node).toString()).toMatchInlineSnapshot(`
+			expect(printSvelteFragment(node).code).toMatchInlineSnapshot(`
 			"<svelte:fragment slot="footer">
 				<p>All rights reserved.</p>
 				<p>Copyright (c) 2019 Svelte Industries</p>
@@ -246,7 +246,7 @@ describe(printElementLike.name, () => {
 			</svelte:head>
 		`;
 			const node = parse_and_extract<AST.SvelteHead>(code, "SvelteHead");
-			expect(printSvelteHead(node).toString()).toMatchInlineSnapshot(`
+			expect(printSvelteHead(node).code).toMatchInlineSnapshot(`
 			"<svelte:head>
 				<title>Hello world!</title>
 				<meta name="description" content="This is where the description goes for SEO" />
@@ -289,7 +289,7 @@ describe(printElementLike.name, () => {
 			const node = parse_and_extract<AST.Root>(code, "Root");
 			expect(node.options).toBeDefined();
 			if (node.options) {
-				expect(printSvelteOptions(node.options).toString()).toMatchInlineSnapshot(`
+				expect(printSvelteOptions(node.options).code).toMatchInlineSnapshot(`
 					"<svelte:options customElement={{
 							tag: 'custom-element',
 							shadow: 'none',
@@ -335,7 +335,7 @@ describe(printElementLike.name, () => {
 			{/if}
 		`;
 			const node = parse_and_extract<AST.SvelteSelf>(code, "SvelteSelf");
-			expect(printSvelteSelf(node).toString()).toMatchInlineSnapshot(`"<svelte:self count={count - 1} />"`);
+			expect(printSvelteSelf(node).code).toMatchInlineSnapshot(`"<svelte:self count={count - 1} />"`);
 		});
 	});
 
@@ -352,7 +352,7 @@ describe(printElementLike.name, () => {
 			<svelte:window on:keydown={handleKeydown} />
 		`;
 			const node = parse_and_extract<AST.SvelteWindow>(code, "SvelteWindow");
-			expect(printSvelteWindow(node).toString()).toMatchInlineSnapshot(
+			expect(printSvelteWindow(node).code).toMatchInlineSnapshot(
 				`"<svelte:window on:keydown={handleKeydown} />"`,
 			);
 		});
@@ -370,7 +370,7 @@ describe(printElementLike.name, () => {
 			</svelte:head>
 		`;
 			const node = parse_and_extract<AST.TitleElement>(code, "TitleElement");
-			expect(printTitleElement(node).toString()).toMatchInlineSnapshot(
+			expect(printTitleElement(node).code).toMatchInlineSnapshot(
 				`"<title>Svelte is optimized for {reason}</title>"`,
 			);
 		});

@@ -16,7 +16,7 @@ describe(printCSSBlock.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.Block>(code, "Block");
-		expect(printCSSBlock(node).toString()).toMatchInlineSnapshot(`
+		expect(printCSSBlock(node).code).toMatchInlineSnapshot(`
 			"{
 				color: red;
 				background-color: black;
@@ -35,7 +35,7 @@ describe(printCSSDeclaration.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.Declaration>(code, "Declaration");
-		expect(printCSSDeclaration(node).toString()).toMatchInlineSnapshot(`"background-color: orange;"`);
+		expect(printCSSDeclaration(node).code).toMatchInlineSnapshot(`"background-color: orange;"`);
 	});
 });
 
@@ -51,7 +51,7 @@ describe(printCSSAtrule.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.Atrule>(code, "Atrule");
-		expect(printCSSAtrule(node).toString()).toMatchInlineSnapshot(`
+		expect(printCSSAtrule(node).code).toMatchInlineSnapshot(`
 			"@media screen and (max-width: 1000px) {
 				p {
 					max-width: 60ch;
@@ -71,7 +71,7 @@ describe(printCSSRule.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.Rule>(code, "Rule");
-		expect(printCSSRule(node).toString()).toMatchInlineSnapshot(`
+		expect(printCSSRule(node).code).toMatchInlineSnapshot(`
 			"p {
 				color: red;
 			}"
@@ -90,7 +90,7 @@ describe(printCSSRule.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.Rule>(code, "Rule");
-		expect(printCSSRule(node).toString()).toMatchInlineSnapshot(`
+		expect(printCSSRule(node).code).toMatchInlineSnapshot(`
 			"h1 {
 				color: red;
 				& + p {

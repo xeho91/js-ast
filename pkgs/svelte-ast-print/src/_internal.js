@@ -275,7 +275,7 @@ export class Result {
 	}
 
 	/** @returns {string} */
-	toString() {
+	get code() {
 		return this.lines.map((ln) => ln.toString(this.opts.indent)).join(char.NL);
 	}
 }

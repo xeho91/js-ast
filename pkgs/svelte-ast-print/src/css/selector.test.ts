@@ -31,7 +31,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.AttributeSelector>(code, "AttributeSelector");
-			expect(printCSSAttributeSelector(node).toString()).toMatchInlineSnapshot(`"[disabled]"`);
+			expect(printCSSAttributeSelector(node).code).toMatchInlineSnapshot(`"[disabled]"`);
 		});
 
 		it("prints correctly with value", ({ expect }) => {
@@ -43,7 +43,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.AttributeSelector>(code, "AttributeSelector");
-			expect(printCSSAttributeSelector(node).toString()).toMatchInlineSnapshot(`"[aria-disabled="true"]"`);
+			expect(printCSSAttributeSelector(node).code).toMatchInlineSnapshot(`"[aria-disabled="true"]"`);
 		});
 
 		it("prints correctly with value and flags", ({ expect }) => {
@@ -55,7 +55,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.AttributeSelector>(code, "AttributeSelector");
-			expect(printCSSAttributeSelector(node).toString()).toMatchInlineSnapshot(`"[aria-disabled="false" s]"`);
+			expect(printCSSAttributeSelector(node).code).toMatchInlineSnapshot(`"[aria-disabled="false" s]"`);
 		});
 	});
 
@@ -69,7 +69,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.ClassSelector>(code, "ClassSelector");
-			expect(printCSSClassSelector(node).toString()).toMatchInlineSnapshot(`".button"`);
+			expect(printCSSClassSelector(node).code).toMatchInlineSnapshot(`".button"`);
 		});
 	});
 
@@ -83,7 +83,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.IdSelector>(code, "IdSelector");
-			expect(printCSSIdSelector(node).toString()).toMatchInlineSnapshot(`"#app"`);
+			expect(printCSSIdSelector(node).code).toMatchInlineSnapshot(`"#app"`);
 		});
 	});
 
@@ -99,7 +99,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.NestingSelector>(code, "NestingSelector");
-			expect(printCSSNestingSelector(node).toString()).toMatchInlineSnapshot(`"&"`);
+			expect(printCSSNestingSelector(node).code).toMatchInlineSnapshot(`"&"`);
 		});
 	});
 
@@ -113,7 +113,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.PseudoClassSelector>(code, "PseudoClassSelector");
-			expect(printCSSPseudoClassSelector(node).toString()).toMatchInlineSnapshot(`":hover"`);
+			expect(printCSSPseudoClassSelector(node).code).toMatchInlineSnapshot(`":hover"`);
 		});
 
 		it("prints correctly with args", ({ expect }) => {
@@ -125,7 +125,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.PseudoClassSelector>(code, "PseudoClassSelector");
-			expect(printCSSPseudoClassSelector(node).toString()).toMatchInlineSnapshot(`":not(.error)"`);
+			expect(printCSSPseudoClassSelector(node).code).toMatchInlineSnapshot(`":not(.error)"`);
 		});
 	});
 
@@ -139,7 +139,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.PseudoElementSelector>(code, "PseudoElementSelector");
-			expect(printCSSPseudoElementSelector(node).toString()).toMatchInlineSnapshot(`"::before"`);
+			expect(printCSSPseudoElementSelector(node).code).toMatchInlineSnapshot(`"::before"`);
 		});
 	});
 
@@ -153,7 +153,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.TypeSelector>(code, "TypeSelector");
-			expect(printCSSTypeSelector(node).toString()).toMatchInlineSnapshot(`"p"`);
+			expect(printCSSTypeSelector(node).code).toMatchInlineSnapshot(`"p"`);
 		});
 	});
 
@@ -167,7 +167,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
-			expect(printCSSNth(node).toString()).toMatchInlineSnapshot(`":nth-child(1)"`);
+			expect(printCSSNth(node).code).toMatchInlineSnapshot(`":nth-child(1)"`);
 		});
 
 		it("prints correctly text value", ({ expect }) => {
@@ -179,7 +179,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
-			expect(printCSSNth(node).toString()).toMatchInlineSnapshot(`":nth-child(odd)"`);
+			expect(printCSSNth(node).code).toMatchInlineSnapshot(`":nth-child(odd)"`);
 		});
 
 		it("prints correctly math-like value", ({ expect }) => {
@@ -191,7 +191,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
-			expect(printCSSNth(node).toString()).toMatchInlineSnapshot(`":nth-child(-1n + 5)"`);
+			expect(printCSSNth(node).code).toMatchInlineSnapshot(`":nth-child(-1n + 5)"`);
 		});
 
 		// FIXME: This is a bug in Svelte, because parser treats it as class selector(?)
@@ -204,7 +204,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.Nth>(code, "Nth");
-			expect(printCSSNth(node).toString()).toMatchInlineSnapshot(`":nth-child(even of .noted)"`);
+			expect(printCSSNth(node).code).toMatchInlineSnapshot(`":nth-child(even of .noted)"`);
 		});
 	});
 
@@ -220,7 +220,7 @@ describe(printCSSSimpleSelector.name, () => {
 			</style>
 		`;
 			const node = parse_and_extract<AST.CSS.Percentage>(code, "Percentage");
-			expect(printCSSPercentage(node).toString()).toMatchInlineSnapshot(`"50%"`);
+			expect(printCSSPercentage(node).code).toMatchInlineSnapshot(`"50%"`);
 		});
 	});
 });
@@ -235,7 +235,7 @@ describe(printCSSRelativeSelector.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.RelativeSelector>(code, "RelativeSelector");
-		expect(printCSSRelativeSelector(node).toString()).toMatchInlineSnapshot(`"> p"`);
+		expect(printCSSRelativeSelector(node).code).toMatchInlineSnapshot(`"> p"`);
 	});
 
 	it("prints correctly with combinators", ({ expect }) => {
@@ -247,7 +247,7 @@ describe(printCSSRelativeSelector.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.RelativeSelector>(code, "RelativeSelector");
-		expect(printCSSRelativeSelector(node).toString()).toMatchInlineSnapshot(`"p"`);
+		expect(printCSSRelativeSelector(node).code).toMatchInlineSnapshot(`"p"`);
 	});
 });
 
@@ -261,7 +261,7 @@ describe(printCSSComplexSelector.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.ComplexSelector>(code, "ComplexSelector");
-		expect(printCSSComplexSelector(node).toString()).toMatchInlineSnapshot(`":global(div.modal#overlay)"`);
+		expect(printCSSComplexSelector(node).code).toMatchInlineSnapshot(`":global(div.modal#overlay)"`);
 	});
 });
 
@@ -275,6 +275,6 @@ describe(printCSSSelectorList.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.CSS.SelectorList>(code, "SelectorList");
-		expect(printCSSSelectorList(node).toString()).toMatchInlineSnapshot(`"p ~ .error + *"`);
+		expect(printCSSSelectorList(node).code).toMatchInlineSnapshot(`"p ~ .error + *"`);
 	});
 });

@@ -78,7 +78,7 @@ describe(printRoot.name, () => {
 			</style>
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(printRoot(node).toString()).toMatchInlineSnapshot(
+		expect(printRoot(node).code).toMatchInlineSnapshot(
 			`
 			"<script context="module">
 				export const FOO = "BAR";
@@ -199,7 +199,7 @@ describe(printRoot.name, () => {
 			</Story>
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(printRoot(node).toString()).toMatchInlineSnapshot(
+		expect(printRoot(node).code).toMatchInlineSnapshot(
 			`
 			"<script context="module" lang="ts">
 				import {
@@ -272,7 +272,7 @@ describe(printRoot.name, () => {
 			<Story name="Default" />
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(printRoot(node).toString()).toMatchInlineSnapshot(`
+		expect(printRoot(node).code).toMatchInlineSnapshot(`
 			"<script context="module">
 				import { defineMeta } from "@storybook/addon-svelte-csf";
 
@@ -305,7 +305,7 @@ I am good.
 			hello world
 		`;
 		const node = parse_and_extract<AST.Root>(code, "Root");
-		expect(printRoot(node).toString()).toMatchInlineSnapshot(`
+		expect(printRoot(node).code).toMatchInlineSnapshot(`
 			"<script>
 				const text = \`
 			I am just a story.

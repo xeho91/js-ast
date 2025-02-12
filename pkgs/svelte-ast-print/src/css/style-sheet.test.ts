@@ -13,7 +13,7 @@ describe(printCSSStyleSheet.name, () => {
 				</style>
 			`;
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
-		expect(printCSSStyleSheet(node).toString()).toMatchInlineSnapshot(`
+		expect(printCSSStyleSheet(node).code).toMatchInlineSnapshot(`
 			"<style lang="sass">
 				
 			</style>"
@@ -48,7 +48,7 @@ describe(printCSSStyleSheet.name, () => {
 				</style>
 			`;
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
-		expect(printCSSStyleSheet(node).toString()).toMatchInlineSnapshot(`
+		expect(printCSSStyleSheet(node).code).toMatchInlineSnapshot(`
 			"<style>
 				@layer base {
 					:root {
