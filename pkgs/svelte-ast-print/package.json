@@ -35,26 +35,26 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["src/", "types.d.ts"],
+	"files": ["src/"],
 	"exports": {
 		".": {
-			"types": "./types.d.ts",
+			"types": "./src/types.d.ts",
 			"default": "./src/lib.js"
 		},
 		"./css": {
-			"types": "./types.d.ts",
+			"types": "./src/types.d.ts",
 			"default": "./src/css/mod.js"
 		},
 		"./html": {
-			"types": "./types.d.ts",
+			"types": "./src/types.d.ts",
 			"default": "./src/html/mod.js"
 		},
 		"./js": {
-			"types": "./types.d.ts",
+			"types": "./src/types.d.ts",
 			"default": "./src/js/mod.js"
 		},
 		"./template": {
-			"types": "./types.d.ts",
+			"types": "./src/types.d.ts",
 			"default": "./src/template/mod.js"
 		},
 		"./package.json": "./package.json"

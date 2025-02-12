@@ -1,4 +1,5 @@
 /**
+ * @import * as JS from "estree";
  * @import { SvelteOnlyNode } from "svelte-ast-build";
  *
  * @import { PrintOptions } from "./option.js";
@@ -12,13 +13,13 @@ import { Options } from "./option.js";
  * @internal
  * State to store our garbage collectible state for node that is being processed for printing.
  * Each function call should generate unique identifier to the passed user options - by default is `{}`.
- * @type {WeakMap<SvelteOnlyNode, State>}
+ * @type {WeakMap<JS.Node | SvelteOnlyNode, State>}
  */
 const STORE = new WeakMap();
 
 /**
  * @internal
- * @template {SvelteOnlyNode} [N=SvelteOnlyNode]
+ * @template {JS.Node | SvelteOnlyNode} [N=JS.Node | SvelteOnlyNode]
  */
 export class State {
 	/**
@@ -28,7 +29,7 @@ export class State {
 	static depth = 0;
 
 	/**
-	 * @template {SvelteOnlyNode} [N=SvelteOnlyNode]
+	 * @template {JS.Node | SvelteOnlyNode} [N=JS.Node | SvelteOnlyNode]
 	 * @param {N} n
 	 * @param {Partial<PrintOptions>} opts
 	 * @returns {State<N>}
@@ -184,7 +185,7 @@ class Collector {
 /**
  * @internal
  * @lintignore
- * @template {SvelteOnlyNode} [N=SvelteOnlyNode]
+ * @template {JS.Node | SvelteOnlyNode} [N=JS.Node | SvelteOnlyNode]
  */
 export class Result {
 	/** @type {N} */
