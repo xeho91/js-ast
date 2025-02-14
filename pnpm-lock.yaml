@@ -16,8 +16,8 @@ catalogs:
       specifier: ^5.0.0
       version: 5.19.7
     typescript:
-      specifier: ^5.7.0
-      version: 5.7.3
+      specifier: ^5.8.0-beta
+      version: 5.8.0-beta
     zimmerframe:
       specifier: ^1.1.0
       version: 1.1.2
@@ -46,28 +46,28 @@ importers:
         version: 3.0.5(vitest@3.0.5)
       knip:
         specifier: ^5.44.0
-        version: 5.44.1(@types/node@22.13.1)(typescript@5.7.3)
+        version: 5.44.1(@types/node@22.13.1)(typescript@5.8.0-beta)
       serve:
         specifier: ^14.2.0
         version: 14.2.4
       typedoc:
         specifier: ^0.27.0
-        version: 0.27.6(typescript@5.7.3)
+        version: 0.27.6(typescript@5.8.0-beta)
       typedoc-plugin-coverage:
         specifier: ^3.4.0
-        version: 3.4.1(typedoc@0.27.6(typescript@5.7.3))
+        version: 3.4.1(typedoc@0.27.6(typescript@5.8.0-beta))
       typedoc-plugin-dt-links:
         specifier: ^1.1.0
-        version: 1.1.10(typedoc@0.27.6(typescript@5.7.3))
+        version: 1.1.10(typedoc@0.27.6(typescript@5.8.0-beta))
       typedoc-plugin-mdn-links:
         specifier: ^4.0.0
-        version: 4.0.11(typedoc@0.27.6(typescript@5.7.3))
+        version: 4.0.11(typedoc@0.27.6(typescript@5.8.0-beta))
       typedoc-plugin-missing-exports:
         specifier: ^3.1.0
-        version: 3.1.0(typedoc@0.27.6(typescript@5.7.3))
+        version: 3.1.0(typedoc@0.27.6(typescript@5.8.0-beta))
       typescript:
         specifier: 'catalog:'
-        version: 5.7.3
+        version: 5.8.0-beta
       vite:
         specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)(jiti@2.4.2)(yaml@2.6.1)
@@ -1697,6 +1697,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@5.8.0-beta:
+    resolution: {integrity: sha512-7VGUiBOGi+BYhiuy3iITIgu6m2wVW2Vb4CW+OJsW6OJS/TgvezKbAN3WBfiSErE8QOLdce0ilm6VANMkzNWW1A==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
@@ -2901,7 +2906,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  knip@5.44.1(@types/node@22.13.1)(typescript@5.7.3):
+  knip@5.44.1(@types/node@22.13.1)(typescript@5.8.0-beta):
     dependencies:
       '@nodelib/fs.walk': 3.0.1
       '@snyk/github-codeowners': 1.1.0
@@ -2918,7 +2923,7 @@ snapshots:
       smol-toml: 1.3.1
       strip-json-comments: 5.0.1
       summary: 2.1.0
-      typescript: 5.7.3
+      typescript: 5.8.0-beta
       zod: 3.24.1
       zod-validation-error: 3.4.0(zod@3.24.1)
 
@@ -3356,32 +3361,35 @@ snapshots:
 
   type-fest@2.19.0: {}
 
-  typedoc-plugin-coverage@3.4.1(typedoc@0.27.6(typescript@5.7.3)):
+  typedoc-plugin-coverage@3.4.1(typedoc@0.27.6(typescript@5.8.0-beta)):
     dependencies:
-      typedoc: 0.27.6(typescript@5.7.3)
+      typedoc: 0.27.6(typescript@5.8.0-beta)
 
-  typedoc-plugin-dt-links@1.1.10(typedoc@0.27.6(typescript@5.7.3)):
+  typedoc-plugin-dt-links@1.1.10(typedoc@0.27.6(typescript@5.8.0-beta)):
     dependencies:
-      typedoc: 0.27.6(typescript@5.7.3)
+      typedoc: 0.27.6(typescript@5.8.0-beta)
 
-  typedoc-plugin-mdn-links@4.0.11(typedoc@0.27.6(typescript@5.7.3)):
+  typedoc-plugin-mdn-links@4.0.11(typedoc@0.27.6(typescript@5.8.0-beta)):
     dependencies:
-      typedoc: 0.27.6(typescript@5.7.3)
+      typedoc: 0.27.6(typescript@5.8.0-beta)
 
-  typedoc-plugin-missing-exports@3.1.0(typedoc@0.27.6(typescript@5.7.3)):
+  typedoc-plugin-missing-exports@3.1.0(typedoc@0.27.6(typescript@5.8.0-beta)):
     dependencies:
-      typedoc: 0.27.6(typescript@5.7.3)
+      typedoc: 0.27.6(typescript@5.8.0-beta)
 
-  typedoc@0.27.6(typescript@5.7.3):
+  typedoc@0.27.6(typescript@5.8.0-beta):
     dependencies:
       '@gerrit0/mini-shiki': 1.24.4
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      typescript: 5.7.3
+      typescript: 5.8.0-beta
       yaml: 2.6.1
 
-  typescript@5.7.3: {}
+  typescript@5.7.3:
+    optional: true
+
+  typescript@5.8.0-beta: {}
 
   uc.micro@2.1.0: {}
 
