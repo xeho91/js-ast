@@ -45,8 +45,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(vitest@3.0.5)
       knip:
-        specifier: ^5.43.0
-        version: 5.43.6(@types/node@22.13.1)(typescript@5.7.3)
+        specifier: ^5.44.0
+        version: 5.44.1(@types/node@22.13.1)(typescript@5.7.3)
       serve:
         specifier: ^14.2.0
         version: 14.2.4
@@ -57,7 +57,7 @@ importers:
         specifier: ^3.4.0
         version: 3.4.1(typedoc@0.27.6(typescript@5.7.3))
       typedoc-plugin-dt-links:
-        specifier: ^1.1.10
+        specifier: ^1.1.0
         version: 1.1.10(typedoc@0.27.6(typescript@5.7.3))
       typedoc-plugin-mdn-links:
         specifier: ^4.0.0
@@ -76,6 +76,22 @@ importers:
         version: 3.0.5(@types/node@22.13.1)(@vitest/ui@3.0.5)(jiti@2.4.2)(yaml@2.6.1)
 
   pkgs/js-ast-build: {}
+
+  pkgs/svelte-ast-analyze:
+    dependencies:
+      svelte:
+        specifier: 'catalog:'
+        version: 5.19.7
+      valibot:
+        specifier: 1.0.0-rc.0
+        version: 1.0.0-rc.0(typescript@5.7.3)
+    devDependencies:
+      '@types/estree':
+        specifier: 'catalog:'
+        version: 1.0.6
+      zimmerframe:
+        specifier: 'catalog:'
+        version: 1.1.2
 
   pkgs/svelte-ast-build:
     dependencies:
@@ -98,12 +114,9 @@ importers:
       svelte:
         specifier: 'catalog:'
         version: 5.19.7
-      svelte-ast-build:
+      svelte-ast-analyze:
         specifier: workspace:*
-        version: link:../svelte-ast-build
-      zimmerframe:
-        specifier: 'catalog:'
-        version: 1.1.2
+        version: link:../svelte-ast-analyze
     devDependencies:
       '@types/estree':
         specifier: 'catalog:'
@@ -111,6 +124,9 @@ importers:
       dedent:
         specifier: ^1.5.0
         version: 1.5.3(babel-plugin-macros@3.1.0)
+      zimmerframe:
+        specifier: 'catalog:'
+        version: 1.1.2
 
   pkgs/ts-ast-build: {}
 
@@ -1166,8 +1182,8 @@ packages:
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
 
-  knip@5.43.6:
-    resolution: {integrity: sha512-bUCFlg44imdV5vayYxu0pIAB373S8Ufjda0qaI9oRZDH6ltJFwUoAO2j7nafxDmo5G0ZeP4IiLAHqlc3wYIONQ==}
+  knip@5.44.1:
+    resolution: {integrity: sha512-YJrz7K6AA3SwXJ5LL9ZlzQX9wcihMNwKoGBAaY5kUn4rLNOZ5ehsjFV+xm8gQuIJdjsFIKcFsy0K3U3yM/mabw==}
     engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
@@ -1696,6 +1712,14 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
+
+  valibot@1.0.0-rc.0:
+    resolution: {integrity: sha512-9ZUrOXOejY/WaIn8p0Z469R1qBAwNJeqq8jzOIDsl1qR8gqtObHQmyHLFli0UCkcGiTco5kH6/KPLWsTWE9b2g==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -2877,7 +2901,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  knip@5.43.6(@types/node@22.13.1)(typescript@5.7.3):
+  knip@5.44.1(@types/node@22.13.1)(typescript@5.7.3):
     dependencies:
       '@nodelib/fs.walk': 3.0.1
       '@snyk/github-codeowners': 1.1.0
@@ -3373,6 +3397,10 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  valibot@1.0.0-rc.0(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
 
   vary@1.1.2: {}
 

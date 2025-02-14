@@ -13,8 +13,7 @@ This is a monorepo with packages to **boost the [DX]** of working with [AST] _(u
 1. [DX] friendly.
 1. **Cross-runtime** friendly—👈 this also means [ESM] only.
 1. [e18e] friendly.
-1. **No build step**—meaning you can debug/edit source code inside `node_modules` as it is.
-1. Extensive tests.
+1. Extensive tests and benchmarks.
 
 ---
 

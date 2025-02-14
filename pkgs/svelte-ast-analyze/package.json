@@ -1,10 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/package",
-	"name": "svelte-ast-print",
-	"version": "0.6.0",
+	"name": "svelte-ast-analyze",
+	"version": "0.0.1",
 	"type": "module",
-	"description": "Serialize Svelte AST nodes into stringified syntax. A.k.a parse in reverse.",
-	"keywords": ["ast", "print", "svelte"],
+	"description": "Analyze Svelte AST nodes conveniently.",
+	"keywords": ["ast", "analyze", "svelte"],
 	"license": "MIT",
 	"author": {
 		"name": "Mateusz Kadlubowski",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "pkgs/svelte-ast-print"
+		"directory": "pkgs/svelte-ast-analyze"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [
@@ -53,6 +53,14 @@
 			"types": "./dist/js/mod.d.ts",
 			"default": "./dist/js/mod.js"
 		},
+		"./base": {
+			"types": "./dist/base/mod.d.ts",
+			"default": "./dist/base/mod.js"
+		},
+		"./node": {
+			"types": "./dist/node/mod.d.ts",
+			"default": "./dist/node/mod.js"
+		},
 		"./template": {
 			"types": "./dist/template/mod.d.ts",
 			"default": "./dist/template/mod.js"
@@ -60,7 +68,7 @@
 		"./package.json": "./package.json"
 	},
 	"scripts": {
-		"build": "pnpm run \"/^build:.*/\" ",
+		"build": "pnpm run \"/^analyze:.*/\" ",
 		"build:doc": "typedoc",
 		"build:pkg": "tsc --build --verbose",
 		"check": "tsc --noEmit",
@@ -84,16 +92,14 @@
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	},
-	"dependencies": {
-		"esrap": "catalog:",
-		"svelte-ast-analyze": "workspace:*"
-	},
 	"devDependencies": {
 		"@types/estree": "catalog:",
-		"dedent": "^1.5.0",
 		"zimmerframe": "catalog:"
 	},
 	"peerDependencies": {
 		"svelte": "catalog:"
+	},
+	"dependencies": {
+		"valibot": "1.0.0-rc.0"
 	}
 }
