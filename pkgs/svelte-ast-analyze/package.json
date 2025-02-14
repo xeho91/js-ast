@@ -70,10 +70,10 @@
 	"scripts": {
 		"build": "pnpm run \"/^analyze:.*/\" ",
 		"build:doc": "typedoc",
-		"build:pkg": "tsc --build --verbose",
+		"build:pkg": "tsc",
 		"check": "tsc --noEmit",
 		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
-		"clean:build": "rm -rf \"./dist\" ",
+		"clean:build": "rm -rf \"./dist\" && rm -f \"tsconfig.tsbuildinfo\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:doc": "rm -rf \"./docs\" ",
 		"clean:test": "rm -rf \"./coverage\" ",
@@ -94,6 +94,7 @@
 	},
 	"devDependencies": {
 		"@types/estree": "catalog:",
+		"typescript": "catalog:",
 		"zimmerframe": "catalog:"
 	},
 	"peerDependencies": {

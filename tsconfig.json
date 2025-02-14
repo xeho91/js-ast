@@ -1,27 +1,32 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
-		"allowJs": true,
-		"allowImportingTsExtensions": true,
-		"allowSyntheticDefaultImports": true,
-		"checkJs": true,
-		"erasableSyntaxOnly": true,
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		"lib": ["ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"noEmit": true,
-		"noEmitOnError": true,
-		"noErrorTruncation": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
-		"resolveJsonModule": true,
-		"rewriteRelativeImportsExtensions": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "ESNext",
-		"types": ["node"],
-		"verbatimModuleSyntax": true
-	}
+		"composite": true,
+		"types": ["node"]
+	},
+	"files": [],
+	"extends": ["./tsconfig.base.json"],
+	"references": [
+		{
+			"path": "./pkgs/js-ast-analyze"
+		},
+		{
+			"path": "./pkgs/js-ast-build"
+		},
+		{
+			"path": "./pkgs/ts-ast-analyze"
+		},
+		{
+			"path": "./pkgs/ts-ast-build"
+		},
+		{
+			"path": "./pkgs/svelte-ast-analyze"
+		},
+		{
+			"path": "./pkgs/svelte-ast-build"
+		},
+		{
+			"path": "./pkgs/svelte-ast-print"
+		}
+	]
 }

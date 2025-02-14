@@ -7,6 +7,9 @@ pnpm-debug.log*
 # Sensitive data
 .env
 
+# TypeScript build caching
+tsconfig.tsbuildinfo
+
 # Build output with TypeScript
 dist/
 

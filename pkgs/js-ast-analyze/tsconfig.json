@@ -1,32 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": ["../../tsconfig.json"],
 	"compilerOptions": {
-		"allowJs": true,
-		"allowImportingTsExtensions": true,
-		"allowSyntheticDefaultImports": true,
-		"checkJs": true,
-		"declaration": true,
-		"declarationMap": true,
-		"erasableSyntaxOnly": true,
-		"esModuleInterop": true,
-		"isolatedModules": true,
-		"lib": ["ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"noEmitOnError": true,
-		"noErrorTruncation": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
-		"outDir": "dist/",
-		"resolveJsonModule": true,
-		"rewriteRelativeImportExtensions": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-		"stripInternal": true,
-		"target": "ESNext",
-		"verbatimModuleSyntax": true
+		"rootDir": "src/",
+		"outDir": "dist/"
 	},
-	"exclude": ["src/_internal/", "src/**/*.test.ts", "tests/"],
+	"exclude": ["src/**/*.test.ts", "tests/"],
 	"include": ["src/"]
 }

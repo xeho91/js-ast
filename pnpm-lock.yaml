@@ -75,6 +75,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(@types/node@22.13.1)(@vitest/ui@3.0.5)(jiti@2.4.2)(yaml@2.6.1)
 
+  pkgs/js-ast-analyze: {}
+
   pkgs/js-ast-build: {}
 
   pkgs/svelte-ast-analyze:
@@ -84,27 +86,19 @@ importers:
         version: 5.19.7
       valibot:
         specifier: 1.0.0-rc.0
-        version: 1.0.0-rc.0(typescript@5.7.3)
+        version: 1.0.0-rc.0(typescript@5.8.0-beta)
     devDependencies:
       '@types/estree':
         specifier: 'catalog:'
         version: 1.0.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.0-beta
       zimmerframe:
         specifier: 'catalog:'
         version: 1.1.2
 
-  pkgs/svelte-ast-build:
-    dependencies:
-      svelte:
-        specifier: 'catalog:'
-        version: 5.19.7
-    devDependencies:
-      '@types/estree':
-        specifier: 'catalog:'
-        version: 1.0.6
-      zimmerframe:
-        specifier: 'catalog:'
-        version: 1.1.2
+  pkgs/svelte-ast-build: {}
 
   pkgs/svelte-ast-print:
     dependencies:
@@ -127,6 +121,8 @@ importers:
       zimmerframe:
         specifier: 'catalog:'
         version: 1.1.2
+
+  pkgs/ts-ast-analyze: {}
 
   pkgs/ts-ast-build: {}
 
@@ -1691,11 +1687,6 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x || 5.6.x || 5.7.x
-
-  typescript@5.7.3:
-    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
 
   typescript@5.8.0-beta:
     resolution: {integrity: sha512-7VGUiBOGi+BYhiuy3iITIgu6m2wVW2Vb4CW+OJsW6OJS/TgvezKbAN3WBfiSErE8QOLdce0ilm6VANMkzNWW1A==}
@@ -3386,9 +3377,6 @@ snapshots:
       typescript: 5.8.0-beta
       yaml: 2.6.1
 
-  typescript@5.7.3:
-    optional: true
-
   typescript@5.8.0-beta: {}
 
   uc.micro@2.1.0: {}
@@ -3406,9 +3394,9 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  valibot@1.0.0-rc.0(typescript@5.7.3):
+  valibot@1.0.0-rc.0(typescript@5.8.0-beta):
     optionalDependencies:
-      typescript: 5.7.3
+      typescript: 5.8.0-beta
 
   vary@1.1.2: {}
 
