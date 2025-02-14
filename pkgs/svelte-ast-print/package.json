@@ -35,35 +35,42 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["src/", "!src/**/*.test.ts"],
+	"files": ["dist/"],
 	"exports": {
 		".": {
-			"types": "./src/types.d.ts",
-			"default": "./src/lib.js"
+			"development": "./src/lib.ts",
+			"types": "./dist/lib.d.ts",
+			"default": "./dist/lib.js"
 		},
 		"./css": {
-			"types": "./src/css/types.d.ts",
-			"default": "./src/css/mod.js"
+			"development": "./src/css/mod.ts",
+			"types": "./dist/css/mod.d.ts",
+			"default": "./dist/css/mod.js"
 		},
 		"./html": {
-			"types": "./src/html/types.d.ts",
-			"default": "./src/html/mod.js"
+			"development": "./src/html/mod.ts",
+			"types": "./dist/html/mod.d.ts",
+			"default": "./dist/html/mod.js"
 		},
 		"./js": {
-			"types": "./src/js/types.d.ts",
-			"default": "./src/js/mod.js"
+			"development": "./src/js/mod.ts",
+			"types": "./dist/js/mod.d.ts",
+			"default": "./dist/js/mod.js"
 		},
 		"./template": {
-			"types": "./src/template/types.d.ts",
-			"default": "./src/template/mod.js"
+			"development": "./src/css/template.ts",
+			"types": "./dist/template/mod.d.ts",
+			"default": "./dist/template/mod.js"
 		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {
 		"build": "pnpm run \"/^build:.*/\" ",
 		"build:doc": "typedoc",
+		"build:pkg": "tsc",
 		"check": "tsc --noEmit",
 		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
+		"clean:build": "rm -rf \"./dist\" && rm -f \"tsconfig.tsbuildinfo\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:doc": "rm -rf \"./docs\" ",
 		"clean:test": "rm -rf \"./coverage\" ",
@@ -78,18 +85,18 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm --filter svelte-ast-print run --parallel \"/^check|^lint|^test/\"",
+		"prepublishOnly": "pnpm --filter svelte-ast-print run --parallel \"/^lint|^test|^build:pkg/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	},
 	"dependencies": {
 		"esrap": "catalog:",
-		"svelte-ast-build": "workspace:*",
-		"zimmerframe": "catalog:"
+		"svelte-ast-analyze": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/estree": "catalog:",
-		"dedent": "^1.5.0"
+		"dedent": "^1.5.0",
+		"zimmerframe": "catalog:"
 	},
 	"peerDependencies": {
 		"svelte": "catalog:"

@@ -1,9 +1,9 @@
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../../tests/shared.js";
+import { parse_and_extract } from "../../tests/shared.ts";
 
-import { printAwaitBlock, printBlock, printEachBlock, printIfBlock, printKeyBlock, printSnippetBlock } from "./mod.js";
+import { printAwaitBlock, printBlock, printEachBlock, printIfBlock, printKeyBlock, printSnippetBlock } from "./mod.ts";
 
 describe(printBlock.name, () => {
 	describe("AwaitBlock", () => {

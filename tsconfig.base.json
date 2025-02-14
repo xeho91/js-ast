@@ -1,0 +1,29 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"allowJs": true,
+		"allowImportingTsExtensions": true,
+		"checkJs": true,
+		"customConditions": ["development"],
+		"declaration": true,
+		"declarationMap": true,
+		"erasableSyntaxOnly": true,
+		"isolatedModules": true,
+		"lib": ["ESNext"],
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"noEmitOnError": true,
+		"noErrorTruncation": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"resolveJsonModule": true,
+		"rewriteRelativeImportExtensions": true,
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"stripInternal": true,
+		"target": "ESNext",
+		"verbatimModuleSyntax": true
+	}
+}

@@ -1,21 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": ["../../tsconfig.json"],
 	"compilerOptions": {
-		"allowJs": true,
-		"allowImportingTsExtensions": true,
-		"allowSyntheticDefaultImports": true,
-		"checkJs": true,
-		"lib": ["ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "bundler",
-		"noEmit": true,
-		"noEmitOnError": true,
-		"noErrorTruncation": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "ESNext",
-		"verbatimModuleSyntax": true
+		"rootDir": "src/",
+		"outDir": "dist/"
 	},
+	"exclude": ["src/**/*.test.ts", "tests/"],
 	"include": ["src/"]
 }

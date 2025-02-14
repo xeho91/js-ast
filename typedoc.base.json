@@ -2,6 +2,8 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"includeVersion": true,
 	"exclude": ["**/*.test.ts"],
+	"excludeInternal": false,
+	"highlightLanguages": ["bash", "console", "css", "html", "javascript", "json", "jsonc", "svelte", "typescript"],
 	"logLevel": "Verbose",
 	"plugin": [
 		"typedoc-plugin-coverage",

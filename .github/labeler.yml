@@ -3,15 +3,30 @@
           - any-glob-to-any-file:
                 - ".github/workflows/**"
 
+"pkg:js-ast-analyze":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/js-ast-analyze/**"
+
 "pkg:js-ast-build":
     - changed-files:
           - any-glob-to-any-file:
                 - "pkgs/js-ast-build/**"
 
+"pkg:ts-ast-analyze":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/ts-ast-analyze/**"
+
 "pkg:ts-ast-build":
     - changed-files:
           - any-glob-to-any-file:
                 - "pkgs/ts-ast-build/**"
+
+"pkg:svelte-ast-analyze":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "pkgs/svelte-ast-analyze/**"
 
 "pkg:svelte-ast-build":
     - changed-files:
@@ -22,3 +37,8 @@
     - changed-files:
           - any-glob-to-any-file:
                 - "pkgs/svelte-ast-print/**"
+
+"tests":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "**/*.test.ts"

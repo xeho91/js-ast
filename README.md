@@ -13,8 +13,7 @@ This is a monorepo with packages to **boost the [DX]** of working with [AST] _(u
 1. [DX] friendly.
 1. **Cross-runtime** friendly—👈 this also means [ESM] only.
 1. [e18e] friendly.
-1. **No build step**—meaning you can debug/edit source code inside `node_modules` as it is.
-1. Extensive tests.
+1. Extensive tests and benchmarks.
 
 ---
 
@@ -25,6 +24,7 @@ In order to work with AST, the following processes are recognized:
 1. [Building](#build) programmatically the [AST] node(s), or an entire object.
 1. [Parsing](#parse) _stringified_ code syntax into [AST] object.
 1. [Traversing](#traverse) the [AST] object.
+1. [Analyzing](#analyze) the [AST] object(s).
 1. [Printing](#print) the [AST] object back into _stringified_ code syntax.
 
 > [!IMPORTANT]
@@ -62,6 +62,16 @@ In other words, _walk_ on the AST object.
 | --------------- | ---------------------------------- | ------------------- |
 | [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] | ❌                  |
 
+### Analyze
+
+Analyze the received [AST] object(s). Contains type-guards and utilities.
+
+| Name                   | Languages                          | In this repository? |
+| ---------------------- | ---------------------------------- | ------------------- |
+| [`js-ast-analyze`]     | ![icon-js]                         | ✅                  |
+| [`ts-ast-analyze`]     | ![icon-js]![icon-ts]               | ✅                  |
+| [`svelte-ast-analyze`] | ![icon-js]![icon-ts]![icon-svelte] | ✅                  |
+
 ### Print
 
 Print the [AST] object or nodes into stringified code syntax.
@@ -93,10 +103,13 @@ Mateusz "[xeho91](https://github.com/xeho91)" Kadlubowski
 [ESTree]: https://github.com/estree/estree
 [e18e]: https://github.com/e18e/e18e
 [ESM]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+[`js-ast-analyze`]: ./pkgs/js-ast-build
 [`js-ast-build`]: ./pkgs/js-ast-build
-[`ts-ast-build`]: ./pkgs/ts-ast-build
+[`svelte-ast-analyze`]: ./pkgs/js-ast-build
 [`svelte-ast-build`]: ./pkgs/svelte-ast-build
 [`svelte-ast-print`]: ./pkgs/svelte-ast-print
+[`ts-ast-analyze`]: ./pkgs/js-ast-build
+[`ts-ast-build`]: ./pkgs/ts-ast-build
 [`@swc/core`]: https://github.com/swc-project/swc
 [`svelte/compiler`]: https://github.com/sveltejs/svelte
 [`zimmerframe`]: https://github.com/Rich-Harris/zimmerframe

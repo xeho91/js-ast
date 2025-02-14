@@ -35,19 +35,22 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"files": ["src/", "!src/**/*.test.ts", "types.d.ts"],
+	"files": ["dist/"],
 	"exports": {
 		".": {
-			"types": "./types.d.ts",
-			"default": "./src/mod.js"
+			"development": "./src/lib.ts",
+			"types": "./dist/lib.d.ts",
+			"default": "./dist/lib.js"
 		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {
 		"build": "pnpm run \"/^build:.*/\" ",
 		"build:doc": "typedoc",
+		"build:pkg": "tsc",
 		"check": "tsc --noEmit",
 		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
+		"clean:build": "rm -rf \"./dist\" && rm -f \"tsconfig.tsbuildinfo\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:doc": "rm -rf \"./docs\" ",
 		"clean:test": "rm -rf \"./coverage\" ",
@@ -62,15 +65,8 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm lint && pnpm test",
+		"prepublishOnly": "pnpm --filter js-ast-build run --parallel \"/^lint|^test|^build:pkg/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
-	},
-	"devDependencies": {
-		"@types/estree": "catalog:",
-		"zimmerframe": "catalog:"
-	},
-	"peerDependencies": {
-		"svelte": "catalog:"
 	}
 }

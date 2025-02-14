@@ -1,9 +1,3 @@
-# Dependencies which are downloadable
-node_modules/
-
-# Documentation output (auto-generated)
-docs/
-
 # Logs
 pnpm-debug.log*
 
@@ -13,5 +7,17 @@ pnpm-debug.log*
 # Sensitive data
 .env
 
+# TypeScript build caching
+tsconfig.tsbuildinfo
+
+# Build output with TypeScript
+dist/
+
 # Tests coverage (auto-generated)
 coverage/
+
+# Documentation output (auto-generated)
+docs/
+
+# Dependencies which are downloadable
+node_modules/

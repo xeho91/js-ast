@@ -1,21 +1,23 @@
 import dedent from "dedent";
 import type * as JS from "estree";
-import type { SvelteOnlyNode } from "svelte-ast-build";
+import type { SvelteOnlyNode } from "svelte-ast-analyze";
 import * as compiler from "svelte/compiler";
 import { type Context, walk } from "zimmerframe";
 
-export function parse_and_extract<T extends SvelteOnlyNode | JS.BaseNode>(code: string, name: T["type"]): T {
-	const parsed = parse<T>(dedent(code));
+type Node = SvelteOnlyNode | JS.Node;
+
+export function parse_and_extract<N extends Node>(code: string, name: N["type"]): N {
+	const parsed = parse<N>(dedent(code));
 	return extract(parsed, name);
 }
 
-function parse<T extends SvelteOnlyNode | JS.BaseNode>(code: string): T {
-	return compiler.parse(code, { modern: true }) as unknown as T;
+function parse<N extends Node>(code: string): N {
+	return compiler.parse(code, { modern: true }) as unknown as N;
 }
 
-function extract<T extends SvelteOnlyNode | JS.BaseNode>(parsed: T, name: T["type"]): T {
+function extract<N extends Node>(parsed: N, name: N["type"]): N {
 	interface State {
-		target: T | undefined;
+		target: N | undefined;
 	}
 	const state: State = { target: undefined };
 	walk(
@@ -23,7 +25,7 @@ function extract<T extends SvelteOnlyNode | JS.BaseNode>(parsed: T, name: T["typ
 		state,
 		// @ts-expect-error: WARN: Too lazy to type
 		{
-			[name](node: T, ctx: Context<T, State>) {
+			[name](node: N, ctx: Context<N, State>) {
 				ctx.state.target = node;
 				ctx.stop();
 			},
