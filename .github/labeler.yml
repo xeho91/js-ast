@@ -37,3 +37,8 @@
     - changed-files:
           - any-glob-to-any-file:
                 - "pkgs/svelte-ast-print/**"
+
+"tests":
+    - changed-files:
+          - any-glob-to-any-file:
+                - "**/*.test.ts"
