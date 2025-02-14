@@ -5,13 +5,6 @@
 > [!CAUTION]
 > 🚧 Work In Progress 🚧
 
----
-
 ## Author
 
 Mateusz "[xeho91](https://github.com/xeho91)" Kadlubowski
-
-<!-- LINKS -->
-
-[AST]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
-[Svelte]: https://github.com/sveltejs/svelte

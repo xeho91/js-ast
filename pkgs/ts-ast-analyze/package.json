@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/package",
-	"name": "ts-ast-build",
+	"name": "ts-ast-analyze",
 	"version": "0.0.1",
 	"type": "module",
 	"description": "Build TypeScript AST nodes conveniently.",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "pkgs/ts-ast-build"
+		"directory": "pkgs/ts-ast-analyze"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [
@@ -39,15 +39,17 @@
 	"exports": {
 		".": {
 			"types": "./dist/lib.d.ts",
-			"default": "./src/lib.js"
+			"default": "./dist/lib.js"
 		},
 		"./package.json": "./package.json"
 	},
 	"scripts": {
 		"build": "pnpm run \"/^build:.*/\" ",
 		"build:doc": "typedoc",
+		"build:pkg": "tsc --build --verbose",
 		"check": "tsc --noEmit",
 		"clean": "pnpm run \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
+		"clean:build": "rm -rf \"./dist\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:doc": "rm -rf \"./docs\" ",
 		"clean:test": "rm -rf \"./coverage\" ",
@@ -62,7 +64,7 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm lint && pnpm test",
+		"prepublishOnly": "pnpm --filter js-ast-analyze run --parallel \"/^lint|^test|^build:pkg/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	}
