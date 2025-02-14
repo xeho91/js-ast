@@ -4,18 +4,20 @@ import { type Context, walk } from "zimmerframe";
 
 import type { SvelteOnlyNode } from "../src/node.js";
 
-export function parse_and_extract<T extends SvelteOnlyNode | JS.BaseNode>(code: string, name: T["type"]): T {
-	const parsed = parse<T>(code);
+type Node = SvelteOnlyNode | JS.Node;
+
+export function parse_and_extract<N extends Node>(code: string, name: N["type"]): N {
+	const parsed = parse<N>(code);
 	return extract(parsed, name);
 }
 
-function parse<T extends SvelteOnlyNode | JS.BaseNode>(code: string): T {
-	return compiler.parse(code, { modern: true }) as unknown as T;
+function parse<N extends Node>(code: string): N {
+	return compiler.parse(code, { modern: true }) as unknown as N;
 }
 
-function extract<T extends SvelteOnlyNode | JS.BaseNode>(parsed: T, name: T["type"]): T {
+function extract<N extends Node>(parsed: N, name: N["type"]): N {
 	interface State {
-		target: T | undefined;
+		target: N | undefined;
 	}
 	const state: State = { target: undefined };
 	walk(
@@ -23,7 +25,7 @@ function extract<T extends SvelteOnlyNode | JS.BaseNode>(parsed: T, name: T["typ
 		state,
 		// @ts-expect-error: WARN: Too lazy to type
 		{
-			[name](node: T, ctx: Context<Node, State>) {
+			[name](node: N, ctx: Context<Node, State>) {
 				ctx.state.target = node;
 				ctx.stop();
 			},
