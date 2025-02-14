@@ -240,8 +240,11 @@ export function printCSSPseudoClassSelector(
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements}
  *
  * @since 1.0.0
+ *
  * @__NO_SIDE_EFFECTS__
- * WARN: It doesn't support args, e.g. `::part()` or  `::slotted()`
+ *
+ * > [!WARNING]
+ * > It doesn't support args, e.g. `::part()` or  `::slotted()`
  */
 export function printCSSPseudoElementSelector(
 	n: SV.CSS.PseudoElementSelector,
