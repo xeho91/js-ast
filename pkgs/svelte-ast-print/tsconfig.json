@@ -6,6 +6,5 @@
 		"outDir": "dist/"
 	},
 	"exclude": ["src/**/*.test.ts", "tests/"],
-	"include": ["src/"],
-	"references": [{ "path": "../svelte-ast-analyze" }]
+	"include": ["src/"]
 }

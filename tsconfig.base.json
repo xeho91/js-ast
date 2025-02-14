@@ -4,6 +4,7 @@
 		"allowJs": true,
 		"allowImportingTsExtensions": true,
 		"checkJs": true,
+		"customConditions": ["development"],
 		"declaration": true,
 		"declarationMap": true,
 		"erasableSyntaxOnly": true,
