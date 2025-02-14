@@ -4,9 +4,9 @@ import type { AST } from "svelte/compiler";
 
 import { parse_and_extract } from "../../tests/shared.ts";
 
-import { printComment, printHTML, printText } from "./mod.js";
+import { printComment, printHTMLNode, printText } from "./mod.js";
 
-describe(printHTML.name, () => {
+describe(printHTMLNode.name, () => {
 	describe(printComment.name, () => {
 		it("prints correctly a single line comment from random code", ({ expect }) => {
 			const code = `
