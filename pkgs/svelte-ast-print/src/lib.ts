@@ -85,6 +85,8 @@ import { printFragment, printRoot, printTemplateNode } from "./template/mod.js";
  * @param n Svelte or JavaScript/TypeScript ESTree specification complaint AST node
  * @param opts printing options
  * @returns Stringified Svelte AST node
+ * @since 1.0.0
+ *
  * @__NO_SIDE_EFFECTS__
  */
 export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
@@ -98,6 +100,8 @@ export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<Pr
  * @param n Svelte AST node
  * @param opts printing options
  * @returns Stringified Svelte AST node
+ * @since 1.0.0
+ *
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {

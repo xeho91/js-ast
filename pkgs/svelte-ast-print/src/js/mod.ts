@@ -13,6 +13,7 @@ import { type Result, State } from "../_internal/shared.js";
 import { printAttributeLike } from "../template/mod.js";
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printScript(n: SV.Script, opts: Partial<PrintOptions> = {}): Result<SV.Script> {

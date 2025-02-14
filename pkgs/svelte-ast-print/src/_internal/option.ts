@@ -31,11 +31,11 @@ type RootNode = Extract<keyof SV.Root, "css" | "fragment" | "instance" | "module
 type RootOrder = [RootNode, RootNode, RootNode, RootNode, RootNode];
 
 /**
- * Options related to {@link Root} Svelte SV node.
+ * Options related to {@link SV.Root} Svelte SV node.
  */
 interface RootOptions {
 	/**
-	 * defaults to {@link DEFAULT_ORDER}
+	 * defaults to {@link Options.DEFAULT_ORDER}
 	 */
 	order?: RootOrder;
 }

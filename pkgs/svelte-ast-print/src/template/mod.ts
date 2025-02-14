@@ -24,6 +24,7 @@ import { printHTMLNode, printText } from "../html/mod.js";
 import { printScript } from "../js/mod.js";
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printRoot(n: SV.Root, opts: Partial<PrintOptions> = {}): Result<SV.Root> {
@@ -64,6 +65,7 @@ export function printRoot(n: SV.Root, opts: Partial<PrintOptions> = {}): Result<
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions> = {}): Result<SV.TemplateNode> {
@@ -111,6 +113,7 @@ export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}): Result<SV.Fragment> {
@@ -175,6 +178,7 @@ export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}):
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printAttributeLike(n: SV.AttributeLike, opts: Partial<PrintOptions> = {}): Result<SV.AttributeLike> {
@@ -197,6 +201,7 @@ export function printAttributeLike(n: SV.AttributeLike, opts: Partial<PrintOptio
 /**
  * @see {@link https://svelte.dev/docs/svelte/basic-markup#Element-attributes}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printAttribute(n: SV.Attribute, opts: Partial<PrintOptions> = {}): Result<SV.Attribute> {
@@ -223,6 +228,7 @@ export function printAttribute(n: SV.Attribute, opts: Partial<PrintOptions> = {}
 /**
  * @see {@link https://svelte.dev/docs/svelte/basic-markup#Component-props}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSpreadAttribute(
@@ -247,6 +253,7 @@ export function printSpreadAttribute(
  * animate:name
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printAnimateDirective(
@@ -269,6 +276,7 @@ export function printAnimateDirective(
  * bind:name
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printBindDirective(n: SV.BindDirective, opts: Partial<PrintOptions> = {}): Result<SV.BindDirective> {
@@ -288,6 +296,7 @@ export function printBindDirective(n: SV.BindDirective, opts: Partial<PrintOptio
  * class:name
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printClassDirective(n: SV.ClassDirective, opts: Partial<PrintOptions> = {}): Result<SV.ClassDirective> {
@@ -307,6 +316,7 @@ export function printClassDirective(n: SV.ClassDirective, opts: Partial<PrintOpt
  * let:name
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printLetDirective(n: SV.LetDirective, opts: Partial<PrintOptions> = {}): Result<SV.LetDirective> {
@@ -326,6 +336,7 @@ export function printLetDirective(n: SV.LetDirective, opts: Partial<PrintOptions
  * on:name|modifiers={handler}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printOnDirective(n: SV.OnDirective, opts: Partial<PrintOptions> = {}): Result<SV.OnDirective> {
@@ -355,6 +366,7 @@ export function printOnDirective(n: SV.OnDirective, opts: Partial<PrintOptions> 
  * style:name|modifiers="text"
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printStyleDirective(n: SV.StyleDirective, opts: Partial<PrintOptions> = {}): Result<SV.StyleDirective> {
@@ -412,6 +424,7 @@ export function printStyleDirective(n: SV.StyleDirective, opts: Partial<PrintOpt
  * transition|in|out:name|local={expression}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printTransitionDirective(
@@ -438,6 +451,7 @@ export function printTransitionDirective(
  * ```
  * @see {@link https://svelte.dev/docs/svelte/use}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printUseDirective(n: SV.UseDirective, opts: Partial<PrintOptions> = {}): Result<SV.UseDirective> {
@@ -445,6 +459,7 @@ export function printUseDirective(n: SV.UseDirective, opts: Partial<PrintOptions
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printBlock(n: SV.Block, opts: Partial<PrintOptions> = {}): Result<SV.Block> {
@@ -482,6 +497,7 @@ export function printBlock(n: SV.Block, opts: Partial<PrintOptions> = {}): Resul
  * {#await expression catch name}...{/await}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = {}): Result<SV.AwaitBlock> {
@@ -560,6 +576,7 @@ export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = 
  * {#each expression as name}...{:else}...{/each}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printEachBlock(n: SV.EachBlock, opts: Partial<PrintOptions> = {}): Result<SV.EachBlock> {
@@ -618,6 +635,7 @@ export function printEachBlock(n: SV.EachBlock, opts: Partial<PrintOptions> = {}
  * {#if expression}...{:else if expression}...{:else if expression}...{:else}...{/if}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printIfBlock(n: SV.IfBlock, opts: Partial<PrintOptions> = {}): Result<SV.IfBlock> {
@@ -653,6 +671,7 @@ export function printIfBlock(n: SV.IfBlock, opts: Partial<PrintOptions> = {}): R
  * {#key expression}...{/key}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printKeyBlock(n: SV.KeyBlock, opts: Partial<PrintOptions> = {}): Result<SV.KeyBlock> {
@@ -675,6 +694,7 @@ export function printKeyBlock(n: SV.KeyBlock, opts: Partial<PrintOptions> = {}):
  * {#snippet expression(parameters)}...{/snippet}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSnippetBlock(n: SV.SnippetBlock, opts: Partial<PrintOptions> = {}): Result<SV.SnippetBlock> {
@@ -702,6 +722,7 @@ export function printSnippetBlock(n: SV.SnippetBlock, opts: Partial<PrintOptions
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printElementLike(n: SV.ElementLike, opts: Partial<PrintOptions> = {}): Result<SV.ElementLike> {
@@ -728,6 +749,7 @@ export function printElementLike(n: SV.ElementLike, opts: Partial<PrintOptions> 
 /**
  * @see {@link https://svelte.dev/docs/svelte-components}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printComponent(n: SV.Component, opts: Partial<PrintOptions> = {}): Result<SV.Component> {
@@ -742,6 +764,7 @@ export function printComponent(n: SV.Component, opts: Partial<PrintOptions> = {}
 /**
  * @see {@link https://svelte.dev/docs/svelte-components}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printRegularElement(n: SV.RegularElement, opts: Partial<PrintOptions> = {}): Result<SV.RegularElement> {
@@ -756,6 +779,7 @@ export function printRegularElement(n: SV.RegularElement, opts: Partial<PrintOpt
 /**
  * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-slot}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSlotElement(n: SV.SlotElement, opts: Partial<PrintOptions> = {}): Result<SV.SlotElement> {
@@ -770,6 +794,7 @@ export function printSlotElement(n: SV.SlotElement, opts: Partial<PrintOptions> 
 /**
  * @see {@link https://svelte.dev/docs/svelte/svelte-body}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteBody(n: SV.SvelteBody, opts: Partial<PrintOptions> = {}): Result<SV.SvelteBody> {
@@ -783,6 +808,7 @@ export function printSvelteBody(n: SV.SvelteBody, opts: Partial<PrintOptions> = 
 /**
  * @see {@link https://svelte.dev/docs/svelte/svelte-boundary}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteBoundary(n: SV.SvelteBoundary, opts: Partial<PrintOptions> = {}): Result<SV.SvelteBoundary> {
@@ -797,6 +823,7 @@ export function printSvelteBoundary(n: SV.SvelteBoundary, opts: Partial<PrintOpt
 /**
  * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-component}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteComponent(
@@ -813,6 +840,7 @@ export function printSvelteComponent(
 /**
  * @see {@link https://svelte.dev/docs/svelte/svelte-document}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteDocument(n: SV.SvelteDocument, opts: Partial<PrintOptions> = {}): Result<SV.SvelteDocument> {
@@ -826,6 +854,7 @@ export function printSvelteDocument(n: SV.SvelteDocument, opts: Partial<PrintOpt
 /**
  * @see {@link https://svelte.dev/docs/svelte/svelte-element}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptions> = {}): Result<SV.SvelteElement> {
@@ -850,6 +879,7 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
 /**
  * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-fragment}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteFragment(n: SV.SvelteFragment, opts: Partial<PrintOptions> = {}): Result<SV.SvelteFragment> {
@@ -864,6 +894,7 @@ export function printSvelteFragment(n: SV.SvelteFragment, opts: Partial<PrintOpt
 /**
  * @see {@link https://svelte.dev/docs/svelte/svelte-head}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteHead(n: SV.SvelteHead, opts: Partial<PrintOptions> = {}): Result<SV.SvelteHead> {
@@ -892,6 +923,7 @@ type FixedSvelteOptions = SV.SvelteOptionsRaw &
  * <svelte:options option={value} />
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  * WARN: This one is different, because it can be extracted only from {@link SV.Root}
  */
@@ -923,6 +955,7 @@ export function printSvelteOptions(
 /**
  * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-self}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteSelf(n: SV.SvelteSelf, opts: Partial<PrintOptions> = {}): Result<SV.SvelteSelf> {
@@ -936,6 +969,7 @@ export function printSvelteSelf(n: SV.SvelteSelf, opts: Partial<PrintOptions> = 
 /**
  * @see {@link https://svelte.dev/docs/svelte/svelte-window}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteWindow(n: SV.SvelteWindow, opts: Partial<PrintOptions> = {}): Result<SV.SvelteWindow> {
@@ -949,6 +983,7 @@ export function printSvelteWindow(n: SV.SvelteWindow, opts: Partial<PrintOptions
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printTitleElement(n: SV.TitleElement, opts: Partial<PrintOptions> = {}): Result<SV.TitleElement> {
@@ -961,6 +996,7 @@ export function printTitleElement(n: SV.TitleElement, opts: Partial<PrintOptions
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV.Tag> {
@@ -983,6 +1019,7 @@ export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV
  * {@const assignment}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printConstTag(n: SV.ConstTag, opts: Partial<PrintOptions> = {}): Result<SV.ConstTag> {
@@ -1006,6 +1043,7 @@ export function printConstTag(n: SV.ConstTag, opts: Partial<PrintOptions> = {}):
  * {@debug identifiers}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printDebugTag(n: SV.DebugTag, opts: Partial<PrintOptions> = {}): Result<SV.DebugTag> {
@@ -1027,6 +1065,7 @@ export function printDebugTag(n: SV.DebugTag, opts: Partial<PrintOptions> = {}):
  * {expression}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printExpressionTag(n: SV.ExpressionTag, opts: Partial<PrintOptions> = {}): Result<SV.ExpressionTag> {
@@ -1043,6 +1082,7 @@ export function printExpressionTag(n: SV.ExpressionTag, opts: Partial<PrintOptio
  * {@html expression}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printHtmlTag(n: SV.HtmlTag, opts: Partial<PrintOptions> = {}): Result<SV.HtmlTag> {
@@ -1068,6 +1108,7 @@ export function printHtmlTag(n: SV.HtmlTag, opts: Partial<PrintOptions> = {}): R
  * {@render expression}
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printRenderTag(n: SV.RenderTag, opts: Partial<PrintOptions> = {}): Result<SV.RenderTag> {

@@ -20,6 +20,7 @@ import { printAttributeLike } from "../template/mod.js";
  * [name<?matcher><?"value"> flags?]
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSNode(n: SV.CSS.Node, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Node> {
@@ -48,6 +49,7 @@ export function printCSSNode(n: SV.CSS.Node, opts: Partial<PrintOptions> = {}): 
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSBlock(n: SV.CSS.Block, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Block> {
@@ -77,6 +79,7 @@ export function printCSSBlock(n: SV.CSS.Block, opts: Partial<PrintOptions> = {})
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors/Selectors_and_combinators#combinators}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSCombinator(n: SV.CSS.Combinator, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Combinator> {
@@ -88,6 +91,7 @@ export function printCSSCombinator(n: SV.CSS.Combinator, opts: Partial<PrintOpti
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSDeclaration(
@@ -107,6 +111,7 @@ export function printCSSDeclaration(
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSSimpleSelector(
@@ -136,6 +141,7 @@ export function printCSSSimpleSelector(
  * [name<?matcher><?"value"> flags?]
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSAttributeSelector(
@@ -168,6 +174,7 @@ export function printCSSAttributeSelector(
  * [class~=class_name] { style properties }
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSClassSelector(
@@ -187,6 +194,7 @@ export function printCSSClassSelector(
  * #name
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSIdSelector(n: SV.CSS.IdSelector, opts: Partial<PrintOptions> = {}): Result<SV.CSS.IdSelector> {
@@ -196,6 +204,7 @@ export function printCSSIdSelector(n: SV.CSS.IdSelector, opts: Partial<PrintOpti
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSNestingSelector(
@@ -210,6 +219,7 @@ export function printCSSNestingSelector(
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSPseudoClassSelector(
@@ -229,6 +239,7 @@ export function printCSSPseudoClassSelector(
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  * WARN: It doesn't support args, e.g. `::part()` or  `::slotted()`
  */
@@ -242,6 +253,7 @@ export function printCSSPseudoElementSelector(
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSRelativeSelector(
@@ -255,6 +267,7 @@ export function printCSSRelativeSelector(
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSTypeSelector(
@@ -274,6 +287,7 @@ export function printCSSTypeSelector(
  * :nth-child(<nth> [of <complex-selector-list>]?) { }
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSNth(n: SV.CSS.Nth, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Nth> {
@@ -283,6 +297,7 @@ export function printCSSNth(n: SV.CSS.Nth, opts: Partial<PrintOptions> = {}): Re
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSPercentage(n: SV.CSS.Percentage, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Percentage> {
@@ -292,6 +307,7 @@ export function printCSSPercentage(n: SV.CSS.Percentage, opts: Partial<PrintOpti
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSSelectorList(
@@ -322,6 +338,7 @@ export function printCSSSelectorList(
  * [class~=class_name] { style properties }
  * ```
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSComplexSelector(
@@ -340,6 +357,7 @@ export function printCSSComplexSelector(
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSAtrule(n: SV.CSS.Atrule, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Atrule> {
@@ -351,6 +369,7 @@ export function printCSSAtrule(n: SV.CSS.Atrule, opts: Partial<PrintOptions> = {
 }
 
 /**
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSRule(n: SV.CSS.Rule, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Rule> {
@@ -367,6 +386,7 @@ export function printCSSRule(n: SV.CSS.Rule, opts: Partial<PrintOptions> = {}): 
 /**
  * @see {@link https://svelte.dev/docs/svelte-components#style}
  *
+ * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
 export function printCSSStyleSheet(n: SV.CSS.StyleSheet, opts: Partial<PrintOptions> = {}): Result<SV.CSS.StyleSheet> {
