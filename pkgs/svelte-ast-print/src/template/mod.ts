@@ -295,7 +295,7 @@ export function printClassDirective(n: SV.ClassDirective, opts: Partial<PrintOpt
 }
 
 /**
- * @deprecacted Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-slots#Passing-data-to-slotted-content}
+ * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-slots#Passing-data-to-slotted-content}
  *
  * @example with expression
  * ```svelte
@@ -314,7 +314,7 @@ export function printLetDirective(n: SV.LetDirective, opts: Partial<PrintOptions
 }
 
 /**
- * @deprecacted Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-on}
+ * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-on}
  *
  * @example without modifiers
  * ```svelte
@@ -754,7 +754,7 @@ export function printRegularElement(n: SV.RegularElement, opts: Partial<PrintOpt
 }
 
 /**
- * @deprecacted Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-slot}
+ * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-slot}
  *
  * @__NO_SIDE_EFFECTS__
  */
@@ -795,7 +795,7 @@ export function printSvelteBoundary(n: SV.SvelteBoundary, opts: Partial<PrintOpt
 }
 
 /**
- * @deprecacted Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-component}
+ * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-component}
  *
  * @__NO_SIDE_EFFECTS__
  */
@@ -848,7 +848,7 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
 }
 
 /**
- * @deprecacted Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-fragment}
+ * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-fragment}
  *
  * @__NO_SIDE_EFFECTS__
  */
@@ -921,7 +921,7 @@ export function printSvelteOptions(
 }
 
 /**
- * @deprecacted Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-self}
+ * @deprecated Will be removed from Svelte `v6` {@link https://svelte.dev/docs/svelte/legacy-svelte-self}
  *
  * @__NO_SIDE_EFFECTS__
  */
