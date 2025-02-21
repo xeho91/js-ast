@@ -16,7 +16,7 @@ import {
 	printCSSSelectorList,
 	printCSSSimpleSelector,
 	printCSSTypeSelector,
-} from "./mod.ts";
+} from "./selector.ts";
 
 describe(printCSSSimpleSelector.name, () => {
 	describe(printCSSAttributeSelector.name, () => {

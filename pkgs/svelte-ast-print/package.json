@@ -38,11 +38,8 @@
 	"files": ["dist/"],
 	"exports": {
 		".": "./dist/lib.js",
-		"./css": "./dist/css/mod.js",
-		"./html": "./dist/html/mod.js",
-		"./js": "./dist/js/mod.js",
-		"./template": "./dist/template/mod.js",
-		"./package.json": "./package.json"
+		"./*": "./dist/*.js",
+		"./_internal/*": null
 	},
 	"scripts": {
 		"build": "pnpm run \"/^build:.*/\" ",

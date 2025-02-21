@@ -9,31 +9,31 @@
 			"vite": false
 		},
 		"pkgs/js-ast-analyze": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/js-ast-build": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/ts-ast-analyze": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/ts-ast-build": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/svelte-ast-analyze": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/svelte-ast-build": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
 		"pkgs/svelte-ast-print": {
-			"entry": ["src/lib.ts"],
+			"entry": ["src/*.ts", "!src/_internal/"],
 			"project": ["**/*.{json,js,ts}"]
 		}
 	}

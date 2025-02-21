@@ -18,7 +18,7 @@ import {
 	printSvelteSelf,
 	printSvelteWindow,
 	printTitleElement,
-} from "./mod.ts";
+} from "./template.ts";
 
 describe(printElementLike.name, () => {
 	describe(printComponent.name, () => {

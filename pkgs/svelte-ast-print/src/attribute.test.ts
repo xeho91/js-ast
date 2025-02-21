@@ -14,7 +14,7 @@ import {
 	printStyleDirective,
 	printTransitionDirective,
 	printUseDirective,
-} from "./mod.ts";
+} from "./attribute.ts";
 
 vitest.describe(printAttributeLike.name, () => {
 	vitest.describe(printAttribute.name, () => {
