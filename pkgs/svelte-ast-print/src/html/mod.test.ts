@@ -1,10 +1,8 @@
+import { parse_and_extract } from "@internals/test/svelte";
+import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import type { AST } from "svelte/compiler";
-
-import { parse_and_extract } from "../../tests/shared.ts";
-
-import { printComment, printHTMLNode, printText } from "./mod.js";
+import { printComment, printHTMLNode, printText } from "./mod.ts";
 
 describe(printHTMLNode.name, () => {
 	describe(printComment.name, () => {

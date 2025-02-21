@@ -1,9 +1,8 @@
+import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../../tests/shared.ts";
-
-import { printScript } from "./mod.js";
+import { printScript } from "./mod.ts";
 
 describe(printScript.name, () => {
 	it("prints correctly attributes", ({ expect }) => {

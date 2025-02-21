@@ -1,8 +1,6 @@
 import { describe, it } from "vitest";
-
 import type { AST } from "svelte/compiler";
-
-import { parse_and_extract } from "../../tests/shared.js";
+import { parse_and_extract } from "@internals/test/svelte";
 
 import { isBlock } from "./block.ts";
 

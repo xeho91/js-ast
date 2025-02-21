@@ -1,8 +1,6 @@
-import { describe, it } from "vitest";
-
+import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
-
-import { parse_and_extract } from "../../tests/shared.ts";
+import { describe, it } from "vitest";
 
 import {
 	printComponent,
@@ -20,7 +18,7 @@ import {
 	printSvelteSelf,
 	printSvelteWindow,
 	printTitleElement,
-} from "./mod.js";
+} from "./mod.ts";
 
 describe(printElementLike.name, () => {
 	describe(printComponent.name, () => {

@@ -75,6 +75,24 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(@types/node@22.13.4)(@vitest/ui@3.0.5)(jiti@2.4.2)(yaml@2.7.0)
 
+  internals/test:
+    dependencies:
+      '@types/estree':
+        specifier: 'catalog:'
+        version: 1.0.6
+      dedent:
+        specifier: ^1.5.0
+        version: 1.5.3(babel-plugin-macros@3.1.0)
+      svelte:
+        specifier: 'catalog:'
+        version: 5.20.0
+      svelte-ast-analyze:
+        specifier: workspace:*
+        version: link:../../pkgs/svelte-ast-analyze
+      zimmerframe:
+        specifier: 'catalog:'
+        version: 1.1.2
+
   pkgs/js-ast-analyze: {}
 
   pkgs/js-ast-build: {}
@@ -88,15 +106,12 @@ importers:
         specifier: 1.0.0-rc.0
         version: 1.0.0-rc.0(typescript@5.8.0-beta)
     devDependencies:
+      '@internals/test':
+        specifier: workspace:*
+        version: link:../../internals/test
       '@types/estree':
         specifier: 'catalog:'
         version: 1.0.6
-      typescript:
-        specifier: 'catalog:'
-        version: 5.8.0-beta
-      zimmerframe:
-        specifier: 'catalog:'
-        version: 1.1.2
 
   pkgs/svelte-ast-build: {}
 
@@ -112,15 +127,12 @@ importers:
         specifier: workspace:*
         version: link:../svelte-ast-analyze
     devDependencies:
+      '@internals/test':
+        specifier: workspace:*
+        version: link:../../internals/test
       '@types/estree':
         specifier: 'catalog:'
         version: 1.0.6
-      dedent:
-        specifier: ^1.5.0
-        version: 1.5.3(babel-plugin-macros@3.1.0)
-      zimmerframe:
-        specifier: 'catalog:'
-        version: 1.1.2
 
   pkgs/ts-ast-analyze: {}
 

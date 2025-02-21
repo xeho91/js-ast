@@ -1,8 +1,6 @@
 import { describe, it } from "vitest";
-
 import type { AST } from "svelte/compiler";
-
-import { parse_and_extract } from "../../tests/shared.ts";
+import { parse_and_extract } from "@internals/test/svelte";
 
 import { isElementLike } from "./element.ts";
 
