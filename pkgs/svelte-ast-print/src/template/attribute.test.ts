@@ -1,6 +1,6 @@
-import * as vitest from "vitest";
-import type { AST } from "svelte/compiler";
 import { parse_and_extract } from "@internals/test/svelte";
+import type { AST } from "svelte/compiler";
+import * as vitest from "vitest";
 
 import {
 	printAnimateDirective,

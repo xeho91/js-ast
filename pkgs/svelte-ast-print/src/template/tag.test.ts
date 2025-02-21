@@ -1,6 +1,6 @@
 import { parse_and_extract } from "@internals/test/svelte";
-import { describe, it } from "vitest";
 import type { AST } from "svelte/compiler";
+import { describe, it } from "vitest";
 
 import { printConstTag, printDebugTag, printExpressionTag, printHtmlTag, printRenderTag, printTag } from "./mod.ts";
 
