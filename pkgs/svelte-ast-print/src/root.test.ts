@@ -468,7 +468,7 @@ describe(printCSSStyleSheet.name, () => {
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
 		expect(printCSSStyleSheet(node).code).toMatchInlineSnapshot(`
 			"<style lang="sass">
-
+				
 			</style>"
 		`);
 	});
