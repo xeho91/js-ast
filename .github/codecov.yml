@@ -22,15 +22,20 @@ comment:
 
 component_management:
     individual_components:
+        - component_id: js-ast-analyze
+          name: js-ast-analyze
+          paths:
+              - packages/js-ast-analyze/**
+
         - component_id: js-ast-build
           name: js-ast-build
           paths:
               - packages/js-ast-build/**
 
-        - component_id: ts-ast-build
-          name: ts-ast-build
+        - component_id: svelte-ast-analyze
+          name: svelte-ast-analyze
           paths:
-              - packages/ts-ast-build/**
+              - packages/svelte-ast-analyze/**
 
         - component_id: svelte-ast-build
           name: svelte-ast-build
@@ -41,3 +46,13 @@ component_management:
           name: svelte-ast-print
           paths:
               - packages/svelte-ast-print/**
+
+        - component_id: ts-ast-analyze
+          name: ts-ast-analyze
+          paths:
+              - packages/ts-ast-analyze/**
+
+        - component_id: ts-ast-build
+          name: ts-ast-build
+          paths:
+              - packages/ts-ast-build/**
