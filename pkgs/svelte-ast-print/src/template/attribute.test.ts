@@ -1,8 +1,6 @@
-import { describe, it } from "vitest";
-
+import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
-
-import { parse_and_extract } from "../../tests/shared.ts";
+import * as vitest from "vitest";
 
 import {
 	printAnimateDirective,
@@ -16,11 +14,11 @@ import {
 	printStyleDirective,
 	printTransitionDirective,
 	printUseDirective,
-} from "./mod.js";
+} from "./mod.ts";
 
-describe(printAttributeLike.name, () => {
-	describe(printAttribute.name, () => {
-		it("correctly prints boolean value", ({ expect }) => {
+vitest.describe(printAttributeLike.name, () => {
+	vitest.describe(printAttribute.name, () => {
+		vitest.it("correctly prints boolean value", ({ expect }) => {
 			const code = `
 			<input required />
 		`;
@@ -28,7 +26,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"required"`);
 		});
 
-		it("correctly prints empty text expression value", ({ expect }) => {
+		vitest.it("correctly prints empty text expression value", ({ expect }) => {
 			const code = `
 			<input required="" />
 		`;
@@ -36,7 +34,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"required="""`);
 		});
 
-		it("correctly prints text expression value with text", ({ expect }) => {
+		vitest.it("correctly prints text expression value with text", ({ expect }) => {
 			const code = `
 			<div aria-label="this is a modal box" />
 		`;
@@ -44,7 +42,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"aria-label="this is a modal box""`);
 		});
 
-		it("correctly prints booleanish expression tag value", ({ expect }) => {
+		vitest.it("correctly prints booleanish expression tag value", ({ expect }) => {
 			const code = `
 			<button {disabled} />
 		`;
@@ -52,7 +50,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"{disabled}"`);
 		});
 
-		it("correctly prints expression tag value with string template", ({ expect }) => {
+		vitest.it("correctly prints expression tag value with string template", ({ expect }) => {
 			const code = `
 			<Button id={\`button-\${id}\`} />
 		`;
@@ -60,7 +58,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"id={\`button-\${id}\`}"`);
 		});
 
-		it("correctly prints expression tag with string", ({ expect }) => {
+		vitest.it("correctly prints expression tag with string", ({ expect }) => {
 			const code = `
 			<Tab name={"Home"} />
 		`;
@@ -68,7 +66,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"name={"Home"}"`);
 		});
 
-		it("correctly prints string with expression tags inside", ({ expect }) => {
+		vitest.it("correctly prints string with expression tags inside", ({ expect }) => {
 			const code = `
 			<Button class="{variant} small" />
 		`;
@@ -76,7 +74,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"class="{variant} small""`);
 		});
 
-		it("correctly prints expression tag with array expression", ({ expect }) => {
+		vitest.it("correctly prints expression tag with array expression", ({ expect }) => {
 			const code = `
 			<Select values={[1, 2, 3]} />
 		`;
@@ -84,7 +82,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAttribute(node).code).toMatchInlineSnapshot(`"values={[1, 2, 3]}"`);
 		});
 
-		it("correctly prints expression tag with object expression", ({ expect }) => {
+		vitest.it("correctly prints expression tag with object expression", ({ expect }) => {
 			const code = `
 			<Container values={{ min: 1000, max: 1200, display: "grid" }} />
 		`;
@@ -95,8 +93,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printSpreadAttribute.name, () => {
-		it("works using normal identifier", ({ expect }) => {
+	vitest.describe(printSpreadAttribute.name, () => {
+		vitest.it("works using normal identifier", ({ expect }) => {
 			const code = `
 			<Widget {...things} />
 		`;
@@ -104,7 +102,7 @@ describe(printAttributeLike.name, () => {
 			expect(printSpreadAttribute(node).code).toMatchInlineSnapshot(`"{...things}"`);
 		});
 
-		it("works using $$props", ({ expect }) => {
+		vitest.it("works using $$props", ({ expect }) => {
 			const code = `
 			<Widget {...$$props} />
 		`;
@@ -112,7 +110,7 @@ describe(printAttributeLike.name, () => {
 			expect(printSpreadAttribute(node).code).toMatchInlineSnapshot(`"{...$$props}"`);
 		});
 
-		it("works using $$restProps", ({ expect }) => {
+		vitest.it("works using $$restProps", ({ expect }) => {
 			const code = `
 			<Widget {...$$restProps} />
 		`;
@@ -121,8 +119,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printAnimateDirective.name, () => {
-		it("works on without params variant", ({ expect }) => {
+	vitest.describe(printAnimateDirective.name, () => {
+		vitest.it("works on without params variant", ({ expect }) => {
 			const code = `
 			{#each list as item, index (item)}
 				<li animate:flip>{item}</li>
@@ -132,7 +130,7 @@ describe(printAttributeLike.name, () => {
 			expect(printAnimateDirective(node).code).toMatchInlineSnapshot(`"animate:flip"`);
 		});
 
-		it("works on with params variant", ({ expect }) => {
+		vitest.it("works on with params variant", ({ expect }) => {
 			const code = `
 			{#each list as item, index (item)}
 				<li animate:flip={{ delay: 500 }}>{item}</li>
@@ -143,8 +141,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printBindDirective.name, () => {
-		it("prints correctly when is a shorthand", ({ expect }) => {
+	vitest.describe(printBindDirective.name, () => {
+		vitest.it("prints correctly when is a shorthand", ({ expect }) => {
 			const code = `
 			<script lang="ts">
 				let value: string;
@@ -156,7 +154,7 @@ describe(printAttributeLike.name, () => {
 			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:value"`);
 		});
 
-		it("works on binding input value", ({ expect }) => {
+		vitest.it("works on binding input value", ({ expect }) => {
 			const code = `
 			<input bind:value={name} />
 		`;
@@ -164,7 +162,7 @@ describe(printAttributeLike.name, () => {
 			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:value={name}"`);
 		});
 
-		it("works on binding input checked", ({ expect }) => {
+		vitest.it("works on binding input checked", ({ expect }) => {
 			const code = `
 			<input type="checkbox" bind:checked={yes} />
 		`;
@@ -173,8 +171,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printClassDirective.name, () => {
-		it("works with value", ({ expect }) => {
+	vitest.describe(printClassDirective.name, () => {
+		vitest.it("works with value", ({ expect }) => {
 			const code = `
 			<div class:active={isActive}>...</div>
 		`;
@@ -182,7 +180,7 @@ describe(printAttributeLike.name, () => {
 			expect(printClassDirective(node).code).toMatchInlineSnapshot(`"class:active={isActive}"`);
 		});
 
-		it("works without value - shorthand", ({ expect }) => {
+		vitest.it("works without value - shorthand", ({ expect }) => {
 			const code = `
 			<div class:active>...</div>
 		`;
@@ -191,8 +189,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printLetDirective.name, () => {
-		it("works on with value", ({ expect }) => {
+	vitest.describe(printLetDirective.name, () => {
+		vitest.it("works on with value", ({ expect }) => {
 			const code = `
 			<FancyList {items} let:prop={thing}>
 				<div>{thing.text}</div>
@@ -202,7 +200,7 @@ describe(printAttributeLike.name, () => {
 			expect(printLetDirective(node).code).toMatchInlineSnapshot(`"let:prop={thing}"`);
 		});
 
-		it("works on without value", ({ expect }) => {
+		vitest.it("works on without value", ({ expect }) => {
 			const code = `
 			<Story let:args>
 				<Button {...args} />
@@ -213,8 +211,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printOnDirective.name, () => {
-		it("works on without modifiers variant", ({ expect }) => {
+	vitest.describe(printOnDirective.name, () => {
+		vitest.it("works on without modifiers variant", ({ expect }) => {
 			const code = `
 			<button on:click={() => (count += 1)}>
 				count: {count}
@@ -224,7 +222,7 @@ describe(printAttributeLike.name, () => {
 			expect(printOnDirective(node).code).toMatchInlineSnapshot(`"on:click={() => count += 1}"`);
 		});
 
-		it("works on with modifiers variant", ({ expect }) => {
+		vitest.it("works on with modifiers variant", ({ expect }) => {
 			const code = `
 			<form on:submit|preventDefault={handleSubmit}>
 				...
@@ -235,8 +233,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printStyleDirective.name, () => {
-		it("works with expression tag value", ({ expect }) => {
+	vitest.describe(printStyleDirective.name, () => {
+		vitest.it("works with expression tag value", ({ expect }) => {
 			const code = `
 			<div style:color={myColor}>...</div>
 		`;
@@ -244,7 +242,7 @@ describe(printAttributeLike.name, () => {
 			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color={myColor}"`);
 		});
 
-		it("works with shorthand", ({ expect }) => {
+		vitest.it("works with shorthand", ({ expect }) => {
 			const code = `
 			<div style:color>...</div>
 		`;
@@ -252,7 +250,7 @@ describe(printAttributeLike.name, () => {
 			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color"`);
 		});
 
-		it("works with text expression", ({ expect }) => {
+		vitest.it("works with text expression", ({ expect }) => {
 			const code = `
 			<div style:color="red">...</div>
 		`;
@@ -260,7 +258,7 @@ describe(printAttributeLike.name, () => {
 			expect(printStyleDirective(node).code).toMatchInlineSnapshot(`"style:color="red""`);
 		});
 
-		it("works with modifiers and text expression", ({ expect }) => {
+		vitest.it("works with modifiers and text expression", ({ expect }) => {
 			const code = `
 			<div style:color|important="red">...</div>
 		`;
@@ -269,8 +267,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printTransitionDirective.name, () => {
-		it("works when using transition", ({ expect }) => {
+	vitest.describe(printTransitionDirective.name, () => {
+		vitest.it("works when using transition", ({ expect }) => {
 			const code = `
 			{#if visible}
 				<div transition:scale>scales in, scales out</div>
@@ -280,7 +278,7 @@ describe(printAttributeLike.name, () => {
 			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"transition:scale"`);
 		});
 
-		it("works when using intro", ({ expect }) => {
+		vitest.it("works when using intro", ({ expect }) => {
 			const code = `
 			{#if visible}
 				<div in:fly>flies in</div>
@@ -290,7 +288,7 @@ describe(printAttributeLike.name, () => {
 			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"in:fly"`);
 		});
 
-		it("works when using outro", ({ expect }) => {
+		vitest.it("works when using outro", ({ expect }) => {
 			const code = `
 			{#if visible}
 				<div out:fade>fades out</div>
@@ -300,7 +298,7 @@ describe(printAttributeLike.name, () => {
 			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"out:fade"`);
 		});
 
-		it("works when using params", ({ expect }) => {
+		vitest.it("works when using params", ({ expect }) => {
 			const code = `
 			{#if visible}
 				<p transition:fly={{ y: 200, duration: 2000 }}>
@@ -314,7 +312,7 @@ describe(printAttributeLike.name, () => {
 			);
 		});
 
-		it("works when using modifiers", ({ expect }) => {
+		vitest.it("works when using modifiers", ({ expect }) => {
 			const code = `
 			{#if visible}
 				<p transition:fade|global>fades in and out when x or y change</p>
@@ -324,7 +322,7 @@ describe(printAttributeLike.name, () => {
 			expect(printTransitionDirective(node).code).toMatchInlineSnapshot(`"transition:fade|global"`);
 		});
 
-		it("works when using modifiers and with params", ({ expect }) => {
+		vitest.it("works when using modifiers and with params", ({ expect }) => {
 			const code = `
 			{#if visible}
 				<p transition:fade|local={{ y: 200, duration: 2000 }}>fades in and out when x or y change</p>
@@ -337,8 +335,8 @@ describe(printAttributeLike.name, () => {
 		});
 	});
 
-	describe(printUseDirective.name, () => {
-		it("works with parameters", ({ expect }) => {
+	vitest.describe(printUseDirective.name, () => {
+		vitest.it("works with parameters", ({ expect }) => {
 			const code = `
 			<div use:foo={bar} />
 		`;
@@ -346,7 +344,7 @@ describe(printAttributeLike.name, () => {
 			expect(printUseDirective(node).code).toMatchInlineSnapshot(`"use:foo={bar}"`);
 		});
 
-		it("works on without parameters - shorthand", ({ expect }) => {
+		vitest.it("works on without parameters - shorthand", ({ expect }) => {
 			const code = `
 			<div use:foo />
 		`;

@@ -1,9 +1,8 @@
+import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../../tests/shared.ts";
-
-import { printRoot } from "./mod.js";
+import { printRoot } from "./mod.ts";
 
 describe(printRoot.name, () => {
 	it("it prints correctly Svelte code without TypeScript syntax", ({ expect }) => {

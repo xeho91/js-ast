@@ -1,6 +1,7 @@
 # https://pnpm.io/pnpm-workspace_yaml
 ---
 packages:
+    - "internals/*"
     - "pkgs/*"
 
 # https://pnpm.io/catalogs

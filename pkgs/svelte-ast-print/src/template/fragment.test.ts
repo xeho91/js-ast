@@ -1,9 +1,8 @@
+import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { parse_and_extract } from "../../tests/shared.ts";
-
-import { printFragment } from "./mod.js";
+import { printFragment } from "./mod.ts";
 
 describe(printFragment.name, () => {
 	it("it prints correctly fragment code", ({ expect }) => {

@@ -1,7 +1,7 @@
-"workflows":
+"internals":
     - changed-files:
           - any-glob-to-any-file:
-                - ".github/workflows/**"
+                - "internals/**"
 
 "pkg:js-ast-analyze":
     - changed-files:
@@ -42,3 +42,8 @@
     - changed-files:
           - any-glob-to-any-file:
                 - "**/*.test.ts"
+
+"workflows":
+    - changed-files:
+          - any-glob-to-any-file:
+                - ".github/workflows/**"

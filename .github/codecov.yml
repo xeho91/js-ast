@@ -1,6 +1,7 @@
 ignore:
+    - "internals/**" # internal libraries
     - "**/scripts/**"
-    - "**/tests/**" # Ignore shared utilities for tests
+    - "**/tests/**" # shared utilities for tests
     - "**/examples/**"
     - "**/*.config.js"
     - "**/*.config.ts"

@@ -100,9 +100,8 @@
 		"test": "vitest run . --passWithNoTests"
 	},
 	"devDependencies": {
-		"@types/estree": "catalog:",
-		"typescript": "catalog:",
-		"zimmerframe": "catalog:"
+		"@internals/test": "workspace:*",
+		"@types/estree": "catalog:"
 	},
 	"peerDependencies": {
 		"svelte": "catalog:"

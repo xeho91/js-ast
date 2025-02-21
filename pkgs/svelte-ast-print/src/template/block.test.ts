@@ -1,7 +1,6 @@
+import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
-
-import { parse_and_extract } from "../../tests/shared.ts";
 
 import { printAwaitBlock, printBlock, printEachBlock, printIfBlock, printKeyBlock, printSnippetBlock } from "./mod.ts";
 
