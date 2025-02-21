@@ -2,7 +2,7 @@ import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { printCSSAtrule, printCSSBlock, printCSSDeclaration, printCSSRule } from "./mod.ts";
+import { printCSSAtrule, printCSSBlock, printCSSDeclaration, printCSSRule } from "./rule.ts";
 
 describe(printCSSBlock.name, () => {
 	it("prints correctly", ({ expect }) => {

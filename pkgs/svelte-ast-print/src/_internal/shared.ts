@@ -8,7 +8,7 @@ type Node = JS.Node | SvelteOnlyNode;
 
 /**
  * @internal
- * State to store our garbage collectible state for node that is being processed for printing.
+ * Storage to store our garbage collectible state for node that is being processed for printing.
  * Each function call should generate unique identifier to the passed user options - by default is `{}`.
  */
 const STORE = new WeakMap<Node, State>();
@@ -128,7 +128,6 @@ class Collector {
 
 /**
  * @internal
- * @lintignore
  */
 export class Result<N extends Node = Node> {
 	node: N;
@@ -285,3 +284,6 @@ export abstract class Wrapper<T extends WrapperType = WrapperType> {
 		}
 	}
 }
+
+// @ts-expect-error NOTE: This to solve cyclic dependency issue
+export const hub: typeof import("../lib.ts") = {};

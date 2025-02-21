@@ -2,7 +2,7 @@ import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { printFragment } from "./mod.ts";
+import { printFragment } from "./fragment.ts";
 
 describe(printFragment.name, () => {
 	it("it prints correctly fragment code", ({ expect }) => {

@@ -2,7 +2,14 @@ import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { printConstTag, printDebugTag, printExpressionTag, printHtmlTag, printRenderTag, printTag } from "./mod.ts";
+import {
+	printConstTag,
+	printDebugTag,
+	printExpressionTag,
+	printHtmlTag,
+	printRenderTag,
+	printTag,
+} from "./template.ts";
 
 describe(printTag.name, () => {
 	it("print correctly `@const` tag", ({ expect }) => {

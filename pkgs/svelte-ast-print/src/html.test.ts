@@ -2,7 +2,7 @@ import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { printComment, printHTMLNode, printText } from "./mod.ts";
+import { printComment, printHTMLNode, printText } from "./html.ts";
 
 describe(printHTMLNode.name, () => {
 	describe(printComment.name, () => {

@@ -1,6 +1,7 @@
 import type { AST as SV } from "svelte/compiler";
 
-import type { printAttributeLike, printFragment } from "../../template/mod.js";
+import { printAttributeLike } from "../../attribute.ts";
+import { printFragment } from "../../fragment.ts";
 import * as char from "../char.js";
 import { HTMLClosingTag, HTMLOpeningTag, HTMLSelfClosingTag } from "../html.js";
 import type { PrintOptions } from "../option.js";
@@ -91,10 +92,8 @@ function is_el_self_closing(n: SV.ElementLike): boolean {
 export function print_maybe_self_closing_el<N extends SV.ElementLike>(params: {
 	n: N;
 	opts: Partial<PrintOptions>;
-	attr_printer: typeof printAttributeLike;
-	frag_printer: typeof printFragment;
 }): Result<N> {
-	const { n, opts, attr_printer, frag_printer } = params;
+	const { n, opts } = params;
 	const st = State.get(n, opts);
 	const self_closing = is_el_self_closing(n);
 	if (self_closing) {
@@ -104,7 +103,7 @@ export function print_maybe_self_closing_el<N extends SV.ElementLike>(params: {
 			n.name,
 		);
 		if (n.attributes.length > 0) {
-			for (const a of n.attributes) tag.insert(char.SPACE, attr_printer(a));
+			for (const a of n.attributes) tag.insert(char.SPACE, printAttributeLike(a));
 		}
 		tag.insert(char.SPACE);
 		st.add(tag);
@@ -112,14 +111,14 @@ export function print_maybe_self_closing_el<N extends SV.ElementLike>(params: {
 	}
 	const opening = new HTMLOpeningTag("inline", n.name);
 	if (n.attributes.length > 0) {
-		for (const a of n.attributes) opening.insert(char.SPACE, attr_printer(a));
+		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	}
 	st.add(opening);
 	const should_break =
 		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
 		!NATIVE_INLINE_ELS.has(n.name) && !has_frag_text_or_exp_tag_only(n.fragment.nodes);
 	if (should_break) st.break(+1);
-	if (n.fragment) st.add(frag_printer(n.fragment, opts));
+	if (n.fragment) st.add(printFragment(n.fragment, opts));
 	if (should_break) st.break(-1);
 	st.add(new HTMLClosingTag("inline", n.name));
 	return st.result;
@@ -132,13 +131,12 @@ export function print_maybe_self_closing_el<N extends SV.ElementLike>(params: {
 export function print_self_closing_el<N extends SV.ElementLike>(params: {
 	n: N;
 	opts: Partial<PrintOptions>;
-	attr_printer: typeof printAttributeLike;
 }): Result<N> {
-	const { n, opts, attr_printer } = params;
+	const { n, opts } = params;
 	const st = State.get(params.n, opts);
 	const tag = new HTMLSelfClosingTag("inline", n.name);
 	if (n.attributes.length > 0) {
-		for (const a of n.attributes) tag.insert(char.SPACE, attr_printer(a, opts));
+		for (const a of n.attributes) tag.insert(char.SPACE, printAttributeLike(a, opts));
 	}
 	tag.insert(char.SPACE);
 	st.add(tag);
@@ -152,21 +150,19 @@ export function print_self_closing_el<N extends SV.ElementLike>(params: {
 export function print_non_self_closing_el<N extends SV.ElementLike>(params: {
 	n: N;
 	opts: Partial<PrintOptions>;
-	attr_printer: typeof printAttributeLike;
-	frag_printer: typeof printFragment;
 }): Result<N> {
-	const { n, opts, attr_printer, frag_printer } = params;
+	const { n, opts } = params;
 	const st = State.get(n, opts);
 	const opening = new HTMLOpeningTag("inline", n.name);
 	if (n.attributes.length > 0) {
-		for (const a of n.attributes) opening.insert(char.SPACE, attr_printer(a));
+		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	}
 	st.add(opening);
 	const should_break =
 		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
 		!NATIVE_INLINE_ELS.has(n.name) && !has_frag_text_or_exp_tag_only(n.fragment.nodes);
 	if (should_break) st.break(+1);
-	st.add(frag_printer(n.fragment, opts));
+	st.add(printFragment(n.fragment, opts));
 	if (should_break) st.break(-1);
 	st.add(new HTMLClosingTag("inline", n.name));
 	return st.result;

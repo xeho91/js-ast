@@ -74,12 +74,9 @@ import type * as JS from "estree";
 import { type SvelteOnlyNode, isSvelteOnlyNode } from "svelte-ast-analyze";
 import type { AST as SV } from "svelte/compiler";
 
-import { print_js } from "./_internal/js.js";
+import { print_js } from "./_internal/js.ts";
 import type { PrintOptions } from "./_internal/option.js";
-import { type Result, State } from "./_internal/shared.js";
-import { printCSSNode } from "./css/mod.js";
-import { printScript } from "./js/mod.js";
-import { printFragment, printRoot, printTemplateNode } from "./template/mod.js";
+import { type Result, State, hub } from "./_internal/shared.ts";
 
 /**
  * @param n Svelte or JavaScript/TypeScript ESTree specification complaint AST node
@@ -108,7 +105,7 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 	const st = State.get(n, opts);
 	switch (n.type) {
 		case "Root": {
-			st.add(printRoot(n, opts));
+			st.add(hub.printRoot(n, opts));
 			break;
 		}
 		// CSS
@@ -130,15 +127,15 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		case "Atrule":
 		case "Rule":
 		case "StyleSheet": {
-			st.add(printCSSNode(n, opts));
+			st.add(hub.printCSSNode(n, opts));
 			break;
 		}
 		case "Fragment": {
-			st.add(printFragment(n, opts));
+			st.add(hub.printFragment(n, opts));
 			break;
 		}
 		case "Script": {
-			st.add(printScript(n, opts));
+			st.add(hub.printScript(n, opts));
 			break;
 		}
 		// attribute-like
@@ -182,9 +179,14 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		// HTML
 		case "Comment":
 		case "Text": {
-			st.add(printTemplateNode(n, opts));
+			st.add(hub.printTemplateNode(n, opts));
 			break;
 		}
 	}
 	return st.result;
 }
+
+export * from "./css.ts";
+export * from "./fragment.ts";
+export * from "./root.ts";
+export * from "./template.ts";
