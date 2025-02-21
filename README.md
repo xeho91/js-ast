@@ -21,10 +21,10 @@ This is a monorepo with packages to **boost the [DX]** of working with [AST] _(u
 
 In order to work with AST, the following processes are recognized:
 
+1. [Analyzing](#analyze) the [AST] object(s).
 1. [Building](#build) programmatically the [AST] node(s), or an entire object.
 1. [Parsing](#parse) _stringified_ code syntax into [AST] object.
 1. [Traversing](#traverse) the [AST] object.
-1. [Analyzing](#analyze) the [AST] object(s).
 1. [Printing](#print) the [AST] object back into _stringified_ code syntax.
 
 > [!IMPORTANT]
@@ -34,6 +34,16 @@ In order to work with AST, the following processes are recognized:
 > [!NOTE]
 >
 > Not all of these packages are part of this monorepo.
+
+### Analyze
+
+Analyze the received [AST] object(s). Contains type-guards and utilities.
+
+| Name                   | Languages                          | In this repository? |
+| ---------------------- | ---------------------------------- | ------------------- |
+| [`js-ast-analyze`]     | ![icon-js]                         | ✅                  |
+| [`ts-ast-analyze`]     | ![icon-js]![icon-ts]               | ✅                  |
+| [`svelte-ast-analyze`] | ![icon-js]![icon-ts]![icon-svelte] | ✅                  |
 
 ### Build
 
@@ -61,16 +71,6 @@ In other words, _walk_ on the AST object.
 | Name            | Languages                          | In this repository? |
 | --------------- | ---------------------------------- | ------------------- |
 | [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] | ❌                  |
-
-### Analyze
-
-Analyze the received [AST] object(s). Contains type-guards and utilities.
-
-| Name                   | Languages                          | In this repository? |
-| ---------------------- | ---------------------------------- | ------------------- |
-| [`js-ast-analyze`]     | ![icon-js]                         | ✅                  |
-| [`ts-ast-analyze`]     | ![icon-js]![icon-ts]               | ✅                  |
-| [`svelte-ast-analyze`] | ![icon-js]![icon-ts]![icon-svelte] | ✅                  |
 
 ### Print
 

@@ -37,11 +37,7 @@
 	},
 	"files": ["dist/"],
 	"exports": {
-		".": {
-			"development": "./src/lib.ts",
-			"types": "./dist/lib.d.ts",
-			"default": "./src/lib.js"
-		},
+		".": "./src/lib.js",
 		"./package.json": "./package.json"
 	},
 	"scripts": {
