@@ -12,6 +12,7 @@
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:docs": "rm -rf \"./docs\" ",
 		"dev": "pnpm run --reporter=append-only --workspace-root \"/^dev:.*/\" ",
+		"dev:pkg": "pnpm run --parallel --recursive --stream dev:pkg ",
 		"dev:test": "vitest --ui",
 		"fix": "pnpm run --reporter=append-only --workspace-root \"/^fix:.*/\" ",
 		"fix:biome": "biome check . --verbose --write",

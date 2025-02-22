@@ -55,6 +55,7 @@
 		"clean:doc": "rm -rf \"./docs\" ",
 		"clean:test": "rm -rf \"./coverage\" ",
 		"dev": "pnpm run \"/^dev:.*/\" ",
+		"dev:pkg": "pnpm run build:pkg --watch",
 		"dev:doc": "typedoc --watch",
 		"dev:test": "pnpm vitest watch --passWithNoTests --ui",
 		"fix": "pnpm run \"/^fix:.*/\" ",
