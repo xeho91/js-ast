@@ -37,41 +37,8 @@
 	},
 	"files": ["dist/"],
 	"exports": {
-		".": {
-			"development": "./src/lib.ts",
-			"types": "./dist/lib.d.ts",
-			"default": "./dist/lib.js"
-		},
-		"./css": {
-			"development": "./src/css/mod.ts",
-			"types": "./dist/css/mod.d.ts",
-			"default": "./dist/css/mod.js"
-		},
-		"./html": {
-			"development": "./src/html/mod.ts",
-			"types": "./dist/html/mod.d.ts",
-			"default": "./dist/html/mod.js"
-		},
-		"./js": {
-			"development": "./src/js/mod.ts",
-			"types": "./dist/js/mod.d.ts",
-			"default": "./dist/js/mod.js"
-		},
-		"./base": {
-			"development": "./src/base.ts",
-			"types": "./dist/base.d.ts",
-			"default": "./dist/base.js"
-		},
-		"./node": {
-			"development": "./src/node.ts",
-			"types": "./dist/node.d.ts",
-			"default": "./dist/node.js"
-		},
-		"./template": {
-			"development": "./src/template/mod.ts",
-			"types": "./dist/template/mod.d.ts",
-			"default": "./dist/template/mod.js"
-		},
+		".": "./dist/lib.js",
+		"./*": "./dist/*.js",
 		"./package.json": "./package.json"
 	},
 	"scripts": {

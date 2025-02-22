@@ -38,6 +38,7 @@
 	"files": ["dist/"],
 	"exports": {
 		".": "./dist/lib.js",
+		"./*": "./dist/*.js",
 		"./package.json": "./package.json"
 	},
 	"scripts": {
