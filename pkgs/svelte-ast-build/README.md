@@ -7,6 +7,10 @@ Utilities to work and build [Svelte] syntax [AST] nodes conveniently.
 > [!CAUTION]
 > 🚧 Work In Progress 🚧
 
+## Usage
+
+[See documentation](https://xeho91.github.io/js-ast/svelte-ast-build.svelte-ast-build.html).
+
 ---
 
 ## Author

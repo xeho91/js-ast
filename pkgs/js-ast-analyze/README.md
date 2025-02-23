@@ -1,9 +1,13 @@
-# `ts-ast-analyze`
+# `js-ast-analyze`
 
 ![NPM Version](https://img.shields.io/npm/v/ts-ast-analyze?style=for-the-badge&logo=npm)
 
 > [!CAUTION]
 > 🚧 Work In Progress 🚧
+
+## Usage
+
+[See documentation](https://xeho91.github.io/js-ast/js-ast-analyze.js-ast-analyze.html).
 
 ---
 

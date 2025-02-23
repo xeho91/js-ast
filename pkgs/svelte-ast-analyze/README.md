@@ -4,9 +4,12 @@
 
 Utilities for _analyzing_ the [Svelte] syntax [AST] nodes conveniently.
 
+> [!CAUTION]
+> 🚧 Work In Progress 🚧
+
 ## Usage
 
-[See documentation](https://xeho91.github.io/js-ast/modules/svelte-ast-analyze.svelte-ast-analyze.html).
+[See documentation](https://xeho91.github.io/js-ast/svelte-ast-analyze.svelte-ast-analyze.html).
 
 ---
 

@@ -21,10 +21,10 @@ This is a monorepo with packages to **boost the [DX]** of working with [AST] _(u
 
 In order to work with AST, the following processes are recognized:
 
-1. [Analyzing](#analyze) the [AST] object(s).
-1. [Building](#build) programmatically the [AST] node(s), or an entire object.
 1. [Parsing](#parse) _stringified_ code syntax into [AST] object.
 1. [Traversing](#traverse) the [AST] object.
+1. [Analyzing](#analyze) the [AST] object(s).
+1. [Building](#build) programmatically the [AST] node(s), or an entire object.
 1. [Printing](#print) the [AST] object back into _stringified_ code syntax.
 
 > [!IMPORTANT]
@@ -34,6 +34,23 @@ In order to work with AST, the following processes are recognized:
 > [!NOTE]
 >
 > Not all of these packages are part of this monorepo.
+
+### Parse
+
+Getting the [AST] object from stringified code syntax.
+
+| Name                | Languages            | In this repository? |
+| ------------------- | -------------------- | ------------------- |
+| [`@swc/core`]       | ![icon-js]![icon-ts] | ❌                  |
+| [`svelte/compiler`] | ![icon-svelte]       | ❌                  |
+
+### Traverse
+
+In other words, _walk_ on the AST object.
+
+| Name            | Languages                          | In this repository? |
+| --------------- | ---------------------------------- | ------------------- |
+| [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] | ❌                  |
 
 ### Analyze
 
@@ -54,23 +71,6 @@ Sometimes you need to do some code transformation...
 | [`js-ast-build`]     | ![icon-js]     | ✅                  |
 | [`ts-ast-build`]     | ![icon-ts]     | ✅                  |
 | [`svelte-ast-build`] | ![icon-svelte] | ✅                  |
-
-### Parse
-
-Getting the [AST] object from stringified code syntax.
-
-| Name                | Languages            | In this repository? |
-| ------------------- | -------------------- | ------------------- |
-| [`@swc/core`]       | ![icon-js]![icon-ts] | ❌                  |
-| [`svelte/compiler`] | ![icon-svelte]       | ❌                  |
-
-### Traverse
-
-In other words, _walk_ on the AST object.
-
-| Name            | Languages                          | In this repository? |
-| --------------- | ---------------------------------- | ------------------- |
-| [`zimmerframe`] | ![icon-js]![icon-ts]![icon-svelte] | ❌                  |
 
 ### Print
 
