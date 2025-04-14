@@ -8,31 +8,7 @@
 			},
 			"vite": false
 		},
-		"packages/js-ast-analyze": {
-			"entry": ["src/*.ts"],
-			"project": ["**/*.{json,js,ts}"]
-		},
-		"packages/js-ast-build": {
-			"entry": ["src/*.ts"],
-			"project": ["**/*.{json,js,ts}"]
-		},
-		"packages/ts-ast-analyze": {
-			"entry": ["src/*.ts"],
-			"project": ["**/*.{json,js,ts}"]
-		},
-		"packages/ts-ast-build": {
-			"entry": ["src/*.ts"],
-			"project": ["**/*.{json,js,ts}"]
-		},
-		"packages/svelte-ast-analyze": {
-			"entry": ["src/*.ts"],
-			"project": ["**/*.{json,js,ts}"]
-		},
-		"packages/svelte-ast-build": {
-			"entry": ["src/*.ts"],
-			"project": ["**/*.{json,js,ts}"]
-		},
-		"packages/svelte-ast-print": {
+		"packages/*": {
 			"entry": ["src/*.ts", "!src/_internal/"],
 			"project": ["**/*.{json,js,ts}"]
 		}

@@ -8,7 +8,8 @@
 	"scripts": {
 		"build": "pnpm run --reporter=append-only --workspace-root \"/^build:.*/\" ",
 		"build:doc": "typedoc --logLevel Verbose",
-		"clean": "pnpm run --reporter=append-only --workspace-root \"/^clean:.*/\"; rm -rf \"./**/node_modules\" ",
+		"clean": "pnpm run --reporter=append-only --workspace-root \"/^clean:.*/\" ",
+		"clean:build": "pnpm --recursive exec rm -rf \"./node_modules/dist\" ",
 		"clean:cache": "rm -rf \"./node_modules/.cache\" ",
 		"clean:docs": "rm -rf \"./docs\" ",
 		"dev": "pnpm run --reporter=append-only --workspace-root \"/^dev:.*/\" ",

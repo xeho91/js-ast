@@ -56,21 +56,21 @@ In other words, _walk_ on the AST object.
 
 Analyze the received [AST] object(s). Contains type-guards and utilities.
 
-| Name                   | Languages                          | In this repository? |
-| ---------------------- | ---------------------------------- | ------------------- |
-| [`js-ast-analyze`]     | ![icon-js]                         | ✅                  |
-| [`ts-ast-analyze`]     | ![icon-js]![icon-ts]               | ✅                  |
-| [`svelte-ast-analyze`] | ![icon-js]![icon-ts]![icon-svelte] | ✅                  |
+| Name                 | Languages                          | In this repository? |
+| -------------------- | ---------------------------------- | ------------------- |
+| `js-ast-analyze`     | ![icon-js]                         | 🚧                  |
+| `ts-ast-analyze`     | ![icon-js]![icon-ts]               | 🚧                  |
+| `svelte-ast-analyze` | ![icon-js]![icon-ts]![icon-svelte] | 🚧                  |
 
 ### Build
 
 Sometimes you need to do some code transformation...
 
-| Name                 | Languages      | In this repository? |
-| -------------------- | -------------- | ------------------- |
-| [`js-ast-build`]     | ![icon-js]     | ✅                  |
-| [`ts-ast-build`]     | ![icon-ts]     | ✅                  |
-| [`svelte-ast-build`] | ![icon-svelte] | ✅                  |
+| Name               | Languages      | In this repository? |
+| ------------------ | -------------- | ------------------- |
+| `js-ast-build`     | ![icon-js]     | 🚧                  |
+| `ts-ast-build`     | ![icon-ts]     | 🚧                  |
+| `svelte-ast-build` | ![icon-svelte] | 🚧                  |
 
 ### Print
 
