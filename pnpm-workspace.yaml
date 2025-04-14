@@ -2,7 +2,7 @@
 ---
 packages:
     - "internals/*"
-    - "pkgs/*"
+    - "packages/*"
 
 # https://pnpm.io/catalogs
 catalog:

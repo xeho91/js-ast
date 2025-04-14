@@ -6,37 +6,37 @@
 "pkg:js-ast-analyze":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/js-ast-analyze/**"
+                - "packages/js-ast-analyze/**"
 
 "pkg:js-ast-build":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/js-ast-build/**"
+                - "packages/js-ast-build/**"
 
 "pkg:ts-ast-analyze":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/ts-ast-analyze/**"
+                - "packages/ts-ast-analyze/**"
 
 "pkg:ts-ast-build":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/ts-ast-build/**"
+                - "packages/ts-ast-build/**"
 
 "pkg:svelte-ast-analyze":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/svelte-ast-analyze/**"
+                - "packages/svelte-ast-analyze/**"
 
 "pkg:svelte-ast-build":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/svelte-ast-build/**"
+                - "packages/svelte-ast-build/**"
 
 "pkg:svelte-ast-print":
     - changed-files:
           - any-glob-to-any-file:
-                - "pkgs/svelte-ast-print/**"
+                - "packages/svelte-ast-print/**"
 
 "tests":
     - changed-files:

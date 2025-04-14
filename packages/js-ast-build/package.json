@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "pkgs/js-ast-build"
+		"directory": "packages/js-ast-build"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [

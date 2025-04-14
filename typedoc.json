@@ -1,7 +1,7 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
 	"extends": ["./typedoc.base.json"],
-	"entryPoints": ["pkgs/*"],
+	"entryPoints": ["packages/*"],
 	"entryPointStrategy": "packages",
 	"includeVersion": false
 }

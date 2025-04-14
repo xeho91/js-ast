@@ -1,10 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/package",
-	"name": "js-ast-analyze",
+	"name": "ts-ast-build",
 	"version": "0.0.1",
 	"type": "module",
-	"description": "Analyze JavaScript AST nodes conveniently.",
-	"keywords": ["ast", "analyze", "javascript"],
+	"description": "Build TypeScript AST nodes conveniently.",
+	"keywords": ["ast", "build", "typescript"],
 	"license": "MIT",
 	"author": {
 		"name": "Mateusz Kadlubowski",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "pkgs/js-ast-analyze"
+		"directory": "packages/ts-ast-build"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [
@@ -63,7 +63,7 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm --filter js-ast-analyze run --parallel \"/^lint|^test|^build:pkg/\"",
+		"prepublishOnly": "pnpm --filter ts-ast-build run --parallel \"/^lint|^test|^build:pkg/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
 	}

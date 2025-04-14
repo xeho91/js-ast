@@ -1,10 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/package",
-	"name": "svelte-ast-build",
-	"version": "0.0.1",
+	"name": "svelte-ast-print",
+	"version": "0.6.0",
 	"type": "module",
-	"description": "Build Svelte AST nodes conveniently.",
-	"keywords": ["ast", "build", "svelte"],
+	"description": "Serialize Svelte AST nodes into stringified syntax. A.k.a parse in reverse.",
+	"keywords": ["ast", "print", "svelte"],
 	"license": "MIT",
 	"author": {
 		"name": "Mateusz Kadlubowski",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "pkgs/svelte-ast-build"
+		"directory": "packages/svelte-ast-print"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [
@@ -39,7 +39,7 @@
 	"exports": {
 		".": "./dist/lib.js",
 		"./*": "./dist/*.js",
-		"./package.json": "./package.json"
+		"./_internal/*": null
 	},
 	"scripts": {
 		"build": "pnpm run \"/^build:.*/\" ",
@@ -63,8 +63,19 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm --filter js-ast-build run --parallel \"/^lint|^test|^build:pkg/\"",
+		"prepublishOnly": "pnpm --filter svelte-ast-print run --parallel \"/^lint|^test|^build:pkg/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
+	},
+	"dependencies": {
+		"esrap": "catalog:",
+		"svelte-ast-analyze": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/estree": "catalog:",
+		"@internals/test": "workspace:*"
+	},
+	"peerDependencies": {
+		"svelte": "catalog:"
 	}
 }

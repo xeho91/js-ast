@@ -1,10 +1,10 @@
 {
 	"$schema": "https://json.schemastore.org/package",
-	"name": "svelte-ast-analyze",
+	"name": "js-ast-analyze",
 	"version": "0.0.1",
 	"type": "module",
-	"description": "Analyze Svelte AST nodes conveniently.",
-	"keywords": ["ast", "analyze", "svelte"],
+	"description": "Analyze JavaScript AST nodes conveniently.",
+	"keywords": ["ast", "analyze", "javascript"],
 	"license": "MIT",
 	"author": {
 		"name": "Mateusz Kadlubowski",
@@ -15,7 +15,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "pkgs/svelte-ast-analyze"
+		"directory": "packages/js-ast-analyze"
 	},
 	"bugs": "https://github.com/xeho91/js-ast/issues",
 	"funding": [
@@ -42,7 +42,7 @@
 		"./package.json": "./package.json"
 	},
 	"scripts": {
-		"build": "pnpm run \"/^analyze:.*/\" ",
+		"build": "pnpm run \"/^build:.*/\" ",
 		"build:doc": "typedoc",
 		"build:pkg": "tsc",
 		"check": "tsc --noEmit",
@@ -63,18 +63,8 @@
 		"lint:biome": "biome check . --verbose",
 		"lint:format": "biome format . --verbose",
 		"lint:js": "biome lint . --verbose",
-		"prepublishOnly": "pnpm --filter svelte-ast-print run --parallel \"/^lint|^test|^build:pkg/\"",
+		"prepublishOnly": "pnpm --filter js-ast-analyze run --parallel \"/^lint|^test|^build:pkg/\"",
 		"serve:doc": "serve \"./docs\" ",
 		"test": "vitest run . --passWithNoTests"
-	},
-	"devDependencies": {
-		"@internals/test": "workspace:*",
-		"@types/estree": "catalog:"
-	},
-	"peerDependencies": {
-		"svelte": "catalog:"
-	},
-	"dependencies": {
-		"valibot": "1.0.0-rc.0"
 	}
 }

@@ -88,16 +88,16 @@ importers:
         version: 5.20.0
       svelte-ast-analyze:
         specifier: workspace:*
-        version: link:../../pkgs/svelte-ast-analyze
+        version: link:../../packages/svelte-ast-analyze
       zimmerframe:
         specifier: 'catalog:'
         version: 1.1.2
 
-  pkgs/js-ast-analyze: {}
+  packages/js-ast-analyze: {}
 
-  pkgs/js-ast-build: {}
+  packages/js-ast-build: {}
 
-  pkgs/svelte-ast-analyze:
+  packages/svelte-ast-analyze:
     dependencies:
       svelte:
         specifier: 'catalog:'
@@ -113,9 +113,9 @@ importers:
         specifier: 'catalog:'
         version: 1.0.6
 
-  pkgs/svelte-ast-build: {}
+  packages/svelte-ast-build: {}
 
-  pkgs/svelte-ast-print:
+  packages/svelte-ast-print:
     dependencies:
       esrap:
         specifier: 'catalog:'
@@ -134,9 +134,9 @@ importers:
         specifier: 'catalog:'
         version: 1.0.6
 
-  pkgs/ts-ast-analyze: {}
+  packages/ts-ast-analyze: {}
 
-  pkgs/ts-ast-build: {}
+  packages/ts-ast-build: {}
 
 packages:
 

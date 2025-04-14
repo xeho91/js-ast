@@ -21,11 +21,13 @@ const SHARED = {
 };
 
 /** @see {@link https://vitest.dev/guide/workspace} */
-const config = defineWorkspace(
-	Iterator.from(
-		fs.globSync(path.resolve(__dirname, "pkgs", "*"), {
-			withFileTypes: true,
-		}),
+export default defineWorkspace(
+	(
+		await Array.fromAsync(
+			fs.promises.glob(path.resolve(__dirname, "packages", "*"), {
+				withFileTypes: true,
+			}),
+		)
 	)
 		.filter((d) => d.isDirectory())
 		.map((pkg) => ({
@@ -34,8 +36,5 @@ const config = defineWorkspace(
 				name: pkg.name,
 				root: path.join(pkg.parentPath, pkg.name),
 			},
-		}))
-		.toArray(),
+		})),
 );
-
-export default config;

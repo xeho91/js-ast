@@ -8,31 +8,31 @@
 			},
 			"vite": false
 		},
-		"pkgs/js-ast-analyze": {
+		"packages/js-ast-analyze": {
 			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
-		"pkgs/js-ast-build": {
+		"packages/js-ast-build": {
 			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
-		"pkgs/ts-ast-analyze": {
+		"packages/ts-ast-analyze": {
 			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
-		"pkgs/ts-ast-build": {
+		"packages/ts-ast-build": {
 			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
-		"pkgs/svelte-ast-analyze": {
+		"packages/svelte-ast-analyze": {
 			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
-		"pkgs/svelte-ast-build": {
+		"packages/svelte-ast-build": {
 			"entry": ["src/*.ts"],
 			"project": ["**/*.{json,js,ts}"]
 		},
-		"pkgs/svelte-ast-print": {
+		"packages/svelte-ast-print": {
 			"entry": ["src/*.ts", "!src/_internal/"],
 			"project": ["**/*.{json,js,ts}"]
 		}
