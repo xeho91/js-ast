@@ -4,7 +4,7 @@
   "type": "module",
   "name": "workspace-root",
   "version": "0.1.0",
-  "packageManager": "pnpm@10.2.0+sha512.0d27364e0139c6aadeed65ada153135e0ca96c8da42123bd50047f961339dc7a758fc2e944b428f52be570d1bd3372455c1c65fa2e7aa0bfbf931190f9552001",
+  "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971",
   "scripts": {
     "build": "pnpm run --reporter=append-only --workspace-root \"/^build:[^:]+$/\" ",
     "build:pkg": "pnpm run --parallel --recursive --stream \"build:pkg\" ",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.0.0-beta.1",
     "@changesets/changelog-github": "~0.5.0",
-    "@changesets/cli": "~2.27.0",
+    "@changesets/cli": "~2.28.0",
     "@vitest/coverage-v8": "~3.1.0",
     "@vitest/ui": "~3.1.0",
     "knip": "~5.50.0",

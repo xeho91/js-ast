@@ -1,13 +1,13 @@
 # https://pnpm.io/pnpm-workspace_yaml
 ---
 packages:
-    - "internals/*"
-    - "packages/*"
+  - "internals/*"
+  - "packages/*"
 
 # https://pnpm.io/catalogs
 catalog:
-    "@types/estree": "~1.0.0"
-    "esrap": "^1.4.0"
-    "svelte": "^5.20.0"
-    "typescript": "^5.8.0-beta"
-    "zimmerframe": "^1.1.0"
+  "@types/estree": "~1.0.0"
+  "esrap": "^1.4.0"
+  "svelte": "^5.20.0"
+  "typescript": "^5.8.3"
+  "zimmerframe": "^1.1.0"
