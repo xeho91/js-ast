@@ -43,7 +43,6 @@
     "knip": "~5.50.0",
     "serve": "~14.2.0",
     "typedoc": "~0.28.0",
-    "typedoc-plugin-coverage": "~3.4.0",
     "typedoc-plugin-dt-links": "~2.0.0",
     "typedoc-plugin-mdn-links": "~5.0.0",
     "typedoc-plugin-missing-exports": "~4.0.0",

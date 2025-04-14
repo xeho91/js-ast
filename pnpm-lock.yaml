@@ -53,9 +53,6 @@ importers:
       typedoc:
         specifier: ~0.28.0
         version: 0.28.2(typescript@5.8.3)
-      typedoc-plugin-coverage:
-        specifier: ~3.4.0
-        version: 3.4.1(typedoc@0.28.2(typescript@5.8.3))
       typedoc-plugin-dt-links:
         specifier: ~2.0.0
         version: 2.0.0(typedoc@0.28.2(typescript@5.8.3))
@@ -1541,12 +1538,6 @@ packages:
   type-fest@2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
-
-  typedoc-plugin-coverage@3.4.1:
-    resolution: {integrity: sha512-V23DAwinAMpGMGcL1R1s8Snr26hrjfIdwGf+4jR/65ZdmeAN+yRX0onfx5JlembTQhR6AePQ/parfQNS0AZ64A==}
-    engines: {node: '>= 18'}
-    peerDependencies:
-      typedoc: 0.25.x || 0.26.x || 0.27.x
 
   typedoc-plugin-dt-links@2.0.0:
     resolution: {integrity: sha512-D5dTe8SG1nzsU5Pctj4z089jYgcElNqGRcY7Qi0AozlBTu+bqmgmvdWsZK5VrYwZNYI4mnuLgQ/XRBV/GJYdXg==}
@@ -3106,10 +3097,6 @@ snapshots:
   tr46@0.0.3: {}
 
   type-fest@2.19.0: {}
-
-  typedoc-plugin-coverage@3.4.1(typedoc@0.28.2(typescript@5.8.3)):
-    dependencies:
-      typedoc: 0.28.2(typescript@5.8.3)
 
   typedoc-plugin-dt-links@2.0.0(typedoc@0.28.2(typescript@5.8.3)):
     dependencies:
