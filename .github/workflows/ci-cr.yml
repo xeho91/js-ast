@@ -3,68 +3,52 @@ name: CI & CR
 # NOTE: CR -> Continuous Releases
 
 on:
-    pull_request:
-        branches: [main, next]
-        types: [opened, ready_for_review, reopened, synchronize]
-    push:
-        branches: [main, next]
+  pull_request:
+    branches: [main, next]
+    types: [opened, ready_for_review, reopened, synchronize]
+  push:
+    branches: [main, next]
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
 
 defaults:
-    run:
-        shell: bash
+  run:
+    shell: bash
 
 env:
-    CI: true
+  CI: true
 
 permissions:
-    checks: write
-    contents: write
-    id-token: write
-    issues: write
-    pages: write
-    pull-requests: write
+  checks: write
+  contents: write
+  id-token: write
+  issues: write
+  pages: write
+  pull-requests: write
 
 jobs:
-    ci_biome:
-        name: CI
-        uses: ./.github/workflows/ci_biome.yml
-        secrets: inherit
+  ci_lint:
+    name: Lint
+    uses: ./.github/workflows/ci_lint.yml
+    secrets: inherit
 
-    ci_check:
-        name: CI
-        uses: ./.github/workflows/ci_check.yml
-        secrets: inherit
+  ci_test:
+    name: Test
+    uses: ./.github/workflows/ci_test.yml
+    secrets: inherit
 
-    ci_knip:
-        name: CI
-        uses: ./.github/workflows/ci_knip.yml
-        if: github.event_name == 'pull_request'
-        secrets: inherit
+  cr_pr_preview:
+    name: Publish
+    uses: ./.github/workflows/cr_pr-preview.yml
+    needs: [ci_lint, ci_test]
+    secrets: inherit
 
-    ci_test:
-        name: CI
-        uses: ./.github/workflows/ci_test.yml
-        secrets: inherit
-
-    ci_typos:
-        name: CI
-        uses: ./.github/workflows/ci_typos.yml
-        secrets: inherit
-
-    cr_preview:
-        name: CR
-        uses: ./.github/workflows/cr_preview.yml
-        needs: [ci_biome, ci_check, ci_test, ci_typos]
-        secrets: inherit
-
-    cr_typedoc:
-        name: CR
-        uses: ./.github/workflows/cr_typedoc.yml
-        needs: [ci_biome, ci_check, ci_test, ci_typos]
-        secrets: inherit
-        with:
-            type: ${{ github.event_name == 'pull_request' && contains(fromJson('["opened", "reopened", "synchronize"]'), github.event.action) && 'pr-preview' || 'deploy' }}
+  cr_docs:
+    name: Publish
+    uses: ./.github/workflows/cr_docs.yml
+    needs: [ci_lint, ci_test]
+    secrets: inherit
+    with:
+      type: ${{ github.event_name == 'pull_request' && contains(fromJson('["opened", "reopened", "synchronize"]'), github.event.action) && 'pr-preview' || 'deploy' }}

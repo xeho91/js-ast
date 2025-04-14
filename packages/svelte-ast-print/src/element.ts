@@ -8,7 +8,7 @@ import type { AST as SV } from "svelte/compiler";
 import * as char from "./_internal/char.ts";
 import { HTMLClosingTag, HTMLOpeningTag } from "./_internal/html.ts";
 import type { PrintOptions } from "./_internal/option.ts";
-import { type Result, State, hub } from "./_internal/shared.ts";
+import { hub, type Result, State } from "./_internal/shared.ts";
 import {
 	print_maybe_self_closing_el,
 	print_non_self_closing_el,

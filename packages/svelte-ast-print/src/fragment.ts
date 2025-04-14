@@ -3,11 +3,11 @@
  * @module svelte-ast-print/fragment
  */
 
-import { isBlock, isElementLike } from "svelte-ast-analyze/template";
 import type { AST as SV } from "svelte/compiler";
+import { isBlock, isElementLike } from "svelte-ast-analyze/template";
 
 import type { PrintOptions } from "./_internal/option.ts";
-import { type Result, State, hub } from "./_internal/shared.ts";
+import { hub, type Result, State } from "./_internal/shared.ts";
 import { printBlock } from "./block.ts";
 import { printElementLike } from "./element.ts";
 import { printHTMLNode } from "./html.ts";

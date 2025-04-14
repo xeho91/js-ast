@@ -1,8 +1,7 @@
-name: Test
+name: PR Preview
 
 on:
   workflow_call:
-  workflow_dispatch:
 
 defaults:
   run:
@@ -11,15 +10,12 @@ defaults:
 env:
   CI: true
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
-  vitest:
-    name: Vitest
+  pkg_pr_new:
+    name: pkg.pr.new
     runs-on: macos-latest
-    timeout-minutes: 2
+    timeout-minutes: 5
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       # https://github.com/actions/checkout
       - uses: actions/checkout@v4
@@ -44,14 +40,6 @@ jobs:
           pnpm install
           --frozen-lockfile
 
-      # https://vitest.dev/guide/cli.html
-      - name: Run tests with Vitest
-        run: pnpm run "test:coverage"
-
-      # https://github.com/codecov/codecov-action
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: xeho91/js-ast
+      - name: Publish packages preview with pkg-pr-new CLI
+        run: pnpx pkg-pr-new publish --pnpm './pkgs/*' --packageManager=pnpm
+        if: ${{ steps.changed-files.outputs.all_changed_files_count > 0 }}

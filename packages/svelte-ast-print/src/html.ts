@@ -3,8 +3,8 @@
  * @module svelte-ast-print/html
  */
 
-import type { HTMLNode } from "svelte-ast-analyze";
 import type { AST as SV } from "svelte/compiler";
+import type { HTMLNode } from "svelte-ast-analyze";
 
 import { HTMLComment } from "./_internal/html.js";
 import type { PrintOptions } from "./_internal/option.js";

@@ -3,8 +3,8 @@
  * @module svelte-ast-print/attribute
  */
 
-import { isExpressionTag } from "svelte-ast-analyze/template";
 import type { AST as SV } from "svelte/compiler";
+import { isExpressionTag } from "svelte-ast-analyze/template";
 
 import * as char from "./_internal/char.ts";
 import { print_js } from "./_internal/js.ts";

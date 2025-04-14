@@ -5,10 +5,7 @@ import { type Context, walk } from "zimmerframe";
 
 type Node = compiler.AST.SvelteNode | JS.Node;
 
-export function parse_and_extract<N extends Node>(
-	code: string,
-	name: N["type"],
-): N {
+export function parse_and_extract<N extends Node>(code: string, name: N["type"]): N {
 	const parsed = parse<N>(dedent(code));
 	return extract(parsed, name);
 }
@@ -34,9 +31,7 @@ function extract<N extends Node>(parsed: N, name: N["type"]): N {
 		},
 	);
 	if (!state.target) {
-		throw new Error(
-			`Could not find the in the parsed Svelte AST a target node: ${name}`,
-		);
+		throw new Error(`Could not find the in the parsed Svelte AST a target node: ${name}`);
 	}
 	return state.target;
 }

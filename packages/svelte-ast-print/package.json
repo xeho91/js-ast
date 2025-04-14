@@ -1,61 +1,66 @@
 {
-	"$schema": "https://json.schemastore.org/package",
-	"name": "svelte-ast-print",
-	"version": "0.6.0",
-	"type": "module",
-	"description": "Serialize Svelte AST nodes into stringified syntax. A.k.a parse in reverse.",
-	"keywords": ["ast", "print", "svelte"],
-	"license": "MIT",
-	"author": {
-		"name": "Mateusz Kadlubowski",
-		"email": "xeho91@pm.me",
-		"url": "https://github.com/xeho91"
-	},
-	"homepage": "https://github.com/xeho91/js-ast",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/xeho91/js-ast.git",
-		"directory": "packages/svelte-ast-print"
-	},
-	"bugs": "https://github.com/xeho91/js-ast/issues",
-	"funding": [
-		{
-			"type": "github",
-			"url": "https://github.com/sponsors/xeho91"
-		},
-		{
-			"type": "opencollective",
-			"url": "https://opencollective.com/xeho91"
-		}
-	],
-	"publishConfig": {
-		"access": "public",
-		"provenance": true
-	},
-	"engines": {
-		"node": ">=18"
-	},
-	"files": ["dist/"],
-	"exports": {
-		".": "./dist/lib.js",
-		"./*": "./dist/*.js",
-		"./_internal/*": null
-	},
-	"scripts": {
-		"build": "pnpm run \"/^build:.*/\" ",
-		"build:pkg": "tsc",
-		"dev": "pnpm run \"/^dev:.*/\" ",
-		"dev:pkg": "pnpm run build:pkg --watch"
-	},
-	"dependencies": {
-		"esrap": "catalog:",
-		"svelte-ast-analyze": "workspace:*"
-	},
-	"devDependencies": {
-		"@types/estree": "catalog:",
-		"@internals/test": "workspace:*"
-	},
-	"peerDependencies": {
-		"svelte": "catalog:"
-	}
+  "$schema": "https://json.schemastore.org/package",
+  "name": "svelte-ast-print",
+  "version": "0.6.0",
+  "type": "module",
+  "description": "Serialize Svelte AST nodes into stringified syntax. A.k.a parse in reverse.",
+  "keywords": [
+    "ast",
+    "print",
+    "svelte"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Mateusz Kadlubowski",
+    "email": "xeho91@pm.me",
+    "url": "https://github.com/xeho91"
+  },
+  "homepage": "https://github.com/xeho91/js-ast",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xeho91/js-ast.git",
+    "directory": "packages/svelte-ast-print"
+  },
+  "bugs": "https://github.com/xeho91/js-ast/issues",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/xeho91"
+    },
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/xeho91"
+    }
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": "./dist/lib.js",
+    "./*": "./dist/*.js",
+    "./_internal/*": null
+  },
+  "scripts": {
+    "build": "pnpm run \"/^build:.*/\" ",
+    "build:pkg": "tsc",
+    "dev": "pnpm run \"/^dev:.*/\" ",
+    "dev:pkg": "pnpm run build:pkg --watch"
+  },
+  "dependencies": {
+    "esrap": "catalog:"
+  },
+  "devDependencies": {
+    "@types/estree": "catalog:",
+    "@internals/test": "workspace:*"
+  },
+  "peerDependencies": {
+    "svelte": "catalog:"
+  }
 }

@@ -8,8 +8,8 @@ import type { AST as SV } from "svelte/compiler";
 import * as char from "./_internal/char.js";
 import { print_js } from "./_internal/js.js";
 import type { PrintOptions } from "./_internal/option.js";
-import { type Result, State, hub } from "./_internal/shared.js";
-import { ClosingBlock, MidBlock, OpeningBlock, get_if_block_alternate } from "./_internal/template/block.js";
+import { hub, type Result, State } from "./_internal/shared.js";
+import { ClosingBlock, get_if_block_alternate, MidBlock, OpeningBlock } from "./_internal/template/block.js";
 import { RoundBrackets } from "./_internal/wrapper.js";
 
 /**
