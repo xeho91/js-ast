@@ -1,3 +1,8 @@
+// @ts-check
+
+/// <reference lib="esnext" />
+/// <reference types="node" />
+
 /**
  * @import { UserWorkspaceConfig } from "vitest/config";
  */

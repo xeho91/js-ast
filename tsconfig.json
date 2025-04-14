@@ -26,5 +26,6 @@
     "target": "ESNext",
     "verbatimModuleSyntax": true
   },
+  "files": [],
   "references": [{ "path": "./packages/svelte-ast-print" }]
 }
