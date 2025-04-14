@@ -1,19 +1,18 @@
 {
-	"$schema": "https://json.schemastore.org/package",
-	"private": true,
-	"name": "@internals/test",
-	"version": "0.1.0",
-	"type": "module",
-	"exports": {
-		"./*": {
-			"default": "./src/*.ts"
-		}
-	},
-	"dependencies": {
-		"@types/estree": "catalog:",
-		"dedent": "^1.5.0",
-		"svelte": "catalog:",
-		"svelte-ast-analyze": "workspace:*",
-		"zimmerframe": "catalog:"
-	}
+  "$schema": "https://json.schemastore.org/package",
+  "private": true,
+  "name": "@internals/test",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "dependencies": {
+    "@types/estree": "catalog:",
+    "dedent": "^1.5.0",
+    "svelte": "catalog:",
+    "zimmerframe": "catalog:"
+  }
 }
