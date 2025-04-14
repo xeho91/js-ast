@@ -4,7 +4,6 @@
  */
 
 import type { AST as SV } from "svelte/compiler";
-import { isExpressionTag } from "svelte-ast-analyze/template";
 
 import * as char from "./_internal/char.ts";
 import { print_js } from "./_internal/js.ts";
@@ -48,18 +47,18 @@ export function printAttribute(n: SV.Attribute, opts: Partial<PrintOptions> = {}
 		st.add(n.name);
 		return st.result;
 	}
-	if (isExpressionTag(n.value)) {
-		if (is_attr_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
-		else st.add(n.name, char.ASSIGN, printExpressionTag(n.value, opts));
+	if (Array.isArray(n.value)) {
+		st.add(n.name, char.ASSIGN);
+		const quotes = new DoubleQuotes("inline");
+		for (const v of n.value) {
+			if (v.type === "ExpressionTag") quotes.insert(printExpressionTag(v, opts));
+			else quotes.insert(printText(v, opts));
+		}
+		st.add(quotes);
 		return st.result;
 	}
-	st.add(n.name, char.ASSIGN);
-	const quotes = new DoubleQuotes("inline");
-	for (const v of n.value) {
-		if (isExpressionTag(v)) quotes.insert(printExpressionTag(v, opts));
-		else quotes.insert(printText(v, opts));
-	}
-	st.add(quotes);
+	if (is_attr_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
+	else st.add(n.name, char.ASSIGN, printExpressionTag(n.value, opts));
 	return st.result;
 }
 
@@ -211,20 +210,20 @@ export function printStyleDirective(n: SV.StyleDirective, opts: Partial<PrintOpt
 	const st = State.get(n, opts);
 	st.add("style", char.COLON, n.name);
 	if (n.modifiers.length > 0) st.add(char.PIPE, n.modifiers.join(char.PIPE));
-	if (n.value === true || (isExpressionTag(n.value) && is_attr_exp_shorthand(n, n.value.expression))) {
+	if (n.value === true || (!Array.isArray(n.value) && is_attr_exp_shorthand(n, n.value.expression))) {
 		return st.result;
 	}
-	if (isExpressionTag(n.value)) {
-		st.add(char.ASSIGN, printExpressionTag(n.value, opts));
+	if (Array.isArray(n.value)) {
+		st.add(char.ASSIGN);
+		const quotes = new DoubleQuotes("inline");
+		for (const v of n.value) {
+			if (v.type === "ExpressionTag") quotes.insert(printExpressionTag(v, opts));
+			else quotes.insert(printText(v, opts));
+		}
+		st.add(quotes);
 		return st.result;
 	}
-	st.add(char.ASSIGN);
-	const quotes = new DoubleQuotes("inline");
-	for (const v of n.value) {
-		if (isExpressionTag(v)) quotes.insert(printExpressionTag(v, opts));
-		else quotes.insert(printText(v, opts));
-	}
-	st.add(quotes);
+	st.add(char.ASSIGN, printExpressionTag(n.value, opts));
 	return st.result;
 }
 

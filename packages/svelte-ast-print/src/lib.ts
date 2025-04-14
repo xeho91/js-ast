@@ -72,11 +72,10 @@
 
 import type * as JS from "estree";
 import type { AST as SV } from "svelte/compiler";
-import { isSvelteOnlyNode, type SvelteOnlyNode } from "svelte-ast-analyze";
 
 import { print_js } from "./_internal/js.ts";
 import type { PrintOptions } from "./_internal/option.js";
-import { hub, type Result, State } from "./_internal/shared.ts";
+import { hub, isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "./_internal/shared.ts";
 
 /**
  * @param n Svelte or JavaScript/TypeScript ESTree specification complaint AST node

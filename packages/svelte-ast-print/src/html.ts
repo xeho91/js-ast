@@ -4,9 +4,8 @@
  */
 
 import type { AST as SV } from "svelte/compiler";
-import type { HTMLNode } from "svelte-ast-analyze";
 
-import { HTMLComment } from "./_internal/html.js";
+import { HTMLComment, type HTMLNode } from "./_internal/html.js";
 import type { PrintOptions } from "./_internal/option.js";
 import { type Result, State } from "./_internal/shared.js";
 

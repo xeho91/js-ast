@@ -1,10 +1,27 @@
 import type * as JS from "estree";
-import type { SvelteOnlyNode } from "svelte-ast-analyze";
+import type { AST as SV } from "svelte/compiler";
 
 import * as char from "./char.ts";
+import type { HTMLNode } from "./html.ts";
 import { Options, type PrintOptions } from "./option.ts";
 
+export type SvelteOnlyNode =
+	| SV.AttributeLike
+	| SV.Block
+	| SV.CSS.Node
+	| SV.Directive
+	| SV.ElementLike
+	| SV.Fragment
+	| HTMLNode
+	| SV.Root
+	| SV.Script
+	| SV.Tag;
+
 type Node = JS.Node | SvelteOnlyNode;
+
+export function isSvelteOnlyNode(n: JS.BaseNode | SV.BaseNode): n is SvelteOnlyNode {
+	return new Set([""]).has(n.type);
+}
 
 /**
  * @internal

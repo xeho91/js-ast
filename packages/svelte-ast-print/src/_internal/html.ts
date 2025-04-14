@@ -1,5 +1,9 @@
+import type { AST as SV } from "svelte/compiler";
+
 import { Wrapper } from "../_internal/shared.ts";
 import { AngleBrackets } from "../_internal/wrapper.ts";
+
+export type HTMLNode = SV.Comment | SV.Text;
 
 /**
  * @internal

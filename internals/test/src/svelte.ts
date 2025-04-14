@@ -3,7 +3,7 @@ import type * as JS from "estree";
 import * as compiler from "svelte/compiler";
 import { type Context, walk } from "zimmerframe";
 
-type Node = compiler.AST.SvelteNode | JS.Node;
+type Node = compiler.AST.SvelteNode | compiler.AST.Root | compiler.AST.Script | JS.Node;
 
 export function parse_and_extract<N extends Node>(code: string, name: N["type"]): N {
 	const parsed = parse<N>(dedent(code));

@@ -4,8 +4,9 @@
  */
 
 import type { AST as SV } from "svelte/compiler";
-import { isBlock, isElementLike } from "svelte-ast-analyze/template";
 
+import { isBlock } from "./_internal/template/block.ts";
+import { isElementLike } from "./_internal/template/element.ts";
 import type { PrintOptions } from "./_internal/option.ts";
 import { hub, type Result, State } from "./_internal/shared.ts";
 import { printBlock } from "./block.ts";
@@ -41,7 +42,7 @@ export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}):
 	}
 	for (const [idx, ch] of cleaned.entries()) {
 		const prev = cleaned[idx - 1];
-		if (isBlock(prev) || prev?.type === "Comment" || isElementLike(prev)) {
+		if (prev && (isBlock(prev) || prev.type === "Comment" || isElementLike(prev))) {
 			st.break();
 		}
 		// biome-ignore format: Prettier
