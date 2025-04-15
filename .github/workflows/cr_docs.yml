@@ -14,6 +14,9 @@ defaults:
 
 env:
   CI: true
+  BRANCH: gh-pages
+  OUTPUT_DIR: docs
+  UMBRELLA_DIR: docs/pr-preview
 
 permissions:
   contents: write
