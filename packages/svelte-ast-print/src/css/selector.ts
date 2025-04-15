@@ -1,6 +1,6 @@
 /**
  * Printers related to CSS **selector** related AST nodes only.
- * @module svelte-ast-print/css/seletor
+ * @module svelte-ast-print/css/selector
  */
 
 import type { AST as SV } from "svelte/compiler";

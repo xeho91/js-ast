@@ -4,7 +4,7 @@ import { describe, it } from "vitest";
 
 import { printCSSStyleSheet, printRoot, printScript } from "./root.ts";
 
-describe(printRoot.name, () => {
+describe(printRoot, () => {
 	it("it prints correctly Svelte code without TypeScript syntax", ({ expect }) => {
 		const code = `
 			<script context="module">
@@ -322,7 +322,7 @@ I am good.
 	});
 });
 
-describe(printScript.name, () => {
+describe(printScript, () => {
 	it("prints correctly attributes", ({ expect }) => {
 		const code = `
 			<script context="module" lang="ts">
@@ -458,7 +458,7 @@ describe(printScript.name, () => {
 	});
 });
 
-describe(printCSSStyleSheet.name, () => {
+describe(printCSSStyleSheet, () => {
 	it("it prints correctly attributes", ({ expect }) => {
 		const code = `
 				<style lang="sass">

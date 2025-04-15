@@ -301,6 +301,3 @@ export abstract class Wrapper<T extends WrapperType = WrapperType> {
 		}
 	}
 }
-
-// @ts-expect-error NOTE: This to solve cyclic dependency issue
-export const hub: typeof import("../lib.ts") = {};

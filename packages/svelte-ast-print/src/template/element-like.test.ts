@@ -18,10 +18,10 @@ import {
 	printSvelteSelf,
 	printSvelteWindow,
 	printTitleElement,
-} from "./template.ts";
+} from "./element-like.ts";
 
-describe(printElementLike.name, () => {
-	describe(printComponent.name, () => {
+describe(printElementLike, () => {
+	describe(printComponent, () => {
 		it("works on example component without children", ({ expect }) => {
 			const code = `
 			<Slider
@@ -88,7 +88,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printRegularElement.name, () => {
+	describe(printRegularElement, () => {
 		it("works on example component without children", ({ expect }) => {
 			const code = `
 			<input
@@ -122,7 +122,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSlotElement.name, () => {
+	describe(printSlotElement, () => {
 		it("works on example component without children", ({ expect }) => {
 			const code = `
 			<slot name="description" />
@@ -145,7 +145,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteBody.name, () => {
+	describe(printSvelteBody, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 			<svelte:body on:mouseenter={handleMouseenter} on:mouseleave={handleMouseleave} use:someAction />
@@ -157,7 +157,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteBoundary.name, () => {
+	describe(printSvelteBoundary, () => {
 		it("works on basic example", ({ expect }) => {
 			const code = `
 			 <svelte:boundary>
@@ -181,7 +181,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteComponent.name, () => {
+	describe(printSvelteComponent, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 			<svelte:component this={currentSelection.component} foo={bar} />
@@ -191,7 +191,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteDocument.name, () => {
+	describe(printSvelteDocument, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 				<svelte:document on:visibilitychange={handleVisibilityChange} use:someAction />
@@ -203,7 +203,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteElement.name, () => {
+	describe(printSvelteElement, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 			<svelte:element this={tag} on:click={handler}>Foo</svelte:element>
@@ -215,7 +215,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteFragment.name, () => {
+	describe(printSvelteFragment, () => {
 		it("works when is valid (has children)", ({ expect }) => {
 			const code = `
 			<svelte:fragment slot="footer">
@@ -233,7 +233,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteHead.name, () => {
+	describe(printSvelteHead, () => {
 		it("works when is valid (has children)", ({ expect }) => {
 			const code = `
 			<svelte:head>
@@ -251,7 +251,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteOptions.name, () => {
+	describe(printSvelteOptions, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 			<svelte:options
@@ -320,7 +320,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteSelf.name, () => {
+	describe(printSvelteSelf, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 			{#if count > 0}
@@ -335,7 +335,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printSvelteWindow.name, () => {
+	describe(printSvelteWindow, () => {
 		it("works when is valid (has no children)", ({ expect }) => {
 			const code = `
 			<script>
@@ -354,7 +354,7 @@ describe(printElementLike.name, () => {
 		});
 	});
 
-	describe(printTitleElement.name, () => {
+	describe(printTitleElement, () => {
 		it("works when is valid (has children)", ({ expect }) => {
 			const code = `
 			<script>

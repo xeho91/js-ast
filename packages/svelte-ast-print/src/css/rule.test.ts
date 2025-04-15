@@ -4,7 +4,7 @@ import { describe, it } from "vitest";
 
 import { printCSSAtrule, printCSSBlock, printCSSDeclaration, printCSSRule } from "./rule.ts";
 
-describe(printCSSBlock.name, () => {
+describe(printCSSBlock, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -24,7 +24,7 @@ describe(printCSSBlock.name, () => {
 	});
 });
 
-describe(printCSSDeclaration.name, () => {
+describe(printCSSDeclaration, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -38,7 +38,7 @@ describe(printCSSDeclaration.name, () => {
 	});
 });
 
-describe(printCSSAtrule.name, () => {
+describe(printCSSAtrule, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -60,7 +60,7 @@ describe(printCSSAtrule.name, () => {
 	});
 });
 
-describe(printCSSRule.name, () => {
+describe(printCSSRule, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>

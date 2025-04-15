@@ -1,16 +1,17 @@
 /**
  * Printers related to Svelte **block**-related AST nodes only.
- * @module svelte-ast-print/block
+ * @module svelte-ast-print/template/block
  */
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "./_internal/char.js";
-import { print_js } from "./_internal/js.js";
-import type { PrintOptions } from "./_internal/option.js";
-import { hub, type Result, State } from "./_internal/shared.js";
-import { ClosingBlock, get_if_block_alternate, MidBlock, OpeningBlock } from "./_internal/template/block.js";
-import { RoundBrackets } from "./_internal/wrapper.js";
+import * as char from "../_internal/char.js";
+import { print_js } from "../_internal/js.js";
+import type { PrintOptions } from "../_internal/option.js";
+import { type Result, State } from "../_internal/shared.js";
+import { ClosingBlock, get_if_block_alternate, MidBlock, OpeningBlock } from "../_internal/template/block.js";
+import { RoundBrackets } from "../_internal/wrapper.js";
+import { printFragment } from "../fragment.ts";
 
 /**
  * @since 1.0.0
@@ -69,7 +70,7 @@ export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = 
 	st.add(opening);
 	if (n.pending) {
 		st.break(+1);
-		st.add(hub.printFragment(n.pending, opts));
+		st.add(printFragment(n.pending, opts));
 		st.break(-1);
 	}
 	if (n.then) {
@@ -77,7 +78,7 @@ export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = 
 			st.add(new MidBlock("inline", "then", n.value && [char.SPACE, print_js(n.value, st.opts)]));
 		}
 		st.break(+1);
-		st.add(hub.printFragment(n.then, opts));
+		st.add(printFragment(n.then, opts));
 		st.break(-1);
 	}
 	if (n.catch) {
@@ -85,7 +86,7 @@ export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = 
 			st.add(new MidBlock("inline", "catch", n.error && [char.SPACE, print_js(n.error, st.opts)]));
 		}
 		st.break(+1);
-		st.add(hub.printFragment(n.catch, opts));
+		st.add(printFragment(n.catch, opts));
 		st.break(-1);
 	}
 	st.add(new ClosingBlock("inline", name));
@@ -100,12 +101,12 @@ export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = 
  * {#each expression as name}...{/each}
  * ```
  *
- * @example without `as` item
+ * @example without "as" item
  * ```svelte
  * {#each expression}...{/each}
  * ```
  *
- * @example without `as` item, but with index
+ * @example without "as" item, but with index
  * ```svelte
  * {#each expression, index}...{/each}
  * ```
@@ -149,12 +150,12 @@ export function printEachBlock(n: SV.EachBlock, opts: Partial<PrintOptions> = {}
 		),
 	);
 	st.break(+1);
-	st.add(hub.printFragment(n.body, opts));
+	st.add(printFragment(n.body, opts));
 	st.break(-1);
 	if (n.fallback) {
 		st.add(new MidBlock("inline", "else"));
 		st.break(+1);
-		st.add(hub.printFragment(n.fallback, opts));
+		st.add(printFragment(n.fallback, opts));
 		st.break(-1);
 	}
 	st.add(new ClosingBlock("inline", name));
@@ -201,7 +202,7 @@ export function printIfBlock(n: SV.IfBlock, opts: Partial<PrintOptions> = {}): R
 		st.add(new MidBlock("inline", "else if", char.SPACE, print_js(n.test, st.opts)));
 	}
 	st.break(+1);
-	st.add(hub.printFragment(n.consequent, opts));
+	st.add(printFragment(n.consequent, opts));
 	st.break(-1);
 	const alternate_if_block = get_if_block_alternate(n.alternate);
 	if (n.alternate) {
@@ -209,7 +210,7 @@ export function printIfBlock(n: SV.IfBlock, opts: Partial<PrintOptions> = {}): R
 		else {
 			st.add(new MidBlock("inline", "else"));
 			st.break(+1);
-			st.add(hub.printFragment(n.alternate, opts));
+			st.add(printFragment(n.alternate, opts));
 			st.break(-1);
 		}
 	}
@@ -233,7 +234,7 @@ export function printKeyBlock(n: SV.KeyBlock, opts: Partial<PrintOptions> = {}):
 	const st = State.get(n, opts);
 	st.add(new OpeningBlock("inline", name, char.SPACE, print_js(n.expression, st.opts)));
 	st.break(+1);
-	st.add(hub.printFragment(n.fragment, opts));
+	st.add(printFragment(n.fragment, opts));
 	st.break(-1);
 	st.add(new ClosingBlock("inline", name));
 	return st.result;
@@ -269,7 +270,7 @@ export function printSnippetBlock(n: SV.SnippetBlock, opts: Partial<PrintOptions
 	opening.insert(params_bracket);
 	st.add(opening);
 	st.break(+1);
-	st.add(hub.printFragment(n.body, opts));
+	st.add(printFragment(n.body, opts));
 	st.break(-1);
 	st.add(new ClosingBlock("inline", name));
 	return st.result;

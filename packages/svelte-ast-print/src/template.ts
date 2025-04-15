@@ -7,12 +7,12 @@ import type { AST as SV } from "svelte/compiler";
 
 import type { PrintOptions } from "./_internal/option.ts";
 import type { Result } from "./_internal/shared.ts";
-import { printAttributeLike } from "./attribute.ts";
-import { printBlock } from "./block.ts";
-import { printElementLike } from "./element.ts";
-import { printHTMLNode } from "./html.ts";
-import { printRoot } from "./root.ts";
-import { printTag } from "./tag.ts";
+import { printAttributeLike } from "./template/attribute-like.ts";
+import { printBlock } from "./template/block.ts";
+import { printElementLike } from "./template/element-like.ts";
+import { printHTMLNode } from "./template/html.ts";
+import { printRoot } from "./template/root.ts";
+import { printTag } from "./template/tag.ts";
 
 /**
  * @since 1.0.0
@@ -61,9 +61,3 @@ export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions
 		case "Root": return printRoot(n, opts);
 	}
 }
-
-export * from "./attribute.ts";
-export * from "./block.ts";
-export * from "./element.ts";
-export * from "./html.ts";
-export * from "./tag.ts";

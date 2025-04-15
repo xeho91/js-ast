@@ -1,20 +1,21 @@
 /**
  * Printers related to Svelte **element**-like related AST nodes only.
- * @module svelte-ast-print/element
+ * @module svelte-ast-print/template/element-like
  */
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "./_internal/char.ts";
-import { HTMLClosingTag, HTMLOpeningTag } from "./_internal/html.ts";
-import type { PrintOptions } from "./_internal/option.ts";
-import { hub, type Result, State } from "./_internal/shared.ts";
+import * as char from "../_internal/char.ts";
+import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.ts";
+import type { PrintOptions } from "../_internal/option.ts";
+import { type Result, State } from "../_internal/shared.ts";
 import {
 	print_maybe_self_closing_el,
 	print_non_self_closing_el,
 	print_self_closing_el,
-} from "./_internal/template/element.ts";
-import { printAttributeLike } from "./attribute.ts";
+} from "../_internal/template/element-like.ts";
+import { printFragment } from "../fragment.ts";
+import { printAttributeLike } from "./attribute-like.ts";
 
 /**
  * @since 1.0.0
@@ -134,7 +135,7 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
 	});
 	for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	st.add(opening);
-	st.add(hub.printFragment(n.fragment, opts));
+	st.add(printFragment(n.fragment, opts));
 	st.add(new HTMLClosingTag("inline", n.name));
 	return st.result;
 }

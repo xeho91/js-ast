@@ -18,8 +18,8 @@ import {
 	printCSSTypeSelector,
 } from "./selector.ts";
 
-describe(printCSSSimpleSelector.name, () => {
-	describe(printCSSAttributeSelector.name, () => {
+describe(printCSSSimpleSelector, () => {
+	describe(printCSSAttributeSelector, () => {
 		it("prints correctly without value", ({ expect }) => {
 			const code = `
 			<style>
@@ -57,7 +57,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSClassSelector.name, () => {
+	describe(printCSSClassSelector, () => {
 		it("prints correctly", ({ expect }) => {
 			const code = `
 			<style>
@@ -71,7 +71,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSIdSelector.name, () => {
+	describe(printCSSIdSelector, () => {
 		it("prints correctly", ({ expect }) => {
 			const code = `
 			<style>
@@ -85,7 +85,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSNestingSelector.name, () => {
+	describe(printCSSNestingSelector, () => {
 		it("prints correctly", ({ expect }) => {
 			const code = `
 			<style>
@@ -101,7 +101,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSPseudoClassSelector.name, () => {
+	describe(printCSSPseudoClassSelector, () => {
 		it("prints correctly without args", ({ expect }) => {
 			const code = `
 			<style>
@@ -127,7 +127,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSPseudoElementSelector.name, () => {
+	describe(printCSSPseudoElementSelector, () => {
 		it("prints correctly", ({ expect }) => {
 			const code = `
 			<style>
@@ -141,7 +141,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSTypeSelector.name, () => {
+	describe(printCSSTypeSelector, () => {
 		it("prints correctly", ({ expect }) => {
 			const code = `
 			<style>
@@ -155,7 +155,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSNth.name, () => {
+	describe(printCSSNth, () => {
 		it("prints correctly simple number", ({ expect }) => {
 			const code = `
 			<style>
@@ -206,7 +206,7 @@ describe(printCSSSimpleSelector.name, () => {
 		});
 	});
 
-	describe(printCSSPercentage.name, () => {
+	describe(printCSSPercentage, () => {
 		it("prints correctly", ({ expect }) => {
 			const code = `
 			<style>
@@ -223,7 +223,7 @@ describe(printCSSSimpleSelector.name, () => {
 	});
 });
 
-describe(printCSSRelativeSelector.name, () => {
+describe(printCSSRelativeSelector, () => {
 	it("prints correctly without combinator", ({ expect }) => {
 		const code = `
 			<style>
@@ -249,7 +249,7 @@ describe(printCSSRelativeSelector.name, () => {
 	});
 });
 
-describe(printCSSComplexSelector.name, () => {
+describe(printCSSComplexSelector, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -263,7 +263,7 @@ describe(printCSSComplexSelector.name, () => {
 	});
 });
 
-describe(printCSSSelectorList.name, () => {
+describe(printCSSSelectorList, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>

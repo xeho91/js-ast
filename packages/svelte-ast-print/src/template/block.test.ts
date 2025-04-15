@@ -9,9 +9,9 @@ import {
 	printIfBlock,
 	printKeyBlock,
 	printSnippetBlock,
-} from "./template.ts";
+} from "./block.ts";
 
-describe(printBlock.name, () => {
+describe(printBlock, () => {
 	describe("AwaitBlock", () => {
 		it("correctly prints standard example", ({ expect }) => {
 			const code = `
@@ -165,14 +165,14 @@ describe(printBlock.name, () => {
 
 		it("works with destructuring object-like item", ({ expect }) => {
 			const code = `
-			{#each items as { id, name, qty }, i (id)}
-				<li>{i + 1}: {name} x {qty}</li>
+			{#each items as { id, item, qty }, i (id)}
+				<li>{i + 1}: {item.name} x {qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
-			"{#each items as { id, name, qty }, i (id)}
-				<li>{i + 1}: {name} x {qty}</li>
+			"{#each items as { id, item, qty }, i (id)}
+				<li>{i + 1}: {item.name} x {qty}</li>
 			{/each}"
 		`);
 		});
@@ -422,13 +422,13 @@ describe(printBlock.name, () => {
 	describe("SnippetBlock", () => {
 		it("work for a simple template", ({ expect }) => {
 			const code = `
-			{#snippet hello(name)}
+			{#snippet hello(name, message)}
 				<p>hello {name}! {message}!</p>
 			{/snippet}
 		`;
 			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
-			"{#snippet hello(name)}
+			"{#snippet hello(name, message)}
 				<p>hello {name}! {message}!</p>
 			{/snippet}"
 		`);

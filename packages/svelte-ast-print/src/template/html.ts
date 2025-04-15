@@ -1,13 +1,13 @@
 /**
  * Printers related to Svelte **HTML**-related AST nodes only.
- * @module svelte-ast-print/html
+ * @module svelte-ast-print/template/html
  */
 
 import type { AST as SV } from "svelte/compiler";
 
-import { HTMLComment, type HTMLNode } from "./_internal/html.js";
-import type { PrintOptions } from "./_internal/option.js";
-import { type Result, State } from "./_internal/shared.js";
+import { HTMLComment, type HTMLNode } from "../_internal/html.js";
+import type { PrintOptions } from "../_internal/option.js";
+import { type Result, State } from "../_internal/shared.js";
 
 /**
  * @since 1.0.0

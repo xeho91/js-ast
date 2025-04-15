@@ -4,7 +4,7 @@ import { describe, it } from "vitest";
 
 import { printFragment } from "./fragment.ts";
 
-describe(printFragment.name, () => {
+describe(printFragment, () => {
 	it("it prints correctly fragment code", ({ expect }) => {
 		const code = `
 			<h1>Shopping list</h1>

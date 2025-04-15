@@ -1,15 +1,15 @@
 /**
  * Printers related to Svelte **tag**-like related AST nodes only.
- * @module svelte-ast-print/tag
+ * @module svelte-ast-print/template/tag
  */
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "./_internal/char.js";
-import { print_js } from "./_internal/js.js";
-import type { PrintOptions } from "./_internal/option.js";
-import { type Result, State } from "./_internal/shared.js";
-import { CurlyBrackets } from "./_internal/wrapper.js";
+import * as char from "../_internal/char.js";
+import { print_js } from "../_internal/js.js";
+import type { PrintOptions } from "../_internal/option.js";
+import { type Result, State } from "../_internal/shared.js";
+import { CurlyBrackets } from "../_internal/wrapper.js";
 
 /**
  * @since 1.0.0

@@ -17,13 +17,13 @@
  *
  * ```ts
  * import type { AST } from "svelte/compiler";
- * import { printSvelteSnippet } from "svelte-ast-print/template";
+ * import { printSnippetBlock } from "svelte-ast-print/template/block";
  *
  * // How you obtain the node is up to you.
  * // Either by building programmatically or from parsing
  * let node: AST.SnippetBlock;
  *
- * const stringified = printSvelteSnippet(node);
+ * const stringified = printSnippetBlock(node);
  * ```
  *
  * @example General usage
@@ -70,12 +70,17 @@
  * @module svelte-ast-print
  */
 
+import type esrap from "esrap";
 import type * as JS from "estree";
 import type { AST as SV } from "svelte/compiler";
 
 import { print_js } from "./_internal/js.ts";
 import type { PrintOptions } from "./_internal/option.js";
-import { hub, isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "./_internal/shared.ts";
+import { isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "./_internal/shared.ts";
+import { printCSSNode } from "./css.ts";
+import { printFragment } from "./fragment.ts";
+import { printRoot, printScript } from "./template/root.ts";
+import { printTemplateNode } from "./template.ts";
 
 /**
  * @param n Svelte or JavaScript/TypeScript ESTree specification complaint AST node
@@ -104,7 +109,7 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 	const st = State.get(n, opts);
 	switch (n.type) {
 		case "Root": {
-			st.add(hub.printRoot(n, opts));
+			st.add(printRoot(n, opts));
 			break;
 		}
 		// CSS
@@ -126,15 +131,15 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		case "Atrule":
 		case "Rule":
 		case "StyleSheet": {
-			st.add(hub.printCSSNode(n, opts));
+			st.add(printCSSNode(n, opts));
 			break;
 		}
 		case "Fragment": {
-			st.add(hub.printFragment(n, opts));
+			st.add(printFragment(n, opts));
 			break;
 		}
 		case "Script": {
-			st.add(hub.printScript(n, opts));
+			st.add(printScript(n, opts));
 			break;
 		}
 		// attribute-like
@@ -178,14 +183,9 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		// HTML
 		case "Comment":
 		case "Text": {
-			st.add(hub.printTemplateNode(n, opts));
+			st.add(printTemplateNode(n, opts));
 			break;
 		}
 	}
 	return st.result;
 }
-
-export * from "./css.ts";
-export * from "./fragment.ts";
-export * from "./root.ts";
-export * from "./template.ts";

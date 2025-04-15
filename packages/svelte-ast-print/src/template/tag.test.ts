@@ -2,16 +2,9 @@ import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import {
-	printConstTag,
-	printDebugTag,
-	printExpressionTag,
-	printHtmlTag,
-	printRenderTag,
-	printTag,
-} from "./template.ts";
+import { printConstTag, printDebugTag, printExpressionTag, printHtmlTag, printRenderTag, printTag } from "./tag.ts";
 
-describe(printTag.name, () => {
+describe(printTag, () => {
 	it("print correctly `@const` tag", ({ expect }) => {
 		const code = "{@const area = box.width * box.height}";
 		const node = parse_and_extract<AST.ConstTag>(code, "ConstTag");
@@ -43,7 +36,7 @@ describe(printTag.name, () => {
 	});
 });
 
-describe(printConstTag.name, () => {
+describe(printConstTag, () => {
 	it("prints correctly when used as direct child of allowed tags ", ({ expect }) => {
 		const code = `
 			{#each boxes as box}
@@ -56,7 +49,7 @@ describe(printConstTag.name, () => {
 	});
 });
 
-describe(printDebugTag.name, () => {
+describe(printDebugTag, () => {
 	it("prints correctly when used as direct child of allowed tags ", ({ expect }) => {
 		const code = `
 			<script>
@@ -75,7 +68,7 @@ describe(printDebugTag.name, () => {
 	});
 });
 
-describe(printExpressionTag.name, () => {
+describe(printExpressionTag, () => {
 	it("correctly prints an reactive and simple Svelte expression in template", ({ expect }) => {
 		const code = "{name}";
 		const node = parse_and_extract<AST.ExpressionTag>(code, "ExpressionTag");
@@ -95,7 +88,7 @@ describe(printExpressionTag.name, () => {
 	});
 });
 
-describe(printHtmlTag.name, () => {
+describe(printHtmlTag, () => {
 	it("prints correctly when used in an example case", ({ expect }) => {
 		const code = `
 				<div class="blog-post">
@@ -108,7 +101,7 @@ describe(printHtmlTag.name, () => {
 	});
 });
 
-describe(printRenderTag.name, () => {
+describe(printRenderTag, () => {
 	it("prints correctly when used in an example case", ({ expect }) => {
 		const code = `
 			{#snippet hello(name)}

@@ -23,10 +23,7 @@ import {
 	printCSSSelectorList,
 	printCSSTypeSelector,
 } from "./css/selector.ts";
-import { printCSSStyleSheet } from "./root.ts";
-
-export * from "./css/rule.ts";
-export * from "./css/selector.ts";
+import { printCSSStyleSheet } from "./template/root.ts";
 
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors}

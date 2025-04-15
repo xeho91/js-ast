@@ -1,12 +1,11 @@
 import type { AST as SV } from "svelte/compiler";
-
-import { printAttributeLike } from "../../attribute.ts";
 import { printFragment } from "../../fragment.ts";
+import { printAttributeLike } from "../../template/attribute-like.ts";
 import * as char from "../char.js";
+import { has_frag_text_or_exp_tag_only } from "../fragment.js";
 import { HTMLClosingTag, HTMLOpeningTag, HTMLSelfClosingTag } from "../html.js";
 import type { PrintOptions } from "../option.js";
 import { type Result, State } from "../shared.js";
-import { has_frag_text_or_exp_tag_only } from "./fragment.js";
 
 /**
  * @internal

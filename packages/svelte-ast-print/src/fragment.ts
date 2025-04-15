@@ -4,15 +4,14 @@
  */
 
 import type { AST as SV } from "svelte/compiler";
-
-import { isBlock } from "./_internal/template/block.ts";
-import { isElementLike } from "./_internal/template/element.ts";
 import type { PrintOptions } from "./_internal/option.ts";
-import { hub, type Result, State } from "./_internal/shared.ts";
-import { printBlock } from "./block.ts";
-import { printElementLike } from "./element.ts";
-import { printHTMLNode } from "./html.ts";
-import { printTag } from "./tag.ts";
+import { type Result, State } from "./_internal/shared.ts";
+import { isBlock } from "./_internal/template/block.ts";
+import { isElementLike } from "./_internal/template/element-like.ts";
+import { printBlock } from "./template/block.ts";
+import { printElementLike } from "./template/element-like.ts";
+import { printHTMLNode } from "./template/html.ts";
+import { printTag } from "./template/tag.ts";
 
 /**
  * @since 1.0.0
@@ -78,7 +77,3 @@ export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}):
 	}
 	return st.result;
 }
-
-Object.assign(hub, {
-	printFragment,
-});

@@ -2,21 +2,7 @@
   "$schema": "https://typedoc.org/schema.json",
   "includeVersion": true,
   "excludeInternal": false,
-  "highlightLanguages": [
-    "bash",
-    "console",
-    "css",
-    "html",
-    "javascript",
-    "json",
-    "jsonc",
-    "svelte",
-    "typescript"
-  ],
+  "highlightLanguages": ["bash", "console", "css", "html", "javascript", "json", "jsonc", "svelte", "typescript"],
   "logLevel": "Verbose",
-  "plugin": [
-    "typedoc-plugin-dt-links",
-    "typedoc-plugin-mdn-links",
-    "typedoc-plugin-missing-exports"
-  ]
+  "plugin": ["typedoc-plugin-dt-links", "typedoc-plugin-mdn-links", "typedoc-plugin-missing-exports"]
 }

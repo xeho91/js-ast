@@ -1,81 +1,18 @@
 /**
  * Printers related to Svelte **attribute**-like related AST nodes only.
- * @module svelte-ast-print/attribute
+ * @module svelte-ast-print/template/attribute-like
  */
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "./_internal/char.ts";
-import { print_js } from "./_internal/js.ts";
-import type { PrintOptions } from "./_internal/option.ts";
-import { type Result, State } from "./_internal/shared.ts";
-import { is_attr_exp_shorthand, print_directive } from "./_internal/template/attribute.ts";
-import { CurlyBrackets, DoubleQuotes } from "./_internal/wrapper.ts";
+import * as char from "../_internal/char.ts";
+import { print_js } from "../_internal/js.ts";
+import type { PrintOptions } from "../_internal/option.ts";
+import { type Result, State } from "../_internal/shared.ts";
+import { is_attr_exp_shorthand, print_directive } from "../_internal/template/attribute-like.ts";
+import { CurlyBrackets, DoubleQuotes } from "../_internal/wrapper.ts";
 import { printText } from "./html.ts";
 import { printExpressionTag } from "./tag.ts";
-
-/**
- * @since 1.0.0
- * @__NO_SIDE_EFFECTS__
- */
-export function printAttributeLike(n: SV.AttributeLike, opts: Partial<PrintOptions> = {}): Result<SV.AttributeLike> {
-	// biome-ignore format: Prettier
-	// prettier-ignore
-	switch(n.type) {
-		case "Attribute": return printAttribute(n, opts);
-		case "SpreadAttribute":return printSpreadAttribute(n, opts);
-		case "AnimateDirective": return printAnimateDirective(n, opts);
-		case "BindDirective": return printBindDirective(n, opts);
-		case "ClassDirective": return printClassDirective(n, opts);
-		case "LetDirective": return printLetDirective(n, opts);
-		case "OnDirective": return printOnDirective(n, opts);
-		case "StyleDirective": return printStyleDirective(n, opts);
-		case "TransitionDirective": return printTransitionDirective(n, opts);
-		case "UseDirective": return printUseDirective(n, opts);
-	}
-}
-
-/**
- * @see {@link https://svelte.dev/docs/svelte/basic-markup#Element-attributes}
- *
- * @since 1.0.0
- * @__NO_SIDE_EFFECTS__
- */
-export function printAttribute(n: SV.Attribute, opts: Partial<PrintOptions> = {}): Result<SV.Attribute> {
-	const st = State.get(n, opts);
-	if (n.value === true) {
-		st.add(n.name);
-		return st.result;
-	}
-	if (Array.isArray(n.value)) {
-		st.add(n.name, char.ASSIGN);
-		const quotes = new DoubleQuotes("inline");
-		for (const v of n.value) {
-			if (v.type === "ExpressionTag") quotes.insert(printExpressionTag(v, opts));
-			else quotes.insert(printText(v, opts));
-		}
-		st.add(quotes);
-		return st.result;
-	}
-	if (is_attr_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
-	else st.add(n.name, char.ASSIGN, printExpressionTag(n.value, opts));
-	return st.result;
-}
-
-/**
- * @see {@link https://svelte.dev/docs/svelte/basic-markup#Component-props}
- *
- * @since 1.0.0
- * @__NO_SIDE_EFFECTS__
- */
-export function printSpreadAttribute(
-	n: SV.SpreadAttribute,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.SpreadAttribute> {
-	const st = State.get(n, opts);
-	st.add(new CurlyBrackets("inline", "...", print_js(n.expression, st.opts)));
-	return st.result;
-}
 
 /**
  * @see {@link https://svelte.dev/docs/svelte/animate}
@@ -293,4 +230,67 @@ export function printTransitionDirective(
  */
 export function printUseDirective(n: SV.UseDirective, opts: Partial<PrintOptions> = {}): Result<SV.UseDirective> {
 	return print_directive("use", n, opts);
+}
+
+/**
+ * @since 1.0.0
+ * @__NO_SIDE_EFFECTS__
+ */
+export function printAttributeLike(n: SV.AttributeLike, opts: Partial<PrintOptions> = {}): Result<SV.AttributeLike> {
+	// biome-ignore format: Prettier
+	// prettier-ignore
+	switch(n.type) {
+		case "Attribute": return printAttribute(n, opts);
+		case "SpreadAttribute":return printSpreadAttribute(n, opts);
+		case "AnimateDirective": return printAnimateDirective(n, opts);
+		case "BindDirective": return printBindDirective(n, opts);
+		case "ClassDirective": return printClassDirective(n, opts);
+		case "LetDirective": return printLetDirective(n, opts);
+		case "OnDirective": return printOnDirective(n, opts);
+		case "StyleDirective": return printStyleDirective(n, opts);
+		case "TransitionDirective": return printTransitionDirective(n, opts);
+		case "UseDirective": return printUseDirective(n, opts);
+	}
+}
+
+/**
+ * @see {@link https://svelte.dev/docs/svelte/basic-markup#Element-attributes}
+ *
+ * @since 1.0.0
+ * @__NO_SIDE_EFFECTS__
+ */
+export function printAttribute(n: SV.Attribute, opts: Partial<PrintOptions> = {}): Result<SV.Attribute> {
+	const st = State.get(n, opts);
+	if (n.value === true) {
+		st.add(n.name);
+		return st.result;
+	}
+	if (Array.isArray(n.value)) {
+		st.add(n.name, char.ASSIGN);
+		const quotes = new DoubleQuotes("inline");
+		for (const v of n.value) {
+			if (v.type === "ExpressionTag") quotes.insert(printExpressionTag(v, opts));
+			else quotes.insert(printText(v, opts));
+		}
+		st.add(quotes);
+		return st.result;
+	}
+	if (is_attr_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
+	else st.add(n.name, char.ASSIGN, printExpressionTag(n.value, opts));
+	return st.result;
+}
+
+/**
+ * @see {@link https://svelte.dev/docs/svelte/basic-markup#Component-props}
+ *
+ * @since 1.0.0
+ * @__NO_SIDE_EFFECTS__
+ */
+export function printSpreadAttribute(
+	n: SV.SpreadAttribute,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SpreadAttribute> {
+	const st = State.get(n, opts);
+	st.add(new CurlyBrackets("inline", "...", print_js(n.expression, st.opts)));
+	return st.result;
 }

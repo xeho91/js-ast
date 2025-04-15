@@ -4,8 +4,8 @@ import { describe, it } from "vitest";
 
 import { printComment, printHTMLNode, printText } from "./html.ts";
 
-describe(printHTMLNode.name, () => {
-	describe(printComment.name, () => {
+describe(printHTMLNode, () => {
+	describe(printComment, () => {
 		it("prints correctly a single line comment from random code", ({ expect }) => {
 			const code = `
 			{#each boxes as box}
@@ -43,7 +43,7 @@ describe(printHTMLNode.name, () => {
 		});
 	});
 
-	describe(printText.name, () => {
+	describe(printText, () => {
 		it("prints correctly a random text comment from random code", ({ expect }) => {
 			const code = `
 			<span>Catch me if you can</span>
