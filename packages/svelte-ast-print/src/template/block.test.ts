@@ -165,13 +165,13 @@ describe(printBlock, () => {
 
 		it("works with destructuring object-like item", ({ expect }) => {
 			const code = `
-			{#each items as { id,, qty }, i (id)}
+			{#each items as { id, qty }, i (id)}
 				<li>{i + 1}: } x {qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
-			"{#each items as { id,, qty }, i (id)}
+			"{#each items as { id, qty }, i (id)}
 				<li>{i + 1}: } x {qty}</li>
 			{/each}"
 		`);
@@ -422,14 +422,14 @@ describe(printBlock, () => {
 	describe("SnippetBlock", () => {
 		it("work for a simple template", ({ expect }) => {
 			const code = `
-			{#snippet hello)}
-				<p>hello }! {message}!</p>
+			{#snippet hello(name, message)}
+				<p>hello {name}! {message}!</p>
 			{/snippet}
 		`;
 			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
-			"{#snippet hello)}
-				<p>hello }! {message}!</p>
+			"{#snippet hello(name, message)}
+				<p>hello {name}! {message}!</p>
 			{/snippet}"
 		`);
 		});
@@ -462,16 +462,16 @@ describe(printBlock, () => {
 		it("works with nested snippet", ({ expect }) => {
 			const code = `
 			{#snippet parent(message)}
-				{#snippet children)}
-					<p>hello }! {message}!</p>
+				{#snippet children()}
+					<p>hello {name}! {message}!</p>
 				{/snippet}
 			{/snippet}
 		`;
 			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet parent(message)}
-				{#snippet children)}
-					<p>hello }! {message}!</p>
+				{#snippet children()}
+					<p>hello {name}! {message}!</p>
 				{/snippet}
 			{/snippet}"
 		`);

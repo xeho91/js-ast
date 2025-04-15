@@ -61,9 +61,3 @@ export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions
 		case "Root": return printRoot(n, opts);
 	}
 }
-
-export * from "./template/attribute-like.ts";
-export * from "./template/block.ts";
-export * from "./template/element-like.ts";
-export * from "./template/html.ts";
-export * from "./template/tag.ts";

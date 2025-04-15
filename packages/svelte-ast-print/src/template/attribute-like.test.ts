@@ -60,10 +60,10 @@ describe(printAttributeLike, () => {
 
 		it("correctly prints expression tag with string", ({ expect }) => {
 			const code = `
-			<Tab={"Home"} />
+			<Tab name={"Home"} />
 		`;
 			const node = parse_and_extract<AST.Attribute>(code, "Attribute");
-			expect(printAttribute(node).code).toMatchInlineSnapshot(`={"Home"}"`);
+			expect(printAttribute(node).code).toMatchInlineSnapshot(`"name={"Home"}"`);
 		});
 
 		it("correctly prints string with expression tags inside", ({ expect }) => {
@@ -156,10 +156,10 @@ describe(printAttributeLike, () => {
 
 		it("works on binding input value", ({ expect }) => {
 			const code = `
-			<input bind:value=} />
+			<input bind:value={name} />
 		`;
 			const node = parse_and_extract<AST.BindDirective>(code, "BindDirective");
-			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:value=}"`);
+			expect(printBindDirective(node).code).toMatchInlineSnapshot(`"bind:value={name}"`);
 		});
 
 		it("works on binding input checked", ({ expect }) => {

@@ -9,8 +9,9 @@ import * as char from "../_internal/char.ts";
 import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.ts";
 import { print_js } from "../_internal/js.ts";
 import type { PrintOptions } from "../_internal/option.ts";
-import { hub, type Result, State } from "../_internal/shared.ts";
+import { type Result, State } from "../_internal/shared.ts";
 import { printCSSAtrule, printCSSRule } from "../css/rule.ts";
+import { printFragment } from "../fragment.ts";
 import { printAttributeLike } from "./attribute-like.ts";
 import { printSvelteOptions } from "./element-like.ts";
 
@@ -35,7 +36,7 @@ export function printRoot(n: SV.Root, opts: Partial<PrintOptions> = {}): Result<
 				break;
 			}
 			case "fragment": {
-				st.add(hub.printFragment(n.fragment, opts));
+				st.add(printFragment(n.fragment, opts));
 				break;
 			}
 			case "css": {
