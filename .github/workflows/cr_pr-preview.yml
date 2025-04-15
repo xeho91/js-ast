@@ -41,5 +41,4 @@ jobs:
           --frozen-lockfile
 
       - name: Publish packages preview with pkg-pr-new CLI
-        run: pnpx pkg-pr-new publish --pnpm './pkgs/*' --packageManager=pnpm
-        if: ${{ steps.changed-files.outputs.all_changed_files_count > 0 }}
+        run: pnpx pkg-pr-new publish --pnpm './packages/*' --packageManager=pnpm
