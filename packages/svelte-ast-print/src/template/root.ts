@@ -18,10 +18,7 @@ import { printSvelteOptions } from "./element-like.ts";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printRoot(
-	n: SV.Root,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.Root> {
+export function printRoot(n: SV.Root, opts: Partial<PrintOptions> = {}): Result<SV.Root> {
 	const st = State.get(n, opts);
 	for (const [idx, curr_name] of st.opts.order.entries()) {
 		switch (curr_name) {
@@ -50,12 +47,7 @@ export function printRoot(
 		const prev_name = st.opts.order[idx - 1];
 		const next_name = st.opts.order[idx + 1];
 		// NOTE: This adds line break (x2) between each part of the root
-		if (
-			!is_last &&
-			(n[curr_name] || (prev_name && n[prev_name])) &&
-			next_name &&
-			n[next_name]
-		) {
+		if (!is_last && (n[curr_name] || (prev_name && n[prev_name])) && next_name && n[next_name]) {
 			st.break();
 			st.break();
 		}
@@ -67,16 +59,12 @@ export function printRoot(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printScript(
-	n: SV.Script,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.Script> {
+export function printScript(n: SV.Script, opts: Partial<PrintOptions> = {}): Result<SV.Script> {
 	const name = "script";
 	const st = State.get(n, opts);
 	const opening = new HTMLOpeningTag("inline", name);
 	if (n.attributes.length > 0) {
-		for (const a of n.attributes)
-			opening.insert(char.SPACE, printAttributeLike(a));
+		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	}
 	st.add(opening);
 	st.break(+1);
@@ -92,16 +80,12 @@ export function printScript(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printCSSStyleSheet(
-	n: SV.CSS.StyleSheet,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.CSS.StyleSheet> {
+export function printCSSStyleSheet(n: SV.CSS.StyleSheet, opts: Partial<PrintOptions> = {}): Result<SV.CSS.StyleSheet> {
 	const st = State.get(n, opts);
 	const name = "style";
 	const opening = new HTMLOpeningTag("inline", name);
 	if (n.attributes.length > 0) {
-		for (const a of n.attributes)
-			opening.insert(char.SPACE, printAttributeLike(a));
+		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	}
 	st.add(opening);
 	st.break(+1);

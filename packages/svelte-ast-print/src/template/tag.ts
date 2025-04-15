@@ -15,10 +15,7 @@ import { CurlyBrackets } from "../_internal/wrapper.js";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printTag(
-	n: SV.Tag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.Tag> {
+export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV.Tag> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
@@ -41,10 +38,7 @@ export function printTag(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printConstTag(
-	n: SV.ConstTag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.ConstTag> {
+export function printConstTag(n: SV.ConstTag, opts: Partial<PrintOptions> = {}): Result<SV.ConstTag> {
 	const st = State.get(n, opts);
 	st.add(
 		new CurlyBrackets(
@@ -68,10 +62,7 @@ export function printConstTag(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printDebugTag(
-	n: SV.DebugTag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.DebugTag> {
+export function printDebugTag(n: SV.DebugTag, opts: Partial<PrintOptions> = {}): Result<SV.DebugTag> {
 	const st = State.get(n, opts);
 	const brackets = new CurlyBrackets("inline", char.AT, "debug", char.SPACE);
 	for (const [idx, i] of n.identifiers.entries()) {
@@ -93,10 +84,7 @@ export function printDebugTag(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printExpressionTag(
-	n: SV.ExpressionTag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.ExpressionTag> {
+export function printExpressionTag(n: SV.ExpressionTag, opts: Partial<PrintOptions> = {}): Result<SV.ExpressionTag> {
 	const st = State.get(n, opts);
 	st.add(new CurlyBrackets("inline", print_js(n.expression, st.opts)));
 	return st.result;
@@ -113,10 +101,7 @@ export function printExpressionTag(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printHtmlTag(
-	n: SV.HtmlTag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.HtmlTag> {
+export function printHtmlTag(n: SV.HtmlTag, opts: Partial<PrintOptions> = {}): Result<SV.HtmlTag> {
 	const st = State.get(n, opts);
 	st.add(
 		new CurlyBrackets(
@@ -142,10 +127,7 @@ export function printHtmlTag(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printRenderTag(
-	n: SV.RenderTag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.RenderTag> {
+export function printRenderTag(n: SV.RenderTag, opts: Partial<PrintOptions> = {}): Result<SV.RenderTag> {
 	const st = State.get(n, opts);
 	st.add(
 		new CurlyBrackets(

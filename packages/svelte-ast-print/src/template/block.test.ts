@@ -1,7 +1,6 @@
-import { describe, it } from "vitest";
-
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
+import { describe, it } from "vitest";
 
 import {
 	printAwaitBlock,
@@ -178,9 +177,7 @@ describe(printBlock, () => {
 		`);
 		});
 
-		it("works with destructuring object-like item with rest pattern", ({
-			expect,
-		}) => {
+		it("works with destructuring object-like item with rest pattern", ({ expect }) => {
 			const code = `
 			{#each objects as { id, ...rest }}
 				<li>
@@ -200,9 +197,7 @@ describe(printBlock, () => {
 		`);
 		});
 
-		it("works with destructuring array-like item and with rest pattern", ({
-			expect,
-		}) => {
+		it("works with destructuring array-like item and with rest pattern", ({ expect }) => {
 			const code = `
 			{#each items as [id, ...rest]}
 				<li>
@@ -318,9 +313,7 @@ describe(printBlock, () => {
 		`);
 		});
 
-		it("correctly prints {#if} block with {:else if} and {:else}", ({
-			expect,
-		}) => {
+		it("correctly prints {#if} block with {:else if} and {:else}", ({ expect }) => {
 			const code = `
 			{#if test1}
 				<span>if body</span>
@@ -369,9 +362,7 @@ describe(printBlock, () => {
 			{/if}"
 		`);
 		});
-		it("correctly prints {#if} block with multiple {:else if} and {:else} - case with text only", ({
-			expect,
-		}) => {
+		it("correctly prints {#if} block with multiple {:else if} and {:else} - case with text only", ({ expect }) => {
 			const code = `
 			{#if test1}
 				if body
@@ -399,9 +390,7 @@ describe(printBlock, () => {
 	});
 
 	describe("KeyBlock", () => {
-		it("correctly prints the block where expression tag is used", ({
-			expect,
-		}) => {
+		it("correctly prints the block where expression tag is used", ({ expect }) => {
 			const code = `
 			{#key value}
 				<div transition:fade>{value}</div>
@@ -415,9 +404,7 @@ describe(printBlock, () => {
 		`);
 		});
 
-		it("correctly prints the block where no key expression is used", ({
-			expect,
-		}) => {
+		it("correctly prints the block where no key expression is used", ({ expect }) => {
 			const code = `
 			{#key value}
 				<Component />
@@ -439,10 +426,7 @@ describe(printBlock, () => {
 				<p>hello }! {message}!</p>
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(
-				code,
-				"SnippetBlock",
-			);
+			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet hello)}
 				<p>hello }! {message}!</p>
@@ -464,10 +448,7 @@ describe(printBlock, () => {
 				</figure>
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(
-				code,
-				"SnippetBlock",
-			);
+			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet figure(image)}
 				<figure>
@@ -486,10 +467,7 @@ describe(printBlock, () => {
 				{/snippet}
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(
-				code,
-				"SnippetBlock",
-			);
+			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet parent(message)}
 				{#snippet children)}
@@ -499,18 +477,13 @@ describe(printBlock, () => {
 		`);
 		});
 
-		it("works with snippet containing more than one param", ({
-			expect,
-		}) => {
+		it("works with snippet containing more than one param", ({ expect }) => {
 			const code = `
 			{#snippet test(param1, param2)}
 				<p>{param1} + {param2}</p>
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(
-				code,
-				"SnippetBlock",
-			);
+			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet test(param1, param2)}
 				<p>{param1} + {param2}</p>

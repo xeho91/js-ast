@@ -4,11 +4,10 @@
  */
 
 import type { AST as SV } from "svelte/compiler";
-
-import { isBlock } from "./_internal/template/block.ts";
-import { isElementLike } from "./_internal/template/element-like.ts";
 import type { PrintOptions } from "./_internal/option.ts";
 import { hub, type Result, State } from "./_internal/shared.ts";
+import { isBlock } from "./_internal/template/block.ts";
+import { isElementLike } from "./_internal/template/element-like.ts";
 import { printBlock } from "./template/block.ts";
 import { printElementLike } from "./template/element-like.ts";
 import { printHTMLNode } from "./template/html.ts";
@@ -18,10 +17,7 @@ import { printTag } from "./template/tag.ts";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printFragment(
-	n: SV.Fragment,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.Fragment> {
+export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}): Result<SV.Fragment> {
 	const st = State.get(n, opts);
 	/** @type {SV.Fragment["nodes"]} */
 	const cleaned: SV.Fragment["nodes"] = [];
@@ -31,12 +27,7 @@ export function printFragment(
 				cleaned.push(ch);
 				continue;
 			}
-			if (
-				!(
-					/^(?: {1,}|\t|\n)*$/.test(ch.raw) ||
-					/^(?: {2,}|\t|\n)*$/.test(ch.raw)
-				)
-			) {
+			if (!(/^(?: {1,}|\t|\n)*$/.test(ch.raw) || /^(?: {2,}|\t|\n)*$/.test(ch.raw))) {
 				// biome-ignore format: Prettier
 				// prettier-ignore
 				ch.raw = ch.raw
@@ -50,10 +41,7 @@ export function printFragment(
 	}
 	for (const [idx, ch] of cleaned.entries()) {
 		const prev = cleaned[idx - 1];
-		if (
-			prev &&
-			(isBlock(prev) || prev.type === "Comment" || isElementLike(prev))
-		) {
+		if (prev && (isBlock(prev) || prev.type === "Comment" || isElementLike(prev))) {
 			st.break();
 		}
 		// biome-ignore format: Prettier

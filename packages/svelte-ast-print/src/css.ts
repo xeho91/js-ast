@@ -7,12 +7,7 @@ import type { AST as SV } from "svelte/compiler";
 
 import type { PrintOptions } from "./_internal/option.ts";
 import type { Result } from "./_internal/shared.ts";
-import {
-	printCSSAtrule,
-	printCSSBlock,
-	printCSSDeclaration,
-	printCSSRule,
-} from "./css/rule.ts";
+import { printCSSAtrule, printCSSBlock, printCSSDeclaration, printCSSRule } from "./css/rule.ts";
 import {
 	printCSSAttributeSelector,
 	printCSSClassSelector,
@@ -44,10 +39,7 @@ export * from "./css/selector.ts";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printCSSNode(
-	n: SV.CSS.Node,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.CSS.Node> {
+export function printCSSNode(n: SV.CSS.Node, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Node> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {

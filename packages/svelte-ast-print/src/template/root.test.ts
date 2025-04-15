@@ -1,14 +1,11 @@
-import { describe, it } from "vitest";
-
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
+import { describe, it } from "vitest";
 
 import { printCSSStyleSheet, printRoot, printScript } from "./root.ts";
 
 describe(printRoot, () => {
-	it("it prints correctly Svelte code without TypeScript syntax", ({
-		expect,
-	}) => {
+	it("it prints correctly Svelte code without TypeScript syntax", ({ expect }) => {
 		const code = `
 			<script context="module">
 				export const FOO = "BAR";
@@ -141,9 +138,7 @@ describe(printRoot, () => {
 		);
 	});
 
-	it("it prints correctly Svelte code with TypeScript syntax", ({
-		expect,
-	}) => {
+	it("it prints correctly Svelte code with TypeScript syntax", ({ expect }) => {
 		const code = `
 			<script context="module" lang="ts">
 				import {
@@ -342,9 +337,7 @@ describe(printScript, () => {
 		`);
 	});
 
-	it("prints correctly advanced content without TypeScript syntax", ({
-		expect,
-	}) => {
+	it("prints correctly advanced content without TypeScript syntax", ({ expect }) => {
 		const code = `
 			<script>
 				import Eliza from 'elizabot';

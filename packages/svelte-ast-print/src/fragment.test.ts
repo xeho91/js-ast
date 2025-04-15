@@ -1,7 +1,6 @@
-import { describe, it } from "vitest";
-
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
+import { describe, it } from "vitest";
 
 import { printFragment } from "./fragment.ts";
 
@@ -78,9 +77,7 @@ describe(printFragment, () => {
 		`);
 	});
 
-	it("it prints correctly fragment code with typescript syntax", ({
-		expect,
-	}) => {
+	it("it prints correctly fragment code with typescript syntax", ({ expect }) => {
 		const code = `
 			<script lang="ts">
 				//

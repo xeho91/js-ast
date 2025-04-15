@@ -9,10 +9,7 @@ import * as char from "../_internal/char.ts";
 import { print_js } from "../_internal/js.ts";
 import type { PrintOptions } from "../_internal/option.ts";
 import { type Result, State } from "../_internal/shared.ts";
-import {
-	is_attr_exp_shorthand,
-	print_directive,
-} from "../_internal/template/attribute-like.ts";
+import { is_attr_exp_shorthand, print_directive } from "../_internal/template/attribute-like.ts";
 import { CurlyBrackets, DoubleQuotes } from "../_internal/wrapper.ts";
 import { printText } from "./html.ts";
 import { printExpressionTag } from "./tag.ts";
@@ -56,10 +53,7 @@ export function printAnimateDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printBindDirective(
-	n: SV.BindDirective,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.BindDirective> {
+export function printBindDirective(n: SV.BindDirective, opts: Partial<PrintOptions> = {}): Result<SV.BindDirective> {
 	return print_directive("bind", n, opts);
 }
 
@@ -79,10 +73,7 @@ export function printBindDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printClassDirective(
-	n: SV.ClassDirective,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.ClassDirective> {
+export function printClassDirective(n: SV.ClassDirective, opts: Partial<PrintOptions> = {}): Result<SV.ClassDirective> {
 	return print_directive("class", n, opts);
 }
 
@@ -102,10 +93,7 @@ export function printClassDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printLetDirective(
-	n: SV.LetDirective,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.LetDirective> {
+export function printLetDirective(n: SV.LetDirective, opts: Partial<PrintOptions> = {}): Result<SV.LetDirective> {
 	return print_directive("let", n, opts);
 }
 
@@ -125,10 +113,7 @@ export function printLetDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printOnDirective(
-	n: SV.OnDirective,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.OnDirective> {
+export function printOnDirective(n: SV.OnDirective, opts: Partial<PrintOptions> = {}): Result<SV.OnDirective> {
 	return print_directive("on", n, opts);
 }
 
@@ -158,26 +143,18 @@ export function printOnDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printStyleDirective(
-	n: SV.StyleDirective,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.StyleDirective> {
+export function printStyleDirective(n: SV.StyleDirective, opts: Partial<PrintOptions> = {}): Result<SV.StyleDirective> {
 	const st = State.get(n, opts);
 	st.add("style", char.COLON, n.name);
 	if (n.modifiers.length > 0) st.add(char.PIPE, n.modifiers.join(char.PIPE));
-	if (
-		n.value === true ||
-		(!Array.isArray(n.value) &&
-			is_attr_exp_shorthand(n, n.value.expression))
-	) {
+	if (n.value === true || (!Array.isArray(n.value) && is_attr_exp_shorthand(n, n.value.expression))) {
 		return st.result;
 	}
 	if (Array.isArray(n.value)) {
 		st.add(char.ASSIGN);
 		const quotes = new DoubleQuotes("inline");
 		for (const v of n.value) {
-			if (v.type === "ExpressionTag")
-				quotes.insert(printExpressionTag(v, opts));
+			if (v.type === "ExpressionTag") quotes.insert(printExpressionTag(v, opts));
 			else quotes.insert(printText(v, opts));
 		}
 		st.add(quotes);
@@ -251,10 +228,7 @@ export function printTransitionDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printUseDirective(
-	n: SV.UseDirective,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.UseDirective> {
+export function printUseDirective(n: SV.UseDirective, opts: Partial<PrintOptions> = {}): Result<SV.UseDirective> {
 	return print_directive("use", n, opts);
 }
 
@@ -262,10 +236,7 @@ export function printUseDirective(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printAttributeLike(
-	n: SV.AttributeLike,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.AttributeLike> {
+export function printAttributeLike(n: SV.AttributeLike, opts: Partial<PrintOptions> = {}): Result<SV.AttributeLike> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch(n.type) {
@@ -288,10 +259,7 @@ export function printAttributeLike(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printAttribute(
-	n: SV.Attribute,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.Attribute> {
+export function printAttribute(n: SV.Attribute, opts: Partial<PrintOptions> = {}): Result<SV.Attribute> {
 	const st = State.get(n, opts);
 	if (n.value === true) {
 		st.add(n.name);
@@ -301,15 +269,13 @@ export function printAttribute(
 		st.add(n.name, char.ASSIGN);
 		const quotes = new DoubleQuotes("inline");
 		for (const v of n.value) {
-			if (v.type === "ExpressionTag")
-				quotes.insert(printExpressionTag(v, opts));
+			if (v.type === "ExpressionTag") quotes.insert(printExpressionTag(v, opts));
 			else quotes.insert(printText(v, opts));
 		}
 		st.add(quotes);
 		return st.result;
 	}
-	if (is_attr_exp_shorthand(n, n.value.expression))
-		st.add(printExpressionTag(n.value, opts));
+	if (is_attr_exp_shorthand(n, n.value.expression)) st.add(printExpressionTag(n.value, opts));
 	else st.add(n.name, char.ASSIGN, printExpressionTag(n.value, opts));
 	return st.result;
 }

@@ -1,14 +1,8 @@
-import { describe, it } from "vitest";
-
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
+import { describe, it } from "vitest";
 
-import {
-	printCSSAtrule,
-	printCSSBlock,
-	printCSSDeclaration,
-	printCSSRule,
-} from "./rule.ts";
+import { printCSSAtrule, printCSSBlock, printCSSDeclaration, printCSSRule } from "./rule.ts";
 
 describe(printCSSBlock, () => {
 	it("prints correctly", ({ expect }) => {
@@ -39,13 +33,8 @@ describe(printCSSDeclaration, () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract<AST.CSS.Declaration>(
-			code,
-			"Declaration",
-		);
-		expect(printCSSDeclaration(node).code).toMatchInlineSnapshot(
-			`"background-color: orange;"`,
-		);
+		const node = parse_and_extract<AST.CSS.Declaration>(code, "Declaration");
+		expect(printCSSDeclaration(node).code).toMatchInlineSnapshot(`"background-color: orange;"`);
 	});
 });
 

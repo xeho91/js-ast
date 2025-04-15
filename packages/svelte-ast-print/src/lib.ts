@@ -76,13 +76,7 @@ import type { AST as SV } from "svelte/compiler";
 
 import { print_js } from "./_internal/js.ts";
 import type { PrintOptions } from "./_internal/option.js";
-import {
-	hub,
-	isSvelteOnlyNode,
-	type Result,
-	State,
-	type SvelteOnlyNode,
-} from "./_internal/shared.ts";
+import { hub, isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "./_internal/shared.ts";
 
 /**
  * @param n Svelte or JavaScript/TypeScript ESTree specification complaint AST node
@@ -92,10 +86,7 @@ import {
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function print<N extends JS.Node | SvelteOnlyNode>(
-	n: N,
-	opts: Partial<PrintOptions> = {},
-): Result<N> {
+export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
 	const st = State.get(n, opts);
 	if (isSvelteOnlyNode(n)) st.add(printSvelte(n, opts));
 	else st.add(print_js(n, st.opts));
@@ -110,10 +101,7 @@ export function print<N extends JS.Node | SvelteOnlyNode>(
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelte<N extends SvelteOnlyNode>(
-	n: N,
-	opts: Partial<PrintOptions> = {},
-): Result<N> {
+export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
 	const st = State.get(n, opts);
 	switch (n.type) {
 		case "Root": {
