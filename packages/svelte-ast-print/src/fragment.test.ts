@@ -1,16 +1,17 @@
+import { describe, it } from "vitest";
+
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
-import { describe, it } from "vitest";
 
 import { printFragment } from "./fragment.ts";
 
-describe(printFragment.name, () => {
+describe(printFragment, () => {
 	it("it prints correctly fragment code", ({ expect }) => {
 		const code = `
 			<h1>Shopping list</h1>
 			<ul>
 				{#each items as item}
-					<li>{item.name} x {item.qty}</li>
+					<li>{item} x {item.qty}</li>
 				{/each}
 			</ul>
 
@@ -47,7 +48,7 @@ describe(printFragment.name, () => {
 			"<h1>Shopping list</h1>
 			<ul>
 				{#each items as item}
-					<li>{item.name} x {item.qty}</li>
+					<li>{item} x {item.qty}</li>
 				{/each}
 			</ul>
 			<div class="mb-6">
@@ -77,7 +78,9 @@ describe(printFragment.name, () => {
 		`);
 	});
 
-	it("it prints correctly fragment code with typescript syntax", ({ expect }) => {
+	it("it prints correctly fragment code with typescript syntax", ({
+		expect,
+	}) => {
 		const code = `
 			<script lang="ts">
 				//

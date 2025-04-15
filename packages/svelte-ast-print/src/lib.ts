@@ -17,13 +17,13 @@
  *
  * ```ts
  * import type { AST } from "svelte/compiler";
- * import { printSvelteSnippet } from "svelte-ast-print/template";
+ * import { printSnippetBlock } from "svelte-ast-print/template/block";
  *
  * // How you obtain the node is up to you.
  * // Either by building programmatically or from parsing
  * let node: AST.SnippetBlock;
  *
- * const stringified = printSvelteSnippet(node);
+ * const stringified = printSnippetBlock(node);
  * ```
  *
  * @example General usage
@@ -70,12 +70,19 @@
  * @module svelte-ast-print
  */
 
+import type esrap from "esrap";
 import type * as JS from "estree";
 import type { AST as SV } from "svelte/compiler";
 
 import { print_js } from "./_internal/js.ts";
 import type { PrintOptions } from "./_internal/option.js";
-import { hub, isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "./_internal/shared.ts";
+import {
+	hub,
+	isSvelteOnlyNode,
+	type Result,
+	State,
+	type SvelteOnlyNode,
+} from "./_internal/shared.ts";
 
 /**
  * @param n Svelte or JavaScript/TypeScript ESTree specification complaint AST node
@@ -85,7 +92,10 @@ import { hub, isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
+export function print<N extends JS.Node | SvelteOnlyNode>(
+	n: N,
+	opts: Partial<PrintOptions> = {},
+): Result<N> {
 	const st = State.get(n, opts);
 	if (isSvelteOnlyNode(n)) st.add(printSvelte(n, opts));
 	else st.add(print_js(n, st.opts));
@@ -100,7 +110,10 @@ export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<Pr
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
+export function printSvelte<N extends SvelteOnlyNode>(
+	n: N,
+	opts: Partial<PrintOptions> = {},
+): Result<N> {
 	const st = State.get(n, opts);
 	switch (n.type) {
 		case "Root": {
@@ -187,5 +200,5 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 
 export * from "./css.ts";
 export * from "./fragment.ts";
-export * from "./root.ts";
+export * from "./template/root.ts";
 export * from "./template.ts";

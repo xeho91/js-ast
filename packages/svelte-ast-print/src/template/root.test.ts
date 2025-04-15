@@ -1,11 +1,14 @@
+import { describe, it } from "vitest";
+
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
-import { describe, it } from "vitest";
 
 import { printCSSStyleSheet, printRoot, printScript } from "./root.ts";
 
-describe(printRoot.name, () => {
-	it("it prints correctly Svelte code without TypeScript syntax", ({ expect }) => {
+describe(printRoot, () => {
+	it("it prints correctly Svelte code without TypeScript syntax", ({
+		expect,
+	}) => {
 		const code = `
 			<script context="module">
 				export const FOO = "BAR";
@@ -138,7 +141,9 @@ describe(printRoot.name, () => {
 		);
 	});
 
-	it("it prints correctly Svelte code with TypeScript syntax", ({ expect }) => {
+	it("it prints correctly Svelte code with TypeScript syntax", ({
+		expect,
+	}) => {
 		const code = `
 			<script context="module" lang="ts">
 				import {
@@ -322,7 +327,7 @@ I am good.
 	});
 });
 
-describe(printScript.name, () => {
+describe(printScript, () => {
 	it("prints correctly attributes", ({ expect }) => {
 		const code = `
 			<script context="module" lang="ts">
@@ -337,7 +342,9 @@ describe(printScript.name, () => {
 		`);
 	});
 
-	it("prints correctly advanced content without TypeScript syntax", ({ expect }) => {
+	it("prints correctly advanced content without TypeScript syntax", ({
+		expect,
+	}) => {
 		const code = `
 			<script>
 				import Eliza from 'elizabot';
@@ -458,7 +465,7 @@ describe(printScript.name, () => {
 	});
 });
 
-describe(printCSSStyleSheet.name, () => {
+describe(printCSSStyleSheet, () => {
 	it("it prints correctly attributes", ({ expect }) => {
 		const code = `
 				<style lang="sass">
@@ -468,7 +475,7 @@ describe(printCSSStyleSheet.name, () => {
 		const node = parse_and_extract<AST.CSS.StyleSheet>(code, "StyleSheet");
 		expect(printCSSStyleSheet(node).code).toMatchInlineSnapshot(`
 			"<style lang="sass">
-				
+
 			</style>"
 		`);
 	});

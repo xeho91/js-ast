@@ -1,10 +1,16 @@
-import { parse_and_extract } from "@internals/test/svelte";
-import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { printCSSAtrule, printCSSBlock, printCSSDeclaration, printCSSRule } from "./rule.ts";
+import { parse_and_extract } from "@internals/test/svelte";
+import type { AST } from "svelte/compiler";
 
-describe(printCSSBlock.name, () => {
+import {
+	printCSSAtrule,
+	printCSSBlock,
+	printCSSDeclaration,
+	printCSSRule,
+} from "./rule.ts";
+
+describe(printCSSBlock, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -24,7 +30,7 @@ describe(printCSSBlock.name, () => {
 	});
 });
 
-describe(printCSSDeclaration.name, () => {
+describe(printCSSDeclaration, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -33,12 +39,17 @@ describe(printCSSDeclaration.name, () => {
 				}
 			</style>
 		`;
-		const node = parse_and_extract<AST.CSS.Declaration>(code, "Declaration");
-		expect(printCSSDeclaration(node).code).toMatchInlineSnapshot(`"background-color: orange;"`);
+		const node = parse_and_extract<AST.CSS.Declaration>(
+			code,
+			"Declaration",
+		);
+		expect(printCSSDeclaration(node).code).toMatchInlineSnapshot(
+			`"background-color: orange;"`,
+		);
 	});
 });
 
-describe(printCSSAtrule.name, () => {
+describe(printCSSAtrule, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>
@@ -60,7 +71,7 @@ describe(printCSSAtrule.name, () => {
 	});
 });
 
-describe(printCSSRule.name, () => {
+describe(printCSSRule, () => {
 	it("prints correctly", ({ expect }) => {
 		const code = `
 			<style>

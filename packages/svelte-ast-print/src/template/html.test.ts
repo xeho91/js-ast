@@ -1,12 +1,15 @@
+import { describe, it } from "vitest";
+
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
-import { describe, it } from "vitest";
 
 import { printComment, printHTMLNode, printText } from "./html.ts";
 
-describe(printHTMLNode.name, () => {
-	describe(printComment.name, () => {
-		it("prints correctly a single line comment from random code", ({ expect }) => {
+describe(printHTMLNode, () => {
+	describe(printComment, () => {
+		it("prints correctly a single line comment from random code", ({
+			expect,
+		}) => {
 			const code = `
 			{#each boxes as box}
 				<!-- This is a single line comment -->
@@ -15,7 +18,9 @@ describe(printHTMLNode.name, () => {
 			{/each}
 		`;
 			const node = parse_and_extract<AST.Comment>(code, "Comment");
-			expect(printComment(node).code).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
+			expect(printComment(node).code).toMatchInlineSnapshot(
+				`"<!-- This is a single line comment -->"`,
+			);
 		});
 
 		it("supports multiple line comment", ({ expect }) => {
@@ -43,13 +48,17 @@ describe(printHTMLNode.name, () => {
 		});
 	});
 
-	describe(printText.name, () => {
-		it("prints correctly a random text comment from random code", ({ expect }) => {
+	describe(printText, () => {
+		it("prints correctly a random text comment from random code", ({
+			expect,
+		}) => {
 			const code = `
 			<span>Catch me if you can</span>
 		`;
 			const node = parse_and_extract<AST.Text>(code, "Text");
-			expect(printText(node).code).toMatchInlineSnapshot(`"Catch me if you can"`);
+			expect(printText(node).code).toMatchInlineSnapshot(
+				`"Catch me if you can"`,
+			);
 		});
 	});
 });

@@ -1,6 +1,6 @@
 /**
  * Printers related to CSS **selector** related AST nodes only.
- * @module svelte-ast-print/css/seletor
+ * @module svelte-ast-print/css/selector
  */
 
 import type { AST as SV } from "svelte/compiler";
@@ -8,7 +8,11 @@ import type { AST as SV } from "svelte/compiler";
 import * as char from "../_internal/char.js";
 import type { PrintOptions } from "../_internal/option.js";
 import { type Result, State } from "../_internal/shared.js";
-import { DoubleQuotes, RoundBrackets, SquareBrackets } from "../_internal/wrapper.js";
+import {
+	DoubleQuotes,
+	RoundBrackets,
+	SquareBrackets,
+} from "../_internal/wrapper.js";
 
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors/Selectors_and_combinators#combinators}
@@ -16,7 +20,10 @@ import { DoubleQuotes, RoundBrackets, SquareBrackets } from "../_internal/wrappe
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printCSSCombinator(n: SV.CSS.Combinator, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Combinator> {
+export function printCSSCombinator(
+	n: SV.CSS.Combinator,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.CSS.Combinator> {
 	const st = State.get(n, opts);
 	st.add(n.name);
 	return st.result;
@@ -109,7 +116,10 @@ export function printCSSClassSelector(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printCSSIdSelector(n: SV.CSS.IdSelector, opts: Partial<PrintOptions> = {}): Result<SV.CSS.IdSelector> {
+export function printCSSIdSelector(
+	n: SV.CSS.IdSelector,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.CSS.IdSelector> {
 	const st = State.get(n, opts);
 	st.add("#", n.name);
 	return st.result;
@@ -143,7 +153,8 @@ export function printCSSPseudoClassSelector(
 		//
 		char.COLON,
 		n.name,
-		n.args && new RoundBrackets("inline", printCSSSelectorList(n.args, opts)),
+		n.args &&
+			new RoundBrackets("inline", printCSSSelectorList(n.args, opts)),
 	);
 	return st.result;
 }
@@ -176,7 +187,8 @@ export function printCSSRelativeSelector(
 	opts: Partial<PrintOptions> = {},
 ): Result<SV.CSS.RelativeSelector> {
 	const st = State.get(n, opts);
-	if (n.combinator) st.add(printCSSCombinator(n.combinator, opts), char.SPACE);
+	if (n.combinator)
+		st.add(printCSSCombinator(n.combinator, opts), char.SPACE);
 	for (const s of n.selectors) st.add(printCSSSimpleSelector(s, opts));
 	return st.result;
 }
@@ -205,7 +217,10 @@ export function printCSSTypeSelector(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printCSSNth(n: SV.CSS.Nth, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Nth> {
+export function printCSSNth(
+	n: SV.CSS.Nth,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.CSS.Nth> {
 	const st = State.get(n, opts);
 	st.add(char.COLON, "nth-child", new RoundBrackets("inline", n.value));
 	return st.result;
@@ -215,7 +230,10 @@ export function printCSSNth(n: SV.CSS.Nth, opts: Partial<PrintOptions> = {}): Re
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printCSSPercentage(n: SV.CSS.Percentage, opts: Partial<PrintOptions> = {}): Result<SV.CSS.Percentage> {
+export function printCSSPercentage(
+	n: SV.CSS.Percentage,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.CSS.Percentage> {
 	const st = State.get(n, opts);
 	st.add(n.value);
 	return st.result;

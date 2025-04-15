@@ -1,21 +1,24 @@
 /**
  * Printers related to Svelte **tag**-like related AST nodes only.
- * @module svelte-ast-print/tag
+ * @module svelte-ast-print/template/tag
  */
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "./_internal/char.js";
-import { print_js } from "./_internal/js.js";
-import type { PrintOptions } from "./_internal/option.js";
-import { type Result, State } from "./_internal/shared.js";
-import { CurlyBrackets } from "./_internal/wrapper.js";
+import * as char from "../_internal/char.js";
+import { print_js } from "../_internal/js.js";
+import type { PrintOptions } from "../_internal/option.js";
+import { type Result, State } from "../_internal/shared.js";
+import { CurlyBrackets } from "../_internal/wrapper.js";
 
 /**
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV.Tag> {
+export function printTag(
+	n: SV.Tag,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.Tag> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
@@ -38,7 +41,10 @@ export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printConstTag(n: SV.ConstTag, opts: Partial<PrintOptions> = {}): Result<SV.ConstTag> {
+export function printConstTag(
+	n: SV.ConstTag,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.ConstTag> {
 	const st = State.get(n, opts);
 	st.add(
 		new CurlyBrackets(
@@ -62,7 +68,10 @@ export function printConstTag(n: SV.ConstTag, opts: Partial<PrintOptions> = {}):
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printDebugTag(n: SV.DebugTag, opts: Partial<PrintOptions> = {}): Result<SV.DebugTag> {
+export function printDebugTag(
+	n: SV.DebugTag,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.DebugTag> {
 	const st = State.get(n, opts);
 	const brackets = new CurlyBrackets("inline", char.AT, "debug", char.SPACE);
 	for (const [idx, i] of n.identifiers.entries()) {
@@ -84,7 +93,10 @@ export function printDebugTag(n: SV.DebugTag, opts: Partial<PrintOptions> = {}):
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printExpressionTag(n: SV.ExpressionTag, opts: Partial<PrintOptions> = {}): Result<SV.ExpressionTag> {
+export function printExpressionTag(
+	n: SV.ExpressionTag,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.ExpressionTag> {
 	const st = State.get(n, opts);
 	st.add(new CurlyBrackets("inline", print_js(n.expression, st.opts)));
 	return st.result;
@@ -101,7 +113,10 @@ export function printExpressionTag(n: SV.ExpressionTag, opts: Partial<PrintOptio
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printHtmlTag(n: SV.HtmlTag, opts: Partial<PrintOptions> = {}): Result<SV.HtmlTag> {
+export function printHtmlTag(
+	n: SV.HtmlTag,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.HtmlTag> {
 	const st = State.get(n, opts);
 	st.add(
 		new CurlyBrackets(
@@ -127,7 +142,10 @@ export function printHtmlTag(n: SV.HtmlTag, opts: Partial<PrintOptions> = {}): R
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printRenderTag(n: SV.RenderTag, opts: Partial<PrintOptions> = {}): Result<SV.RenderTag> {
+export function printRenderTag(
+	n: SV.RenderTag,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.RenderTag> {
 	const st = State.get(n, opts);
 	st.add(
 		new CurlyBrackets(

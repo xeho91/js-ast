@@ -1,6 +1,7 @@
+import { describe, it } from "vitest";
+
 import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
-import { describe, it } from "vitest";
 
 import {
 	printAwaitBlock,
@@ -9,9 +10,9 @@ import {
 	printIfBlock,
 	printKeyBlock,
 	printSnippetBlock,
-} from "./template.ts";
+} from "./block.ts";
 
-describe(printBlock.name, () => {
+describe(printBlock, () => {
 	describe("AwaitBlock", () => {
 		it("correctly prints standard example", ({ expect }) => {
 			const code = `
@@ -104,13 +105,13 @@ describe(printBlock.name, () => {
 		it("correctly prints simple example", ({ expect }) => {
 			const code = `
 			{#each items as item}
-				<li>{item.name} x {item.qty}</li>
+				<li>{item} x {item.qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
 			"{#each items as item}
-				<li>{item.name} x {item.qty}</li>
+				<li>{item} x {item.qty}</li>
 			{/each}"
 		`);
 		});
@@ -138,13 +139,13 @@ describe(printBlock.name, () => {
 		it("correctly prints example with index", ({ expect }) => {
 			const code = `
 			{#each items as item, i}
-				<li>{i + 1}: {item.name} x {item.qty}</li>
+				<li>{i + 1}: {item} x {item.qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
 			"{#each items as item, i}
-				<li>{i + 1}: {item.name} x {item.qty}</li>
+				<li>{i + 1}: {item} x {item.qty}</li>
 			{/each}"
 		`);
 		});
@@ -152,32 +153,34 @@ describe(printBlock.name, () => {
 		it("correctly prints example with index and keyed", ({ expect }) => {
 			const code = `
 			{#each items as item, i (item.id)}
-				<li>{i + 1}: {item.name} x {item.qty}</li>
+				<li>{i + 1}: {item} x {item.qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
 			"{#each items as item, i (item.id)}
-				<li>{i + 1}: {item.name} x {item.qty}</li>
+				<li>{i + 1}: {item} x {item.qty}</li>
 			{/each}"
 		`);
 		});
 
 		it("works with destructuring object-like item", ({ expect }) => {
 			const code = `
-			{#each items as { id, name, qty }, i (id)}
-				<li>{i + 1}: {name} x {qty}</li>
+			{#each items as { id,, qty }, i (id)}
+				<li>{i + 1}: } x {qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
-			"{#each items as { id, name, qty }, i (id)}
-				<li>{i + 1}: {name} x {qty}</li>
+			"{#each items as { id,, qty }, i (id)}
+				<li>{i + 1}: } x {qty}</li>
 			{/each}"
 		`);
 		});
 
-		it("works with destructuring object-like item with rest pattern", ({ expect }) => {
+		it("works with destructuring object-like item with rest pattern", ({
+			expect,
+		}) => {
 			const code = `
 			{#each objects as { id, ...rest }}
 				<li>
@@ -197,7 +200,9 @@ describe(printBlock.name, () => {
 		`);
 		});
 
-		it("works with destructuring array-like item and with rest pattern", ({ expect }) => {
+		it("works with destructuring array-like item and with rest pattern", ({
+			expect,
+		}) => {
 			const code = `
 			{#each items as [id, ...rest]}
 				<li>
@@ -313,7 +318,9 @@ describe(printBlock.name, () => {
 		`);
 		});
 
-		it("correctly prints {#if} block with {:else if} and {:else}", ({ expect }) => {
+		it("correctly prints {#if} block with {:else if} and {:else}", ({
+			expect,
+		}) => {
 			const code = `
 			{#if test1}
 				<span>if body</span>
@@ -362,7 +369,9 @@ describe(printBlock.name, () => {
 			{/if}"
 		`);
 		});
-		it("correctly prints {#if} block with multiple {:else if} and {:else} - case with text only", ({ expect }) => {
+		it("correctly prints {#if} block with multiple {:else if} and {:else} - case with text only", ({
+			expect,
+		}) => {
 			const code = `
 			{#if test1}
 				if body
@@ -390,7 +399,9 @@ describe(printBlock.name, () => {
 	});
 
 	describe("KeyBlock", () => {
-		it("correctly prints the block where expression tag is used", ({ expect }) => {
+		it("correctly prints the block where expression tag is used", ({
+			expect,
+		}) => {
 			const code = `
 			{#key value}
 				<div transition:fade>{value}</div>
@@ -404,7 +415,9 @@ describe(printBlock.name, () => {
 		`);
 		});
 
-		it("correctly prints the block where no key expression is used", ({ expect }) => {
+		it("correctly prints the block where no key expression is used", ({
+			expect,
+		}) => {
 			const code = `
 			{#key value}
 				<Component />
@@ -422,14 +435,17 @@ describe(printBlock.name, () => {
 	describe("SnippetBlock", () => {
 		it("work for a simple template", ({ expect }) => {
 			const code = `
-			{#snippet hello(name)}
-				<p>hello {name}! {message}!</p>
+			{#snippet hello)}
+				<p>hello }! {message}!</p>
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
+			const node = parse_and_extract<AST.SnippetBlock>(
+				code,
+				"SnippetBlock",
+			);
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
-			"{#snippet hello(name)}
-				<p>hello {name}! {message}!</p>
+			"{#snippet hello)}
+				<p>hello }! {message}!</p>
 			{/snippet}"
 		`);
 		});
@@ -448,7 +464,10 @@ describe(printBlock.name, () => {
 				</figure>
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
+			const node = parse_and_extract<AST.SnippetBlock>(
+				code,
+				"SnippetBlock",
+			);
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet figure(image)}
 				<figure>
@@ -462,28 +481,36 @@ describe(printBlock.name, () => {
 		it("works with nested snippet", ({ expect }) => {
 			const code = `
 			{#snippet parent(message)}
-				{#snippet children(name)}
-					<p>hello {name}! {message}!</p>
+				{#snippet children)}
+					<p>hello }! {message}!</p>
 				{/snippet}
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
+			const node = parse_and_extract<AST.SnippetBlock>(
+				code,
+				"SnippetBlock",
+			);
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet parent(message)}
-				{#snippet children(name)}
-					<p>hello {name}! {message}!</p>
+				{#snippet children)}
+					<p>hello }! {message}!</p>
 				{/snippet}
 			{/snippet}"
 		`);
 		});
 
-		it("works with snippet containing more than one param", ({ expect }) => {
+		it("works with snippet containing more than one param", ({
+			expect,
+		}) => {
 			const code = `
 			{#snippet test(param1, param2)}
 				<p>{param1} + {param2}</p>
 			{/snippet}
 		`;
-			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
+			const node = parse_and_extract<AST.SnippetBlock>(
+				code,
+				"SnippetBlock",
+			);
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet test(param1, param2)}
 				<p>{param1} + {param2}</p>
