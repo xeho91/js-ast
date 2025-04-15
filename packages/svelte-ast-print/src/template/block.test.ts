@@ -104,13 +104,13 @@ describe(printBlock, () => {
 		it("correctly prints simple example", ({ expect }) => {
 			const code = `
 			{#each items as item}
-				<li>{item} x {item.qty}</li>
+				<li>{item.name} x {item.qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
 			"{#each items as item}
-				<li>{item} x {item.qty}</li>
+				<li>{item.name} x {item.qty}</li>
 			{/each}"
 		`);
 		});
@@ -138,13 +138,13 @@ describe(printBlock, () => {
 		it("correctly prints example with index", ({ expect }) => {
 			const code = `
 			{#each items as item, i}
-				<li>{i + 1}: {item} x {item.qty}</li>
+				<li>{i + 1}: {item.name} x {item.qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
 			"{#each items as item, i}
-				<li>{i + 1}: {item} x {item.qty}</li>
+				<li>{i + 1}: {item.name} x {item.qty}</li>
 			{/each}"
 		`);
 		});
@@ -152,27 +152,27 @@ describe(printBlock, () => {
 		it("correctly prints example with index and keyed", ({ expect }) => {
 			const code = `
 			{#each items as item, i (item.id)}
-				<li>{i + 1}: {item} x {item.qty}</li>
+				<li>{i + 1}: {item.name} x {item.qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
 			"{#each items as item, i (item.id)}
-				<li>{i + 1}: {item} x {item.qty}</li>
+				<li>{i + 1}: {item.name} x {item.qty}</li>
 			{/each}"
 		`);
 		});
 
 		it("works with destructuring object-like item", ({ expect }) => {
 			const code = `
-			{#each items as { id, qty }, i (id)}
-				<li>{i + 1}: } x {qty}</li>
+			{#each items as { id, item, qty }, i (id)}
+				<li>{i + 1}: {item.name} x {qty}</li>
 			{/each}
 		`;
 			const node = parse_and_extract<AST.EachBlock>(code, "EachBlock");
 			expect(printEachBlock(node).code).toMatchInlineSnapshot(`
-			"{#each items as { id, qty }, i (id)}
-				<li>{i + 1}: } x {qty}</li>
+			"{#each items as { id, item, qty }, i (id)}
+				<li>{i + 1}: {item.name} x {qty}</li>
 			{/each}"
 		`);
 		});
@@ -462,7 +462,7 @@ describe(printBlock, () => {
 		it("works with nested snippet", ({ expect }) => {
 			const code = `
 			{#snippet parent(message)}
-				{#snippet children()}
+				{#snippet children(name)}
 					<p>hello {name}! {message}!</p>
 				{/snippet}
 			{/snippet}
@@ -470,7 +470,7 @@ describe(printBlock, () => {
 			const node = parse_and_extract<AST.SnippetBlock>(code, "SnippetBlock");
 			expect(printSnippetBlock(node).code).toMatchInlineSnapshot(`
 			"{#snippet parent(message)}
-				{#snippet children()}
+				{#snippet children(name)}
 					<p>hello {name}! {message}!</p>
 				{/snippet}
 			{/snippet}"

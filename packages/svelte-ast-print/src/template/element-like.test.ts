@@ -54,7 +54,7 @@ describe(printElementLike, () => {
 					</NavLi>
 
 					<MegaMenu items={menu} let:item>
-						<a href={item.href} class="hover:text-primary-600 dark:hover:text-primary-500">{item}</a>
+						<a href={item.href} class="hover:text-primary-600 dark:hover:text-primary-500">{item.name}</a>
 					</MegaMenu>
 
 					<NavLi href="/services">Services</NavLi>
@@ -77,7 +77,7 @@ describe(printElementLike, () => {
 						Mega menu<ChevronDownOutline class="w-6 h-6 ms-2 text-primary-800 dark:text-white inline" />
 					</NavLi>
 					<MegaMenu items={menu} let:item>
-						<a href={item.href} class="hover:text-primary-600 dark:hover:text-primary-500">{item}</a>
+						<a href={item.href} class="hover:text-primary-600 dark:hover:text-primary-500">{item.name}</a>
 					</MegaMenu>
 					<NavLi href="/services">Services</NavLi>
 					<NavLi href="/services">Products</NavLi>
