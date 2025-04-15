@@ -25,7 +25,6 @@
     "lint:biome:format": "biome format . --verbose",
     "lint:biome:js": "biome lint . --verbose --unsafe",
     "lint:knip": "knip --tags=-lintignore",
-    "lint:knip:json": "knip --tags=-lintignore --reporter=json",
     "lint:tsc": "tsc --noEmit",
     "lint:typos": "typos --verbose",
     "serve:doc": "serve \"./docs\" ",
