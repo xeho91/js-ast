@@ -40,5 +40,9 @@ jobs:
           pnpm install
           --frozen-lockfile
 
+      - name: Build packages
+        run: >
+          pnpm run "build:pkg"
+
       - name: Publish packages preview with pkg-pr-new CLI
         run: pnpx pkg-pr-new publish --pnpm './packages/*' --packageManager=pnpm
