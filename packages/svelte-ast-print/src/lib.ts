@@ -75,8 +75,10 @@ import type * as JS from "estree";
 import type { AST as SV } from "svelte/compiler";
 
 import { print_js } from "./_internal/js.ts";
-import type { PrintOptions } from "./_internal/option.js";
-import { isSvelteOnlyNode, type Result, State, type SvelteOnlyNode } from "./_internal/shared.ts";
+import type { PrintOptions } from "./_internal/option.ts";
+import { isSvelteOnlyNode, type Result, State } from "./_internal/shared.ts";
+import type { SvelteOnlyNode } from "./_internal/type.ts";
+import type { Node } from "./_internal/type.ts";
 import { printCSSNode } from "./css.ts";
 import { printFragment } from "./fragment.ts";
 import { printRoot, printScript } from "./template/root.ts";
@@ -90,11 +92,13 @@ import { printTemplateNode } from "./template.ts";
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
-	const st = State.get(n, opts);
-	if (isSvelteOnlyNode(n)) st.add(printSvelte(n, opts));
-	else st.add(print_js(n, st.opts));
-	return st.result;
+export function print<N extends Node>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
+	if (isSvelteOnlyNode(n)) return printSvelte(n, opts) as Result<N>;
+	else {
+		const st = State.get(n, opts);
+		st.add(print_js(n, st.opts));
+		return st.result as Result<N>;
+	}
 }
 
 /**
@@ -106,11 +110,9 @@ export function print<N extends JS.Node | SvelteOnlyNode>(n: N, opts: Partial<Pr
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
-	const st = State.get(n, opts);
 	switch (n.type) {
 		case "Root": {
-			st.add(printRoot(n, opts));
-			break;
+			return printRoot(n, opts) as Result<N>;
 		}
 		// CSS
 		case "Block":
@@ -131,16 +133,13 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		case "Atrule":
 		case "Rule":
 		case "StyleSheet": {
-			st.add(printCSSNode(n, opts));
-			break;
+			return printCSSNode(n, opts) as Result<N>;
 		}
 		case "Fragment": {
-			st.add(printFragment(n, opts));
-			break;
+			return printFragment(n, opts) as Result<N>;
 		}
 		case "Script": {
-			st.add(printScript(n, opts));
-			break;
+			return printScript(n, opts) as Result<N>;
 		}
 		// attribute-like
 		case "Attribute":
@@ -183,9 +182,7 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		// HTML
 		case "Comment":
 		case "Text": {
-			st.add(printTemplateNode(n, opts));
-			break;
+			return printTemplateNode(n, opts) as Result<N>;
 		}
 	}
-	return st.result;
 }
