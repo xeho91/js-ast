@@ -5,7 +5,7 @@
 
 import type { AST as SV } from "svelte/compiler";
 
-import { HTMLComment, type HTMLNode } from "../_internal/html.js";
+import { HTMLComment } from "../_internal/html.js";
 import type { PrintOptions } from "../_internal/option.js";
 import { type Result, State } from "../_internal/shared.js";
 
@@ -13,7 +13,7 @@ import { type Result, State } from "../_internal/shared.js";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printHTMLNode(n: HTMLNode, opts: Partial<PrintOptions>): Result<HTMLNode> {
+export function printHTMLNode(n: SV.HTMLNode, opts: Partial<PrintOptions>): Result<SV.HTMLNode> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
