@@ -21,37 +21,50 @@ import { printSvelteOptions } from "./element-like.ts";
  */
 export function printRoot(n: SV.Root, opts: Partial<PrintOptions> = {}): Result<SV.Root> {
 	const st = State.get(n, opts);
+	let had_previous_node = false;
+	const insert_two_line_breaks = () => {
+		st.break();
+		st.break();
+	};
 	for (const [idx, curr_name] of st.opts.order.entries()) {
 		switch (curr_name) {
 			case "options": {
-				if (n.options) st.add(printSvelteOptions(n.options, opts));
+				if (n.options) {
+					if (had_previous_node) insert_two_line_breaks();
+					st.add(printSvelteOptions(n.options, opts));
+				}
 				break;
 			}
 			case "instance": {
-				if (n.instance) st.add(printScript(n.instance, opts));
+				if (n.instance) {
+					if (had_previous_node) insert_two_line_breaks();
+					st.add(printScript(n.instance, opts));
+				}
 				break;
 			}
 			case "module": {
-				if (n.module) st.add(printScript(n.module, opts));
+				if (n.module) {
+					if (had_previous_node) insert_two_line_breaks();
+					st.add(printScript(n.module, opts));
+				}
 				break;
 			}
 			case "fragment": {
-				st.add(printFragment(n.fragment, opts));
+				if (n.fragment.nodes.length) {
+					if (had_previous_node) insert_two_line_breaks();
+					st.add(printFragment(n.fragment, opts));
+				}
 				break;
 			}
 			case "css": {
-				if (n.css) st.add(printCSSStyleSheet(n.css, opts));
+				if (n.css) {
+					if (had_previous_node) insert_two_line_breaks();
+					st.add(printCSSStyleSheet(n.css, opts));
+				}
 				break;
 			}
 		}
-		const is_last = st.opts.order.at(-1) === curr_name;
-		const prev_name = st.opts.order[idx - 1];
-		const next_name = st.opts.order[idx + 1];
-		// NOTE: This adds line break (x2) between each part of the root
-		if (!is_last && (n[curr_name] || (prev_name && n[prev_name])) && next_name && n[next_name]) {
-			st.break();
-			st.break();
-		}
+		if (idx && n[curr_name]) had_previous_node = true;
 	}
 	return st.result;
 }
