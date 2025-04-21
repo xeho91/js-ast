@@ -96,7 +96,7 @@ export function print<N extends Node>(n: N, opts: Partial<PrintOptions> = {}): R
 	if (isSvelteOnlyNode(n)) return printSvelte(n, opts) as Result<N>;
 	else {
 		const st = State.get(n, opts);
-		st.add(print_js(n, st.opts));
+		st.add(print_js(n, st.opts, false));
 		return st.result as Result<N>;
 	}
 }
