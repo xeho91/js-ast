@@ -2,25 +2,78 @@ import type * as JS from "estree";
 import type { AST as SV } from "svelte/compiler";
 
 import * as char from "./char.ts";
-import type { HTMLNode } from "./html.ts";
 import { Options, type PrintOptions } from "./option.ts";
-
-export type SvelteOnlyNode =
-	| SV.AttributeLike
-	| SV.Block
-	| SV.CSS.Node
-	| SV.Directive
-	| SV.ElementLike
-	| SV.Fragment
-	| HTMLNode
-	| SV.Root
-	| SV.Script
-	| SV.Tag;
-
-type Node = JS.Node | SvelteOnlyNode;
+import type { Node, SvelteOnlyNode } from "./type.ts";
 
 export function isSvelteOnlyNode(n: JS.BaseNode | SV.BaseNode): n is SvelteOnlyNode {
-	return new Set([""]).has(n.type);
+	return new Set([
+		// Attribute-like
+		"Attribute",
+		"SpreadAttribute",
+		/// Directives
+		"AnimateDirective",
+		"BindDirective",
+		"ClassDirective",
+		"LetDirective",
+		"OnDirective",
+		"StyleDirective",
+		"TransitionDirective",
+		"UseDirective",
+		// Block
+		"EachBlock",
+		"IfBlock",
+		"AwaitBlock",
+		"KeyBlock",
+		"SnippetBlock",
+		// CSS
+		"StyleSheet",
+		"Rule",
+		"Atrule",
+		"SelectorList",
+		"Block",
+		"ComplexSelector",
+		"RelativeSelector",
+		"Combinator",
+		"TypeSelector",
+		"IdSelector",
+		"ClassSelector",
+		"AttributeSelector",
+		"PseudoElementSelector",
+		"PseudoClassSelector",
+		"Percentage",
+		"Nth",
+		"NestingSelector",
+		"Declaration",
+		// Element-like
+		"Component",
+		"TitleElement",
+		"SlotElement",
+		"RegularElement",
+		"SvelteBody",
+		"SvelteBoundary",
+		"SvelteComponent",
+		"SvelteDocument",
+		"SvelteElement",
+		"SvelteFragment",
+		"SvelteHead",
+		"SvelteOptionsRaw",
+		"SvelteSelf",
+		"SvelteWindow",
+		//
+		"Fragment",
+		// HTML-node
+		"Comment",
+		"Text",
+		//
+		"Root",
+		"Script",
+		// Tag
+		"ExpressionTag",
+		"HtmlTag",
+		"ConstTag",
+		"DebugTag",
+		"RenderTag",
+	]).has(n.type);
 }
 
 /**

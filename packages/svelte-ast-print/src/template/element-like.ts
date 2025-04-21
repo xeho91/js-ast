@@ -127,7 +127,6 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
 	n.attributes.unshift({
 		type: "Attribute",
 		name: "this",
-		// @ts-expect-error: We ignore `start` and `end`
 		value: {
 			type: "ExpressionTag",
 			expression: n.tag,
