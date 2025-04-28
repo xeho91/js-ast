@@ -20,11 +20,13 @@ import { printTag } from "./template/tag.ts";
 export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}): Result<SV.Fragment> {
 	const st = State.get(n, opts);
 	/** @type {SV.Fragment["nodes"]} */
-	const cleaned: SV.Fragment["nodes"] = [];
-	for (const ch of n.nodes) {
+	let nodes: SV.Fragment["nodes"] = [];
+	for (const [idx, ch] of n.nodes.entries()) {
+		const prev = n.nodes[idx - 1];
+		const next = n.nodes[idx + 1];
 		if (ch.type === "Text") {
-			if (ch.raw === " ") {
-				cleaned.push(ch);
+			if (ch.raw === " " && (prev?.type === "ExpressionTag" || next?.type === "ExpressionTag")) {
+				nodes.push(ch);
 				continue;
 			}
 			if (!(/^(?: {1,}|\t|\n)*$/.test(ch.raw) || /^(?: {2,}|\t|\n)*$/.test(ch.raw))) {
@@ -33,14 +35,14 @@ export function printFragment(n: SV.Fragment, opts: Partial<PrintOptions> = {}):
 				ch.raw = ch.raw
 					.replace(/^[\n\t]+/, "")
 					.replace(/[\n\t]+$/, "");
-				cleaned.push(ch);
+				nodes.push(ch);
 			}
 			continue;
 		}
-		cleaned.push(ch);
+		nodes.push(ch);
 	}
-	for (const [idx, ch] of cleaned.entries()) {
-		const prev = cleaned[idx - 1];
+	for (const [idx, ch] of nodes.entries()) {
+		const prev = nodes[idx - 1];
 		if (prev && (isBlock(prev) || prev.type === "Comment" || isElementLike(prev))) {
 			st.break();
 		}

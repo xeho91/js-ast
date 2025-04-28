@@ -197,13 +197,22 @@ class Collector {
 }
 
 /**
- * @internal
+ * Instance with the result of printing _(serializing)_ AST {@link Node}.
  */
 export class Result<N extends Node = Node> {
 	node: N;
+	/**
+	 * @internal
+	 */
 	opts: Options;
+	/**
+	 * @internal
+	 */
 	collector: Collector;
 
+	/**
+	 * @internal
+	 */
 	constructor(node: N, opts: Options, collector: Collector) {
 		this.node = node;
 		this.opts = opts;
@@ -250,6 +259,9 @@ export class Result<N extends Node = Node> {
 
 	#cached = false;
 
+	/**
+	 * @internal
+	 */
 	get lines(): Line[] {
 		if (this.#cached) return this.#lines;
 		this.#cached = true;
@@ -258,6 +270,9 @@ export class Result<N extends Node = Node> {
 		return this.#lines;
 	}
 
+	/**
+	 * Get the stringified output.
+	 */
 	get code(): string {
 		return this.lines.map((ln) => ln.toString(this.opts.indent)).join(char.NL);
 	}

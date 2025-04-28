@@ -9,13 +9,14 @@ import type { Options } from "./option.ts";
  * TODO: Align with `esrap`, if it evers become pluggable
  * Ref: https://github.com/sveltejs/esrap/issues/35
  */
-export function print_js(n: JS.Node, opts: Options): string {
+export function print_js(n: JS.Node, opts: Options, svelte = true): string {
+	const { code } = esrap.print(n, { indent: opts.indent });
+	if (!svelte) return code;
 	return (
-		esrap
-			.print(n, { indent: opts.indent })
-			.code.split(char.NL)
+		code
+			.split(char.NL)
 			.map((ln, idx) => {
-				// NOTE: it removes empty lines, except for the first one
+				// // NOTE: it prevents the first line or empty line from having indentation
 				if (!idx || !ln) return ln;
 				return `${opts.indent}${ln}`;
 			})
