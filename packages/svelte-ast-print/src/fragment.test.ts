@@ -98,9 +98,7 @@ describe(printFragment, () => {
 		`);
 	});
 
-	it("it prints correctly fragment code with typescript syntax", ({
-		expect,
-	}) => {
+	it("it prints correctly fragment code with typescript syntax", ({ expect }) => {
 		const code = `
 			<script lang="ts">
 				//

@@ -15,10 +15,7 @@ import { CurlyBrackets } from "../_internal/wrapper.js";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printTag(
-	n: SV.Tag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.Tag> {
+export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV.Tag> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
@@ -42,20 +39,9 @@ export function printTag(
  * @since 1.1.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printAttachTag(
-	n: SV.AttachTag,
-	opts: Partial<PrintOptions> = {},
-): Result<SV.AttachTag> {
+export function printAttachTag(n: SV.AttachTag, opts: Partial<PrintOptions> = {}): Result<SV.AttachTag> {
 	const st = State.get(n, opts);
-	st.add(
-		new CurlyBrackets(
-			"inline",
-			char.AT,
-			"attach",
-			char.SPACE,
-			print_js(n.expression, st.opts, false),
-		),
-	);
+	st.add(new CurlyBrackets("inline", char.AT, "attach", char.SPACE, print_js(n.expression, st.opts, false)));
 	return st.result;
 }
 

@@ -125,8 +125,7 @@ export function print_maybe_self_closing_el<N extends SV.ElementLike>(params: {
 	st.add(opening);
 	const should_break =
 		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
-		!NATIVE_INLINE_ELS.has(n.name) &&
-		!has_frag_text_or_exp_tag_only(n.fragment.nodes);
+		!NATIVE_INLINE_ELS.has(n.name) && !has_frag_text_or_exp_tag_only(n.fragment.nodes);
 	if (should_break) st.break(+1);
 	if (n.fragment) st.add(printFragment(n.fragment, opts));
 	if (should_break) st.break(-1);
@@ -178,8 +177,7 @@ export function print_non_self_closing_el<N extends SV.ElementLike>(params: {
 	st.add(opening);
 	const should_break =
 		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
-		!NATIVE_INLINE_ELS.has(n.name) &&
-		!has_frag_text_or_exp_tag_only(n.fragment.nodes);
+		!NATIVE_INLINE_ELS.has(n.name) && !has_frag_text_or_exp_tag_only(n.fragment.nodes);
 	if (should_break) st.break(+1);
 	st.add(printFragment(n.fragment, opts));
 	if (should_break) st.break(-1);
