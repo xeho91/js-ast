@@ -331,7 +331,7 @@ I am good.
 			<p>world</p>"`);
 	});
 
-	it("it prints no new line after inline elments", ({ expect }) => {
+	it("it prints no new line after inline elements", ({ expect }) => {
 		const code = `
 			<p>hello <a href="/world">world</a>!</p>
 			<p>hello <span>world</span>!</p>
