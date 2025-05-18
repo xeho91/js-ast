@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "svelte-ast-print",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Serialize Svelte AST nodes into stringified syntax. A.k.a parse in reverse.",
   "keywords": [
