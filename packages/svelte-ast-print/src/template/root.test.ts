@@ -320,6 +320,32 @@ I am good.
 			hello world"
 		`);
 	});
+
+	it("it prints new line after text node without parent", ({ expect }) => {
+		const code = `
+			hello
+			<p>world</p>
+		`;
+		const node = parse_and_extract<AST.Root>(code, "Root");
+		expect(printRoot(node).code).toMatchInlineSnapshot(`"hello
+			<p>world</p>"`);
+	});
+
+	it("it prints no new line after inline elments", ({ expect }) => {
+		const code = `
+			<p>hello <a href="/world">world</a>!</p>
+			<p>hello <span>world</span>!</p>
+		`;
+		const node = parse_and_extract<AST.Root>(code, "Root");
+		expect(printRoot(node).code).toMatchInlineSnapshot(`
+			"<p>
+				hello <a href="/world">world</a>!
+			</p>
+			<p>
+				hello <span>world</span>!
+			</p>"
+		`);
+	});
 });
 
 describe(printScript, () => {
