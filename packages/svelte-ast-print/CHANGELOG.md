@@ -1,5 +1,11 @@
 # svelte-ast-print
 
+## 1.0.1
+
+### Patch Changes
+
+- [#125](https://github.com/xeho91/js-ast/pull/125) [`54a49e5`](https://github.com/xeho91/js-ast/commit/54a49e5c2fb2509ca5ab514a2e50bfb9fb5a1f4d) Thanks [@xeho91](https://github.com/xeho91)! - 🙈 Fix missing build files in the release
+
 ## 1.0.0
 
 ### Major Changes
