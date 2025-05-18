@@ -2,9 +2,23 @@ import { parse_and_extract } from "@internals/test/svelte";
 import type { AST } from "svelte/compiler";
 import { describe, it } from "vitest";
 
-import { printConstTag, printDebugTag, printExpressionTag, printHtmlTag, printRenderTag, printTag } from "./tag.ts";
+import {
+	printAttachTag,
+	printConstTag,
+	printDebugTag,
+	printExpressionTag,
+	printHtmlTag,
+	printRenderTag,
+	printTag,
+} from "./tag.ts";
 
 describe(printTag, () => {
+	it("print correctly `@attach` tag", ({ expect }) => {
+		const code = "<canvas {@attach tooltip(content)}></canvas>";
+		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
+		expect(printTag(node).code).toMatchInlineSnapshot(`"{@attach tooltip(content)}"`);
+	});
+
 	it("print correctly `@const` tag", ({ expect }) => {
 		const code = "{@const area = box.width * box.height}";
 		const node = parse_and_extract<AST.ConstTag>(code, "ConstTag");
@@ -33,6 +47,56 @@ describe(printTag, () => {
 		const code = "{@render children()}";
 		const node = parse_and_extract<AST.RenderTag>(code, "RenderTag");
 		expect(printTag(node).code).toMatchInlineSnapshot(`"{@render children()}"`);
+	});
+});
+
+describe(printAttachTag, () => {
+	it("prints correctly when is a reference", ({ expect }) => {
+		const code = `
+			<div {@attach myAttachment}>...</div>
+		`;
+		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
+		expect(printAttachTag(node).code).toMatchInlineSnapshot(`"{@attach myAttachment}"`);
+	});
+
+	it("prints correctly when is function call", ({ expect }) => {
+		const code = `
+			<button {@attach tooltip(content)}>
+				Hover me
+			</button>
+		`;
+		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
+		expect(printAttachTag(node).code).toMatchInlineSnapshot(`"{@attach tooltip(content)}"`);
+	});
+
+	it("prints correctly when is an inline attachment", ({ expect }) => {
+		const code = `
+			<canvas
+				width={32}
+				height={32}
+				{@attach (canvas) => {
+					const context = canvas.getContext('2d');
+
+					$effect(() => {
+						context.fillStyle = color;
+						context.fillRect(0, 0, canvas.width, canvas.height);
+					});
+				}}
+			></canvas>
+		`;
+		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
+		expect(printAttachTag(node).code).toMatchInlineSnapshot(
+			`
+			"{@attach (canvas) => {
+				const context = canvas.getContext('2d');
+
+				$effect(() => {
+					context.fillStyle = color;
+					context.fillRect(0, 0, canvas.width, canvas.height);
+				});
+			}}"
+		`,
+		);
 	});
 });
 

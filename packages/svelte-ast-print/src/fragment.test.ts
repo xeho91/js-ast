@@ -7,12 +7,25 @@ import { printFragment } from "./fragment.ts";
 describe(printFragment, () => {
 	it("it prints correctly fragment code", ({ expect }) => {
 		const code = `
-			<h1>Shopping list</h1>
+			<h1 {@attach tooltip(content)}>Shopping list</h1>
 			<ul>
 				{#each items as item}
 					<li>{item.name} x {item.qty}</li>
 				{/each}
 			</ul>
+
+			<canvas
+				width={32}
+				height={32}
+				{@attach (canvas) => {
+					const context = canvas.getContext('2d');
+
+					$effect(() => {
+						context.fillStyle = color;
+						context.fillRect(0, 0, canvas.width, canvas.height);
+					});
+				}}
+			></canvas>
 
 			<div class="mb-6">
 				<Label for="large-input" class="block mb-2">Large input</Label>
@@ -44,12 +57,20 @@ describe(printFragment, () => {
 		`;
 		const node = parse_and_extract<AST.Fragment>(code, "Fragment");
 		expect(printFragment(node).code).toMatchInlineSnapshot(`
-			"<h1>Shopping list</h1>
+			"<h1 {@attach tooltip(content)}>Shopping list</h1>
 			<ul>
 				{#each items as item}
 					<li>{item.name} x {item.qty}</li>
 				{/each}
 			</ul>
+			<canvas width={32} height={32} {@attach (canvas) => {
+				const context = canvas.getContext('2d');
+
+				$effect(() => {
+					context.fillStyle = color;
+					context.fillRect(0, 0, canvas.width, canvas.height);
+				});
+			}} />
 			<div class="mb-6">
 				<Label for="large-input" class="block mb-2">Large input</Label>
 				<Input id="large-input" size="lg" placeholder="Large input" />
