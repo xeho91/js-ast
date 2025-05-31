@@ -92,7 +92,10 @@ import { printTemplateNode } from "./template.ts";
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function print<N extends Node>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
+export function print<N extends Node>(
+	n: N,
+	opts: Partial<PrintOptions> = {},
+): Result<N> {
 	if (isSvelteOnlyNode(n)) return printSvelte(n, opts) as Result<N>;
 	else {
 		const st = State.get(n, opts);
@@ -109,7 +112,10 @@ export function print<N extends Node>(n: N, opts: Partial<PrintOptions> = {}): R
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintOptions> = {}): Result<N> {
+export function printSvelte<N extends SvelteOnlyNode>(
+	n: N,
+	opts: Partial<PrintOptions> = {},
+): Result<N> {
 	switch (n.type) {
 		case "Root": {
 			return printRoot(n, opts) as Result<N>;
@@ -174,6 +180,7 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		case "SvelteWindow":
 		case "TitleElement":
 		// tag
+		case "AttachTag":
 		case "ConstTag":
 		case "DebugTag":
 		case "ExpressionTag":
