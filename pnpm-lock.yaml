@@ -13,8 +13,8 @@ catalogs:
       specifier: ^1.4.0
       version: 1.4.6
     svelte:
-      specifier: ^5.29.0
-      version: 5.30.2
+      specifier: ^5.31.0
+      version: 5.33.10
     typescript:
       specifier: ^5.8.3
       version: 5.8.3
@@ -82,7 +82,7 @@ importers:
         version: 1.5.3
       svelte:
         specifier: 'catalog:'
-        version: 5.30.2
+        version: 5.33.10
       zimmerframe:
         specifier: 'catalog:'
         version: 1.1.2
@@ -94,7 +94,7 @@ importers:
         version: 1.4.6
       svelte:
         specifier: 'catalog:'
-        version: 5.30.2
+        version: 5.33.10
     devDependencies:
       '@internals/test':
         specifier: workspace:*
@@ -1482,8 +1482,8 @@ packages:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
 
-  svelte@5.30.2:
-    resolution: {integrity: sha512-zfGFEwwPeILToOxOqQyFq/vc8euXrX2XyoffkBNgn/k8D1nxbLt5+mNaqQBmZF/vVhBGmkY6VmNK18p9Gf0auQ==}
+  svelte@5.33.10:
+    resolution: {integrity: sha512-/yArPQIBoQS2p86LKnvJywOXkVHeEXnFgrDPSxkEfIAEkykopYuy2bF6UUqHG4IbZlJD6OurLxJT8Kn7kTk9WA==}
     engines: {node: '>=18'}
 
   tapable@2.2.1:
@@ -3042,7 +3042,7 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  svelte@5.30.2:
+  svelte@5.33.10:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.5.0
