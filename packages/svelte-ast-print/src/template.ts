@@ -18,7 +18,10 @@ import { printTag } from "./template/tag.ts";
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions> = {}): Result<SV.TemplateNode> {
+export function printTemplateNode(
+	n: SV.TemplateNode,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.TemplateNode> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
@@ -51,6 +54,7 @@ export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions
 		case "SvelteSelf":
 		case "SvelteWindow":
 		case "TitleElement": return printElementLike(n, opts);
+		case "AttachTag":
 		case "ConstTag":
 		case "DebugTag":
 		case "ExpressionTag":
