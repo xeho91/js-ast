@@ -51,6 +51,7 @@ export function printTemplateNode(n: SV.TemplateNode, opts: Partial<PrintOptions
 		case "SvelteSelf":
 		case "SvelteWindow":
 		case "TitleElement": return printElementLike(n, opts);
+		case "AttachTag":
 		case "ConstTag":
 		case "DebugTag":
 		case "ExpressionTag":

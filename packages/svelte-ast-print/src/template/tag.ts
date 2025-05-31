@@ -19,12 +19,30 @@ export function printTag(n: SV.Tag, opts: Partial<PrintOptions> = {}): Result<SV
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
+		case "AttachTag": return printAttachTag(n, opts);
 		case "ConstTag": return printConstTag(n, opts);
 		case "DebugTag": return printDebugTag(n, opts);
 		case "ExpressionTag": return printExpressionTag(n, opts);
 		case "HtmlTag": return printHtmlTag(n, opts);
 		case "RenderTag": return printRenderTag(n, opts);
 	}
+}
+
+/**
+ * @see {@link https://svelte.dev/docs/svelte/@attach}
+ *
+ * @example pattern
+ * ```svelte
+ * {@attach expression}
+ * ```
+ *
+ * @since 1.1.0
+ * @__NO_SIDE_EFFECTS__
+ */
+export function printAttachTag(n: SV.AttachTag, opts: Partial<PrintOptions> = {}): Result<SV.AttachTag> {
+	const st = State.get(n, opts);
+	st.add(new CurlyBrackets("inline", char.AT, "attach", char.SPACE, print_js(n.expression, st.opts, false)));
+	return st.result;
 }
 
 /**
