@@ -7,7 +7,7 @@ A.k.a. [`parse()`] in reverse.
 
 ## Usage
 
-[See documentation](https://xeho91.github.io/js-ast/svelte-ast-print.svelte-ast-print.html).
+[See documentation](https://xeho91.github.io/js-ast/modules/svelte-ast-print.html).
 
 > [!IMPORTANT]
 >
