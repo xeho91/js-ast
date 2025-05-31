@@ -5,23 +5,22 @@
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "../_internal/char.ts";
-import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.ts";
 import type { PrintOptions } from "../_internal/option.ts";
-import { type Result, State } from "../_internal/shared.ts";
+import type { Result } from "../_internal/shared.ts";
 import {
 	print_maybe_self_closing_el,
 	print_non_self_closing_el,
 	print_self_closing_el,
 } from "../_internal/template/element-like.ts";
-import { printFragment } from "../fragment.ts";
-import { printAttributeLike } from "./attribute-like.ts";
 
 /**
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printElementLike(n: SV.ElementLike, opts: Partial<PrintOptions> = {}): Result<SV.ElementLike> {
+export function printElementLike(
+	n: SV.ElementLike,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.ElementLike> {
 	// biome-ignore format: Prettier
 	// prettier-ignore
 	switch (n.type) {
@@ -48,7 +47,10 @@ export function printElementLike(n: SV.ElementLike, opts: Partial<PrintOptions> 
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printComponent(n: SV.Component, opts: Partial<PrintOptions> = {}): Result<SV.Component> {
+export function printComponent(
+	n: SV.Component,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.Component> {
 	return print_maybe_self_closing_el({ n, opts });
 }
 
@@ -58,7 +60,10 @@ export function printComponent(n: SV.Component, opts: Partial<PrintOptions> = {}
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printRegularElement(n: SV.RegularElement, opts: Partial<PrintOptions> = {}): Result<SV.RegularElement> {
+export function printRegularElement(
+	n: SV.RegularElement,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.RegularElement> {
 	return print_maybe_self_closing_el({ n, opts });
 }
 
@@ -68,7 +73,10 @@ export function printRegularElement(n: SV.RegularElement, opts: Partial<PrintOpt
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSlotElement(n: SV.SlotElement, opts: Partial<PrintOptions> = {}): Result<SV.SlotElement> {
+export function printSlotElement(
+	n: SV.SlotElement,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SlotElement> {
 	return print_maybe_self_closing_el({ n, opts });
 }
 
@@ -78,7 +86,10 @@ export function printSlotElement(n: SV.SlotElement, opts: Partial<PrintOptions> 
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteBody(n: SV.SvelteBody, opts: Partial<PrintOptions> = {}): Result<SV.SvelteBody> {
+export function printSvelteBody(
+	n: SV.SvelteBody,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteBody> {
 	return print_self_closing_el({ n, opts });
 }
 
@@ -88,7 +99,10 @@ export function printSvelteBody(n: SV.SvelteBody, opts: Partial<PrintOptions> = 
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteBoundary(n: SV.SvelteBoundary, opts: Partial<PrintOptions> = {}): Result<SV.SvelteBoundary> {
+export function printSvelteBoundary(
+	n: SV.SvelteBoundary,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteBoundary> {
 	return print_non_self_closing_el({ n, opts });
 }
 
@@ -111,7 +125,10 @@ export function printSvelteComponent(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteDocument(n: SV.SvelteDocument, opts: Partial<PrintOptions> = {}): Result<SV.SvelteDocument> {
+export function printSvelteDocument(
+	n: SV.SvelteDocument,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteDocument> {
 	return print_self_closing_el({ n, opts });
 }
 
@@ -121,9 +138,10 @@ export function printSvelteDocument(n: SV.SvelteDocument, opts: Partial<PrintOpt
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptions> = {}): Result<SV.SvelteElement> {
-	const st = State.get(n, opts);
-	const opening = new HTMLOpeningTag("inline", n.name);
+export function printSvelteElement(
+	n: SV.SvelteElement,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteElement> {
 	n.attributes.unshift({
 		type: "Attribute",
 		name: "this",
@@ -132,11 +150,7 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
 			expression: n.tag,
 		},
 	});
-	for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
-	st.add(opening);
-	st.add(printFragment(n.fragment, opts));
-	st.add(new HTMLClosingTag("inline", n.name));
-	return st.result;
+	return print_non_self_closing_el({ n, opts });
 }
 
 /**
@@ -145,7 +159,10 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteFragment(n: SV.SvelteFragment, opts: Partial<PrintOptions> = {}): Result<SV.SvelteFragment> {
+export function printSvelteFragment(
+	n: SV.SvelteFragment,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteFragment> {
 	return print_non_self_closing_el({ n, opts });
 }
 
@@ -155,7 +172,10 @@ export function printSvelteFragment(n: SV.SvelteFragment, opts: Partial<PrintOpt
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteHead(n: SV.SvelteHead, opts: Partial<PrintOptions> = {}): Result<SV.SvelteHead> {
+export function printSvelteHead(
+	n: SV.SvelteHead,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteHead> {
 	return print_non_self_closing_el({
 		n,
 		opts,
@@ -213,7 +233,10 @@ export function printSvelteOptions(
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteSelf(n: SV.SvelteSelf, opts: Partial<PrintOptions> = {}): Result<SV.SvelteSelf> {
+export function printSvelteSelf(
+	n: SV.SvelteSelf,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteSelf> {
 	return print_self_closing_el({
 		n,
 		opts,
@@ -226,7 +249,10 @@ export function printSvelteSelf(n: SV.SvelteSelf, opts: Partial<PrintOptions> = 
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printSvelteWindow(n: SV.SvelteWindow, opts: Partial<PrintOptions> = {}): Result<SV.SvelteWindow> {
+export function printSvelteWindow(
+	n: SV.SvelteWindow,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.SvelteWindow> {
 	return print_self_closing_el({
 		n,
 		opts,
@@ -239,7 +265,10 @@ export function printSvelteWindow(n: SV.SvelteWindow, opts: Partial<PrintOptions
  * @since 1.0.0
  * @__NO_SIDE_EFFECTS__
  */
-export function printTitleElement(n: SV.TitleElement, opts: Partial<PrintOptions> = {}): Result<SV.TitleElement> {
+export function printTitleElement(
+	n: SV.TitleElement,
+	opts: Partial<PrintOptions> = {},
+): Result<SV.TitleElement> {
 	return print_non_self_closing_el({
 		n,
 		opts,
