@@ -5,17 +5,13 @@
 
 import type { AST as SV } from "svelte/compiler";
 
-import * as char from "../_internal/char.ts";
-import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.ts";
 import type { PrintOptions } from "../_internal/option.ts";
-import { type Result, State } from "../_internal/shared.ts";
+import type { Result } from "../_internal/shared.ts";
 import {
 	print_maybe_self_closing_el,
 	print_non_self_closing_el,
 	print_self_closing_el,
 } from "../_internal/template/element-like.ts";
-import { printFragment } from "../fragment.ts";
-import { printAttributeLike } from "./attribute-like.ts";
 
 /**
  * @since 1.0.0
@@ -122,8 +118,6 @@ export function printSvelteDocument(n: SV.SvelteDocument, opts: Partial<PrintOpt
  * @__NO_SIDE_EFFECTS__
  */
 export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptions> = {}): Result<SV.SvelteElement> {
-	const st = State.get(n, opts);
-	const opening = new HTMLOpeningTag("inline", n.name);
 	n.attributes.unshift({
 		type: "Attribute",
 		name: "this",
@@ -132,11 +126,7 @@ export function printSvelteElement(n: SV.SvelteElement, opts: Partial<PrintOptio
 			expression: n.tag,
 		},
 	});
-	for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
-	st.add(opening);
-	st.add(printFragment(n.fragment, opts));
-	st.add(new HTMLClosingTag("inline", n.name));
-	return st.result;
+	return print_non_self_closing_el({ n, opts });
 }
 
 /**

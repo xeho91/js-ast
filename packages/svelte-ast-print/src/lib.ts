@@ -174,6 +174,7 @@ export function printSvelte<N extends SvelteOnlyNode>(n: N, opts: Partial<PrintO
 		case "SvelteWindow":
 		case "TitleElement":
 		// tag
+		case "AttachTag":
 		case "ConstTag":
 		case "DebugTag":
 		case "ExpressionTag":
