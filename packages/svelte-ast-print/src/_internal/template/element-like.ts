@@ -133,26 +133,6 @@ export function print_non_self_closing_el<N extends SV.ElementLike>(params: {
 	return st.result;
 }
 
-export function isElementLike(n: SV.BaseNode): n is SV.ElementLike {
-	return new Set([
-		"Component",
-		"TitleElement",
-		"SlotElement",
-		"RegularElement",
-		"SvelteBody",
-		"SvelteBoundary",
-		"SvelteComponent",
-		"SvelteDocument",
-		"SvelteElement",
-		"SvelteFragment",
-		"SvelteHead",
-		"SvelteOptionsRaw",
-		"SvelteSelf",
-		"SvelteWindow",
-		"SvelteBoundary",
-	]).has(n.type);
-}
-
 function print_element_like_attributes({
 	attributes,
 	tag,

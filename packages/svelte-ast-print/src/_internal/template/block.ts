@@ -37,14 +37,3 @@ export class ClosingBlock extends Wrapper {
 export function get_if_block_alternate(n: SV.IfBlock["alternate"]) {
 	return n?.nodes.find((n) => n.type === "IfBlock");
 }
-
-export function isBlock(n: SV.BaseNode): n is SV.Block {
-	return new Set([
-		//
-		"AwaitBlock",
-		"EachBlock",
-		"IfBlock",
-		"KeyBlock",
-		"SnippetBlock",
-	]).has(n.type);
-}
