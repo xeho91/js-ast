@@ -9,6 +9,7 @@ import * as char from "../_internal/char.ts";
 import { HTMLClosingTag, HTMLOpeningTag } from "../_internal/html.ts";
 import { print_js } from "../_internal/js.ts";
 import type { PrintOptions } from "../_internal/option.ts";
+import { clean_whitespace_in_fragment } from "../_internal/root.ts";
 import { type Result, State } from "../_internal/shared.ts";
 import { printCSSAtrule, printCSSRule } from "../css/rule.ts";
 import { printFragment } from "../fragment.ts";
@@ -27,38 +28,57 @@ export function printRoot(n: SV.Root, opts: Partial<PrintOptions> = {}): Result<
 		st.break();
 	};
 	for (const [idx, curr_name] of st.opts.order.entries()) {
+		const prev_name = st.opts.order[idx - 1];
+		const is_prev_fragment = prev_name === "fragment";
+		const is_last_fragment_node_whitespace = (() => {
+			const last_node = n.fragment.nodes[n.fragment.nodes.length];
+			if (!last_node || last_node.type !== "Text") return false;
+			return /^[\s].*$/.test(last_node.data);
+		})();
+
 		switch (curr_name) {
 			case "options": {
 				if (n.options) {
-					if (had_previous_node) insert_two_line_breaks();
+					if (had_previous_node || (is_prev_fragment && !is_last_fragment_node_whitespace)) {
+						insert_two_line_breaks();
+					}
 					st.add(printSvelteOptions(n.options, opts));
-				}
-				break;
-			}
-			case "instance": {
-				if (n.instance) {
-					if (had_previous_node) insert_two_line_breaks();
-					st.add(printScript(n.instance, opts));
 				}
 				break;
 			}
 			case "module": {
 				if (n.module) {
-					if (had_previous_node) insert_two_line_breaks();
+					if (had_previous_node || (is_prev_fragment && !is_last_fragment_node_whitespace)) {
+						insert_two_line_breaks();
+					}
 					st.add(printScript(n.module, opts));
 				}
 				break;
 			}
+			case "instance": {
+				if (n.instance) {
+					if (had_previous_node || (is_prev_fragment && !is_last_fragment_node_whitespace)) {
+						insert_two_line_breaks();
+					}
+					st.add(printScript(n.instance, opts));
+				}
+				break;
+			}
 			case "fragment": {
-				if (n.fragment.nodes.length) {
-					if (had_previous_node) insert_two_line_breaks();
+				if (n.fragment.nodes.length > 0) {
+					clean_whitespace_in_fragment(n.fragment);
+					if (had_previous_node || (is_prev_fragment && !is_last_fragment_node_whitespace)) {
+						insert_two_line_breaks();
+					}
 					st.add(printFragment(n.fragment, opts));
 				}
 				break;
 			}
 			case "css": {
 				if (n.css) {
-					if (had_previous_node) insert_two_line_breaks();
+					if (had_previous_node || (is_prev_fragment && !is_last_fragment_node_whitespace)) {
+						insert_two_line_breaks();
+					}
 					st.add(printCSSStyleSheet(n.css, opts));
 				}
 				break;
@@ -102,11 +122,12 @@ export function printCSSStyleSheet(n: SV.CSS.StyleSheet, opts: Partial<PrintOpti
 		for (const a of n.attributes) opening.insert(char.SPACE, printAttributeLike(a));
 	}
 	st.add(opening);
-	st.break(+1);
-	for (const [idx, ch] of n.children.entries()) {
-		// biome-ignore format: Prettier
-		// prettier-ignore
-		switch (ch.type) {
+	if (n.children.length > 0) {
+		st.break(+1);
+		for (const [idx, ch] of n.children.entries()) {
+			// biome-ignore format: Prettier
+			// prettier-ignore
+			switch (ch.type) {
 			case "Atrule": {
 				st.add(printCSSAtrule(ch, opts));
 				break;
@@ -116,9 +137,10 @@ export function printCSSStyleSheet(n: SV.CSS.StyleSheet, opts: Partial<PrintOpti
 				break;
 			}
 		}
-		if (idx < n.children.length - 1) st.break();
+			if (idx < n.children.length - 1) st.break();
+		}
+		st.break(-1);
 	}
-	st.break(-1);
 	st.add(new HTMLClosingTag("inline", name));
 	return st.result;
 }

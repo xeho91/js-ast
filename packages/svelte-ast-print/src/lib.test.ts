@@ -88,9 +88,7 @@ describe(printSvelte, () => {
 				console.log('asd');
 			</script>
 
-			<div>
-				<p>Asd</p>
-			</div>
+			<div><p>Asd</p></div>
 
 			<style>
 				p {
