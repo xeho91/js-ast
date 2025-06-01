@@ -1,4 +1,3 @@
-// import dedent from "dedent";
 import type * as JS from "estree";
 import * as compiler from "svelte/compiler";
 import { type Context, walk } from "zimmerframe";
