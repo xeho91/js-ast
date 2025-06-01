@@ -1,4 +1,4 @@
-import dedent from "dedent";
+// import dedent from "dedent";
 import type * as JS from "estree";
 import * as compiler from "svelte/compiler";
 import { type Context, walk } from "zimmerframe";
@@ -6,12 +6,12 @@ import { type Context, walk } from "zimmerframe";
 type Node = compiler.AST.SvelteNode | compiler.AST.Root | compiler.AST.Script | JS.Node;
 
 export function parse_and_extract<N extends Node>(code: string, name: N["type"]): N {
-	const parsed = parse<N>(dedent(code));
+	const parsed = parse<N>(code);
 	return extract(parsed, name);
 }
 
 function parse<N extends Node>(code: string): N {
-	return compiler.parse(code, { modern: true }) as unknown as N;
+	return compiler.parse(code, { modern: true, loose: true }) as unknown as N;
 }
 
 function extract<N extends Node>(parsed: N, name: N["type"]): N {
