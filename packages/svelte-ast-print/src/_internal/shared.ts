@@ -68,6 +68,7 @@ export function isSvelteOnlyNode(n: JS.BaseNode | SV.BaseNode): n is SvelteOnlyN
 		"Root",
 		"Script",
 		// Tag
+		"AttachTag",
 		"ExpressionTag",
 		"HtmlTag",
 		"ConstTag",

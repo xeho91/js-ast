@@ -68,26 +68,18 @@ export function printAwaitBlock(n: SV.AwaitBlock, opts: Partial<PrintOptions> = 
 	if (n.then && !n.pending) opening.insert(char.SPACE, "then", n.value && [char.SPACE, print_js(n.value, st.opts)]);
 	if (n.catch && !n.pending) opening.insert(char.SPACE, "catch", n.error && [char.SPACE, print_js(n.error, st.opts)]);
 	st.add(opening);
-	if (n.pending) {
-		st.break(+1);
-		st.add(printFragment(n.pending, opts));
-		st.break(-1);
-	}
+	if (n.pending) st.add(printFragment(n.pending, opts));
 	if (n.then) {
 		if (n.value && n.pending) {
 			st.add(new MidBlock("inline", "then", n.value && [char.SPACE, print_js(n.value, st.opts)]));
 		}
-		st.break(+1);
 		st.add(printFragment(n.then, opts));
-		st.break(-1);
 	}
 	if (n.catch) {
 		if (n.error && n.pending) {
 			st.add(new MidBlock("inline", "catch", n.error && [char.SPACE, print_js(n.error, st.opts)]));
 		}
-		st.break(+1);
 		st.add(printFragment(n.catch, opts));
-		st.break(-1);
 	}
 	st.add(new ClosingBlock("inline", name));
 	return st.result;
@@ -139,7 +131,6 @@ export function printEachBlock(n: SV.EachBlock, opts: Partial<PrintOptions> = {}
 	const st = State.get(n, opts);
 	st.add(
 		new OpeningBlock(
-			//
 			"inline",
 			name,
 			char.SPACE,
@@ -149,14 +140,10 @@ export function printEachBlock(n: SV.EachBlock, opts: Partial<PrintOptions> = {}
 			n.key && [char.SPACE, new RoundBrackets("inline", print_js(n.key, st.opts))],
 		),
 	);
-	st.break(+1);
 	st.add(printFragment(n.body, opts));
-	st.break(-1);
 	if (n.fallback) {
 		st.add(new MidBlock("inline", "else"));
-		st.break(+1);
 		st.add(printFragment(n.fallback, opts));
-		st.break(-1);
 	}
 	st.add(new ClosingBlock("inline", name));
 	return st.result;
@@ -201,17 +188,13 @@ export function printIfBlock(n: SV.IfBlock, opts: Partial<PrintOptions> = {}): R
 	} else {
 		st.add(new MidBlock("inline", "else if", char.SPACE, print_js(n.test, st.opts)));
 	}
-	st.break(+1);
 	st.add(printFragment(n.consequent, opts));
-	st.break(-1);
 	const alternate_if_block = get_if_block_alternate(n.alternate);
 	if (n.alternate) {
 		if (alternate_if_block) st.add(printIfBlock(alternate_if_block, opts));
 		else {
 			st.add(new MidBlock("inline", "else"));
-			st.break(+1);
 			st.add(printFragment(n.alternate, opts));
-			st.break(-1);
 		}
 	}
 	if (!alternate_if_block) st.add(new ClosingBlock("inline", name));
@@ -233,9 +216,7 @@ export function printKeyBlock(n: SV.KeyBlock, opts: Partial<PrintOptions> = {}):
 	const name = "key";
 	const st = State.get(n, opts);
 	st.add(new OpeningBlock("inline", name, char.SPACE, print_js(n.expression, st.opts)));
-	st.break(+1);
 	st.add(printFragment(n.fragment, opts));
-	st.break(-1);
 	st.add(new ClosingBlock("inline", name));
 	return st.result;
 }
@@ -269,9 +250,7 @@ export function printSnippetBlock(n: SV.SnippetBlock, opts: Partial<PrintOptions
 	}
 	opening.insert(params_bracket);
 	st.add(opening);
-	st.break(+1);
 	st.add(printFragment(n.body, opts));
-	st.break(-1);
 	st.add(new ClosingBlock("inline", name));
 	return st.result;
 }

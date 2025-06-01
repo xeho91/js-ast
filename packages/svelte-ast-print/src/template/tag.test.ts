@@ -52,37 +52,31 @@ describe(printTag, () => {
 
 describe(printAttachTag, () => {
 	it("prints correctly when is a reference", ({ expect }) => {
-		const code = `
-			<div {@attach myAttachment}>...</div>
-		`;
+		const code = `<div {@attach myAttachment}>...</div>`;
 		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
 		expect(printAttachTag(node).code).toMatchInlineSnapshot(`"{@attach myAttachment}"`);
 	});
 
 	it("prints correctly when is function call", ({ expect }) => {
-		const code = `
-			<button {@attach tooltip(content)}>
-				Hover me
-			</button>
-		`;
+		const code = `<button {@attach tooltip(content)}>Hover me</button>`;
 		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
 		expect(printAttachTag(node).code).toMatchInlineSnapshot(`"{@attach tooltip(content)}"`);
 	});
 
 	it("prints correctly when is an inline attachment", ({ expect }) => {
 		const code = `
-			<canvas
-				width={32}
-				height={32}
-				{@attach (canvas) => {
-					const context = canvas.getContext('2d');
+<canvas
+	width={32}
+	height={32}
+	{@attach (canvas) => {
+		const context = canvas.getContext('2d');
 
-					$effect(() => {
-						context.fillStyle = color;
-						context.fillRect(0, 0, canvas.width, canvas.height);
-					});
-				}}
-			></canvas>
+		$effect(() => {
+			context.fillStyle = color;
+			context.fillRect(0, 0, canvas.width, canvas.height);
+		});
+	}}
+></canvas>
 		`;
 		const node = parse_and_extract<AST.AttachTag>(code, "AttachTag");
 		expect(printAttachTag(node).code).toMatchInlineSnapshot(
@@ -102,12 +96,7 @@ describe(printAttachTag, () => {
 
 describe(printConstTag, () => {
 	it("prints correctly when used as direct child of allowed tags ", ({ expect }) => {
-		const code = `
-			{#each boxes as box}
-				{@const area = box.width * box.height}
-				{box.width} * {box.height} = {area}
-			{/each}
-		`;
+		const code = `{@const area = box.width * box.height}`;
 		const node = parse_and_extract<AST.ConstTag>(code, "ConstTag");
 		expect(printConstTag(node).code).toMatchInlineSnapshot(`"{@const area = box.width * box.height}"`);
 	});
@@ -115,18 +104,7 @@ describe(printConstTag, () => {
 
 describe(printDebugTag, () => {
 	it("prints correctly when used as direct child of allowed tags ", ({ expect }) => {
-		const code = `
-			<script>
-				let user = {
-					firstname: 'Ada',
-					lastname: 'Lovelace'
-				};
-			</script>
-
-			{@debug user}
-
-			<h1>Hello {user.firstname}!</h1>
-		`;
+		const code = `{@debug user}`;
 		const node = parse_and_extract<AST.DebugTag>(code, "DebugTag");
 		expect(printDebugTag(node).code).toMatchInlineSnapshot(`"{@debug user}"`);
 	});
@@ -154,12 +132,7 @@ describe(printExpressionTag, () => {
 
 describe(printHtmlTag, () => {
 	it("prints correctly when used in an example case", ({ expect }) => {
-		const code = `
-				<div class="blog-post">
-					<h1>{post.title}</h1>
-					{@html post.content}
-				</div>
-			`;
+		const code = `{@html post.content}`;
 		const node = parse_and_extract<AST.HtmlTag>(code, "HtmlTag");
 		expect(printHtmlTag(node).code).toMatchInlineSnapshot(`"{@html post.content}"`);
 	});
@@ -167,13 +140,7 @@ describe(printHtmlTag, () => {
 
 describe(printRenderTag, () => {
 	it("prints correctly when used in an example case", ({ expect }) => {
-		const code = `
-			{#snippet hello(name)}
-				<p>hello {name}! {message}!</p>
-			{/snippet}
-
-			{@render hello('alice')}
-		`;
+		const code = `{@render hello('alice')}`;
 		const node = parse_and_extract<AST.RenderTag>(code, "RenderTag");
 		expect(printRenderTag(node).code).toMatchInlineSnapshot(`"{@render hello('alice')}"`);
 	});

@@ -7,26 +7,20 @@ import { printComment, printHTMLNode, printText } from "./html.ts";
 describe(printHTMLNode, () => {
 	describe(printComment, () => {
 		it("prints correctly a single line comment from random code", ({ expect }) => {
-			const code = `
-			{#each boxes as box}
-				<!-- This is a single line comment -->
-				{@const area = box.width * box.height}
-				{box.width} * {box.height} = {area}
-			{/each}
-		`;
+			const code = `<!-- This is a single line comment -->`;
 			const node = parse_and_extract<AST.Comment>(code, "Comment");
 			expect(printComment(node).code).toMatchInlineSnapshot(`"<!-- This is a single line comment -->"`);
 		});
 
 		it("supports multiple line comment", ({ expect }) => {
 			const code = `
-			<!--
-				This
-				is
-				multiple
-				line
-				comment
-			-->
+<!--
+	This
+	is
+	multiple
+	line
+	comment
+-->
 		`;
 			const node = parse_and_extract<AST.Comment>(code, "Comment");
 			expect(printComment(node).code).toMatchInlineSnapshot(
@@ -45,9 +39,7 @@ describe(printHTMLNode, () => {
 
 	describe(printText, () => {
 		it("prints correctly a random text comment from random code", ({ expect }) => {
-			const code = `
-			<span>Catch me if you can</span>
-		`;
+			const code = `<span>Catch me if you can</span>`;
 			const node = parse_and_extract<AST.Text>(code, "Text");
 			expect(printText(node).code).toMatchInlineSnapshot(`"Catch me if you can"`);
 		});
