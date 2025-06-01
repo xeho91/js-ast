@@ -1,5 +1,13 @@
 # svelte-ast-print
 
+## 1.1.0
+
+### Minor Changes
+
+- [#127](https://github.com/xeho91/js-ast/pull/127) [`2cf6431`](https://github.com/xeho91/js-ast/commit/2cf6431a43f65b447e18bbc6df282796414d66ea) Thanks [@xeho91](https://github.com/xeho91)! - ✨ Add support for new AST node - `AttachTag` - via function `printAttachTag()`
+
+- [#127](https://github.com/xeho91/js-ast/pull/127) [`2cf6431`](https://github.com/xeho91/js-ast/commit/2cf6431a43f65b447e18bbc6df282796414d66ea) Thanks [@xeho91](https://github.com/xeho91)! - Required peer dependency `svelte` is now `v5.29`
+
 ## 1.0.1
 
 ### Patch Changes
