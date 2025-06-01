@@ -4,7 +4,6 @@ import { printFragment } from "../../fragment.ts";
 import { printAttributeLike } from "../../template/attribute-like.ts";
 import { printAttachTag } from "../../template/tag.ts";
 import * as char from "../char.ts";
-import { has_frag_text_or_exp_tag_only } from "../fragment.ts";
 import { HTMLClosingTag, HTMLOpeningTag, HTMLSelfClosingTag } from "../html.ts";
 import type { PrintOptions } from "../option.ts";
 import { type Result, State, Wrapper } from "../shared.ts";
@@ -35,55 +34,14 @@ const NATIVE_SELF_CLOSEABLE_ELS = new Set([
  * @internal
  * @__NO_SIDE_EFFECTS__
  */
-const NATIVE_INLINE_ELS = new Set([
-	"a",
-	"abbr",
-	"b",
-	"bdo",
-	"bdi",
-	"br",
-	"cite",
-	"code",
-	"data",
-	"dfn",
-	"em",
-	"i",
-	"kbd",
-	"mark",
-	"q",
-	"rp",
-	"rt",
-	"ruby",
-	"s",
-	"samp",
-	"small",
-	"span",
-	"strong",
-	"sub",
-	"sup",
-	"time",
-	"u",
-	"var",
-	"wbr",
-	"button",
-	"input",
-	"label",
-	"select",
-	"textarea",
-] as const);
-
-/**
- * @internal
- * @__NO_SIDE_EFFECTS__
- */
 function is_el_self_closing(n: SV.ElementLike): boolean {
-	return (
-		NATIVE_SELF_CLOSEABLE_ELS
-			// @ts-expect-error: WARN: `Set.prototype.has()` doesn't accept loose string
-			.has(n.name) ||
-		// or if there's no "children"
-		n.fragment.nodes.length === 0
-	);
+	if (n.type === "RegularElement")
+		return (
+			NATIVE_SELF_CLOSEABLE_ELS
+				// @ts-expect-error: WARN: `Set.prototype.has()` doesn't accept loose string
+				.has(n.name)
+		);
+	return n.fragment.nodes.length === 0;
 }
 
 /**
@@ -123,12 +81,7 @@ export function print_maybe_self_closing_el<N extends SV.ElementLike>(params: {
 		});
 	}
 	st.add(opening);
-	const should_break =
-		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
-		!NATIVE_INLINE_ELS.has(n.name) && !has_frag_text_or_exp_tag_only(n.fragment.nodes);
-	if (should_break) st.break(+1);
 	if (n.fragment) st.add(printFragment(n.fragment, opts));
-	if (should_break) st.break(-1);
 	st.add(new HTMLClosingTag("inline", n.name));
 	return st.result;
 }
@@ -175,12 +128,7 @@ export function print_non_self_closing_el<N extends SV.ElementLike>(params: {
 		});
 	}
 	st.add(opening);
-	const should_break =
-		// @ts-expect-error `Set.prototype.has()` doesn't accept loose string
-		!NATIVE_INLINE_ELS.has(n.name) && !has_frag_text_or_exp_tag_only(n.fragment.nodes);
-	if (should_break) st.break(+1);
 	st.add(printFragment(n.fragment, opts));
-	if (should_break) st.break(-1);
 	st.add(new HTMLClosingTag("inline", n.name));
 	return st.result;
 }
